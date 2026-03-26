@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1021400245597",
+    "project_id": "makbul-app",
+    "storage_bucket": "makbul-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021400245597:android:d344cc8171a5229e0d34b4",
+        "android_client_info": {
+          "package_name": "com.example.makbul_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcdw8Qes72ookEvdWxRcfzBfE8BkjXBHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
