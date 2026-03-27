@@ -2,30 +2,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:makbul_app/page/home_page.dart';
-import 'package:makbul_app/page/register_page.dart';
+import 'package:makbul_app/page/verify_email_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _RegisterPageState extends ConsumerState<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   bool isLoading = false;
 
-  Future<void> login() async {
+  Future<void> register() async {
     setState(() => isLoading = true);
 
     try {
       final authService = ref.read(authServiceProvider);
 
-      final user = await authService.loginWithEmail(
+      final user = await authService.registerWithEmail(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
@@ -33,9 +32,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       if (user != null) {
         if (!mounted) return;
 
+        // 🔥 arahkan ke halaman verifikasi
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(
+            builder: (_) => VerifyEmailPage(email: user.email ?? ""),
+          ),
         );
       }
     } catch (e) {
@@ -52,7 +54,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Login Page'),
+        title: const Text('Register Page'),
         backgroundColor: Colors.white,
       ),
       body: Padding(
@@ -94,40 +96,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : login,
+                    onPressed: isLoading ? null : register,
                     child: isLoading
                         ? const CircularProgressIndicator()
-                        : const Text("Login"),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
-                /// BUTTON LOGIN GMAIL
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final authService = ref.read(authServiceProvider);
-                      await authService.loginGoogle();
-                    },
-                    child: const Text("Login with Google"),
-                  ),
-                ),
-
-                /// BUTTON REGISTER
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterPage(),
-                        ),
-                      );
-                    },
-                    child: Text("Register"),
+                        : const Text("Register"),
                   ),
                 ),
               ],
