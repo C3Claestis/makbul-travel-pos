@@ -118,7 +118,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       child: isLoading
                           ? const CircularProgressIndicator()
                           : Text(
-                              "Login",
+                              "Masuk",
                               style: GoogleFonts.notoSansJp(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -167,7 +167,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       GestureDetector(
                         onTap: () async {
                           final authService = ref.read(authServiceProvider);
-                          await authService.loginGoogle();
+                          final user = await authService.signInWithFacebook();
+                          if (user != null) {
+                            if (!mounted) return;
+                            // Pindah ke halaman Home jika berhasil login
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          }
                         },
                         child: SvgPicture.asset('assets/svgs/logo_fb.svg'),
                       ),
@@ -278,6 +288,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   AppBar _appBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       elevation: 0,
       centerTitle: true,

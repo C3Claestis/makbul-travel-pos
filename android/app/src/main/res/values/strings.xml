@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">makbul_app</string>
+    <string name="facebook_app_id">919251437653449</string>
+    <string name="facebook_client_token">58965d3420e2023a29b19489fbf3c2e5</string>
+    <string name="facebook_login_protocol_scheme">fb919251437653449</string>
+</resources>
