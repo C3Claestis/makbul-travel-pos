@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:makbul_app/page/home_page.dart';
+import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
 
 class VerifyEmailPage extends ConsumerStatefulWidget {
@@ -28,7 +28,7 @@ class _VerifyEmailPageState extends ConsumerState<VerifyEmailPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
+        MaterialPageRoute(builder: (_) => const MainPage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

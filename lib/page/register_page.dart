@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/page/home_page.dart';
+import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/page/login_page.dart';
 import 'package:makbul_app/page/verify_email_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
@@ -163,7 +163,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => MainPage(),
                               ),
                             );
                           }

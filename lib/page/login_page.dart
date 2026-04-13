@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/page/home_page.dart';
+import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/page/register_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
 
@@ -40,7 +40,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(builder: (context) => const MainPage()),
         );
       }
     } catch (e) {
@@ -156,7 +156,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => const MainPage(),
                               ),
                             );
                           }
@@ -174,7 +174,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => const MainPage(),
                               ),
                             );
                           }

@@ -40,7 +40,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
       backgroundColor: Colors.white,
       body: Center(
         child: Image.asset('assets/images/logo.png'),
-      ),
+      ),  
     );
   }
 }
