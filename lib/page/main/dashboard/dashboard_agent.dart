@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:makbul_app/page/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:makbul_app/service/mock_backend_service.dart'; 
 
 // 1. Ubah menjadi ConsumerWidget
-class DashboardPage extends ConsumerWidget {
-  const DashboardPage({super.key});
+class DashboardAgent extends ConsumerWidget {
+  const DashboardAgent({super.key});
 
   // 2. Tambahkan fungsi untuk memunculkan Bottom Sheet
   void _showUsersData(BuildContext context, WidgetRef ref) {
@@ -76,9 +78,32 @@ class DashboardPage extends ConsumerWidget {
   @override
   // 3. Tambahkan WidgetRef ref di parameter build
   Widget build(BuildContext context, WidgetRef ref) {
+    // 1. Dapatkan user yang sedang login dari Firebase
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+
+    // 2. Cari data lengkap user di Mock Backend berdasarkan UID Firebase
+    final userData = ref.watch(mockBackendProvider).allUsers.firstWhere(
+          (u) => u.firebaseUid == firebaseUser?.uid,
+          orElse: () => DummyUserModel(id: 0, firebaseUid: '', name: 'Agent', email: '', role: '', authProvider: ''),
+        );
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: Text('Dashboard Agen'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              if (context.mounted) {
+                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false,
+                );
+              }
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
         backgroundColor: const Color(0xff23762C),
         foregroundColor: Colors.white,
       ),
@@ -86,8 +111,8 @@ class DashboardPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Selamat Datang di Halaman Dashboard',
+            Text(
+              'Selamat Datang Agent ${userData.name}',
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),

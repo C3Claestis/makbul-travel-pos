@@ -10,6 +10,7 @@ import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/page/login_page.dart';
 import 'package:makbul_app/page/verify_email_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
+import 'package:makbul_app/service/mock_backend_service.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -31,16 +32,28 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
     try {
       final authService = ref.read(authServiceProvider);
+      // Panggil mock service kita
+      final backendService = ref.read(mockBackendProvider);
 
+      // 1. Daftar ke Firebase dulu
       final user = await authService.registerWithEmail(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
 
       if (user != null) {
+        // 2. Jika Firebase berhasil, simpan data pelengkap ke "Dummy Backend"
+        await backendService.createUserInDatabase(
+          firebaseUid: user.uid, // UID dari Firebase
+          name: nameController.text.trim(), // Nama dari TextField
+          email: user.email ?? emailController.text.trim(),
+          role: selectedRole, // 'jamaah', 'agent', atau 'travel'
+          authProvider: 'email',
+        );
+
         if (!mounted) return;
 
-        // 🔥 arahkan ke halaman verifikasi
+        // 🔥 Arahkan ke halaman verifikasi
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -52,15 +65,15 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Error: $e")));
+    } finally {
+      if (mounted) setState(() => isLoading = false);
     }
-
-    setState(() => isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,      
+      extendBodyBehindAppBar: true,
       appBar: _appBar(),
       body: _form(context),
     );
@@ -153,19 +166,44 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Contoh untuk Google Login
                       GestureDetector(
                         onTap: () async {
-                          final authService = ref.read(authServiceProvider);
-                          final user = await authService.loginGoogle();
-                          if (user != null) {
-                            if (!mounted) return;
-                            // Pindah ke halaman Home jika berhasil login
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MainPage(),
-                              ),
+                          setState(
+                            () => isLoading = true,
+                          ); // Sebaiknya pakai loading juga untuk sosmed
+                          try {
+                            final authService = ref.read(authServiceProvider);
+                            final backendService = ref.read(
+                              mockBackendProvider,
                             );
+
+                            // 1. Login via Firebase Google
+                            final user = await authService.loginGoogle();
+
+                            if (user != null) {
+                              // 2. Simpan/Cek di Dummy Backend
+                              // Karena ini registrasi via Google, kita kasih role default misal 'jamaah'
+                              await backendService.createUserInDatabase(
+                                firebaseUid: user.uid,
+                                name: user.displayName ?? "",
+                                email: user.email ?? "",
+                                role: 'jamaah', // Default role
+                                authProvider: 'google',
+                              );
+
+                              if (!mounted) return;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MainPage(),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            // Handle error...
+                          } finally {
+                            if (mounted) setState(() => isLoading = false);
                           }
                         },
                         child: SvgPicture.asset('assets/svgs/logo_google.svg'),
