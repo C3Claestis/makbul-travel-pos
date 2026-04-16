@@ -10,7 +10,7 @@ import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/page/login_page.dart';
 import 'package:makbul_app/page/verify_email_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
-import 'package:makbul_app/service/mock_backend_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -32,35 +32,31 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
     try {
       final authService = ref.read(authServiceProvider);
-      // Panggil mock service kita
-      final backendService = ref.read(mockBackendProvider);
+      final firestore = FirebaseFirestore.instance;
 
-      // 1. Daftar ke Firebase dulu
       final user = await authService.registerWithEmail(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
 
-      if (user != null) {
-        // 2. Jika Firebase berhasil, simpan data pelengkap ke "Dummy Backend"
-        await backendService.createUserInDatabase(
-          firebaseUid: user.uid, // UID dari Firebase
-          name: nameController.text.trim(), // Nama dari TextField
-          email: user.email ?? emailController.text.trim(),
-          role: selectedRole, // 'jamaah', 'agent', atau 'travel'
-          authProvider: 'email',
-        );
+      if (user == null) throw Exception("Register gagal");
 
-        if (!mounted) return;
+      //// 🔥 SIMPAN KE FIRESTORE
+      await firestore.collection('users').doc(user.uid).set({
+        'name': nameController.text.trim(),
+        'email': user.email ?? emailController.text.trim(),
+        'role': selectedRole,
+        'provider': 'email',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
 
-        // 🔥 Arahkan ke halaman verifikasi
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => VerifyEmailPage(email: user.email ?? ""),
-          ),
-        );
-      }
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => VerifyEmailPage(email: user.email ?? ""),
+        ),
+      );
     } catch (e) {
       ScaffoldMessenger.of(
         context,
@@ -167,52 +163,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Contoh untuk Google Login
-                      GestureDetector(
-                        onTap: () async {
-                          setState(
-                            () => isLoading = true,
-                          ); // Sebaiknya pakai loading juga untuk sosmed
-                          try {
-                            final authService = ref.read(authServiceProvider);
-                            final backendService = ref.read(
-                              mockBackendProvider,
-                            );
-
-                            // 1. Login via Firebase Google
-                            final user = await authService.loginGoogle();
-
-                            if (user != null) {
-                              // 2. Simpan/Cek di Dummy Backend
-                              // Karena ini registrasi via Google, kita kasih role default misal 'jamaah'
-                              await backendService.createUserInDatabase(
-                                firebaseUid: user.uid,
-                                name: user.displayName ?? "",
-                                email: user.email ?? "",
-                                role: 'jamaah', // Default role
-                                authProvider: 'google',
-                              );
-
-                              if (!mounted) return;
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MainPage(),
-                                ),
-                              );
-                            }
-                          } catch (e) {
-                            // Handle error...
-                          } finally {
-                            if (mounted) setState(() => isLoading = false);
-                          }
-                        },
-                        child: SvgPicture.asset('assets/svgs/logo_google.svg'),
-                      ),
+                      googleregister(context),
                       const SizedBox(width: 16),
                       GestureDetector(
                         onTap: () async {
                           final authService = ref.read(authServiceProvider);
-                          await authService.loginGoogle();
+                          await authService.signInWithFacebook();
                         },
                         child: SvgPicture.asset('assets/svgs/logo_fb.svg'),
                       ),
@@ -220,7 +176,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   ),
                   const SizedBox(height: 24),
 
-                  /// BUTTON REGISTER
+                  /// BUTTON LOGIN
                   RichText(
                     text: TextSpan(
                       text: 'Sudah punya akun? ',
@@ -255,6 +211,45 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           ),
         ],
       ),
+    );
+  }
+
+  GestureDetector googleregister(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        setState(() => isLoading = true);
+
+        try {
+          final authService = ref.read(authServiceProvider);
+          final firestore = FirebaseFirestore.instance;
+
+          final user = await authService.loginGoogle();
+
+          if (user == null) return;
+
+          //// 🔥 SIMPAN KE FIRESTORE
+          await firestore.collection('users').doc(user.uid).set({
+            'name': nameController.text.trim(),
+            'email': user.email ?? emailController.text.trim(),
+            'role': selectedRole,
+            'provider': 'email',
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+
+          if (!mounted) return;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const MainPage()),
+          );
+        } catch (e) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error: $e")));
+        } finally {
+          if (mounted) setState(() => isLoading = false);
+        }
+      },
+      child: SvgPicture.asset('assets/svgs/logo_google.svg'),
     );
   }
 

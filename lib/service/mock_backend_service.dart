@@ -23,13 +23,14 @@ class DummyUserModel {
 
 // --- 2. Mock Backend Service ---
 class MockBackendService {
-  // Ini bertindak sebagai "tabel users" sementara di lokal memori
+  static final MockBackendService instance = MockBackendService._internal();
+  MockBackendService._internal();
+
   final List<DummyUserModel> _usersTable = [];
   int _autoIncrementId = 1;
 
   List<DummyUserModel> get allUsers => _usersTable;
 
-  // Fungsi untuk mensimulasikan API Insert/Register
   Future<void> createUserInDatabase({
     required String firebaseUid,
     required String name,
@@ -37,45 +38,34 @@ class MockBackendService {
     required String role,
     required String authProvider,
   }) async {
-    // Simulasi loading API internet (jeda 1.5 detik)
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 500));
 
-    // Cek apakah user sudah ada (untuk kasus Google/FB Login)
-    final existingUser = _usersTable
-        .where((u) => u.firebaseUid == firebaseUid)
-        .toList();
+    final existingUser = _usersTable.where((u) => u.firebaseUid == firebaseUid);
 
     if (existingUser.isEmpty) {
-      // Simpan data ke "database lokal"
       final newUser = DummyUserModel(
         id: _autoIncrementId++,
         firebaseUid: firebaseUid,
-        name: name.isEmpty
-            ? "User Baru"
-            : name, // Default jika nama kosong dari sosmed
+        name: name.isEmpty ? "User Baru" : name,
         email: email,
         role: role,
         authProvider: authProvider,
       );
       _usersTable.add(newUser);
-
-      print("✅ [MOCK API] User berhasil disimpan ke database lokal!");
-    } else {
-      print("ℹ️ [MOCK API] User sudah terdaftar di database lokal.");
     }
+  }
 
-    // --- BAGIAN PRINT DATA USER ---
-    print("📊 Total user di DB lokal sekarang: ${_usersTable.length}");
-    print("📝 Daftar Data User:");
-    for (var user in _usersTable) {
-      print("   -> ID: ${user.id} | Nama: ${user.name} | Email: ${user.email} | Role: ${user.role} | Provider: ${user.authProvider}");
+  DummyUserModel? getUserByUid(String uid) {
+    try {
+      return _usersTable.firstWhere((u) => u.firebaseUid == uid);
+    } catch (_) {
+      return null;
     }
-    print("---------------------------------------------------");
   }
 }
 
 // --- 3. Riverpod Provider ---
 // Agar mudah dipanggil dari UI Anda
 final mockBackendProvider = Provider<MockBackendService>((ref) {
-  return MockBackendService();
+  return MockBackendService.instance;
 });

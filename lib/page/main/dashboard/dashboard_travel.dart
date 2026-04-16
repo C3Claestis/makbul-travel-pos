@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makbul_app/page/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
-import 'package:makbul_app/service/mock_backend_service.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // 1. Ubah menjadi ConsumerWidget
 class DashboardTravel extends ConsumerWidget {
@@ -12,10 +12,6 @@ class DashboardTravel extends ConsumerWidget {
 
   // 2. Tambahkan fungsi untuk memunculkan Bottom Sheet
   void _showUsersData(BuildContext context, WidgetRef ref) {
-    // Ambil data user dari provider
-    final backendService = ref.read(mockBackendProvider);
-    final users = backendService.allUsers;
-
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -28,46 +24,69 @@ class DashboardTravel extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Data User di Database Lokal',
+                'Data User dari Firestore',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Divider(),
-              
-              // Jika data kosong
-              if (users.isEmpty)
-                const Expanded(
-                  child: Center(child: Text('Belum ada data user.')),
-                )
-              // Jika ada data, tampilkan dalam bentuk List
-              else
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      final user = users[index];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: const Color(0xff23762C),
-                            child: Text(
-                              user.name[0].toUpperCase(),
-                              style: const TextStyle(color: Colors.white),
+
+              /// 🔥 STREAM FIRESTORE
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    // Loading
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    // Error
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+
+                    // Tidak ada data
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(child: Text('Belum ada data user'));
+                    }
+
+                    final users = snapshot.data!.docs;
+
+                    // List user
+                    return ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        final data =
+                            users[index].data() as Map<String, dynamic>;
+
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: const Color(0xff23762C),
+                              child: Text(
+                                (data['name'] ?? 'U')[0].toUpperCase(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            title: Text(data['name'] ?? '-'),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(data['email'] ?? '-'),
+                                Text(
+                                  'Role: ${data['role']} | Auth: ${data['authProvider']}',
+                                ),
+                              ],
                             ),
                           ),
-                          title: Text(user.name),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(user.email),
-                              Text('Role: ${user.role} | Auth: ${user.authProvider}'),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                        );
+                      },
+                    );
+                  },
                 ),
+              ),
             ],
           ),
         );
@@ -82,57 +101,64 @@ class DashboardTravel extends ConsumerWidget {
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
     // 2. Cari data lengkap user di Mock Backend berdasarkan UID Firebase
-    final userData = ref.watch(mockBackendProvider).allUsers.firstWhere(
-          (u) => u.firebaseUid == firebaseUser?.uid,
-          orElse: () => DummyUserModel(id: 0, firebaseUid: '', name: 'Travel', email: '', role: '', authProvider: ''),
-        );
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser?.uid)
+          .get(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard Travel'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              if (context.mounted) {
-                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                  (route) => false,
-                );
-              }
-            },
-            icon: const Icon(Icons.logout),
+        final data = snapshot.data!.data() as Map<String, dynamic>?;
+
+        final name = data?['name'] ?? 'User';
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Dashboard Travel'),
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  if (context.mounted) {
+                    Navigator.of(
+                      context,
+                      rootNavigator: true,
+                    ).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                      (route) => false,
+                    );
+                  }
+                },
+                icon: const Icon(Icons.logout),
+              ),
+            ],
+            backgroundColor: const Color(0xff23762C),
+            foregroundColor: Colors.white,
           ),
-        ],
-        backgroundColor: const Color(0xff23762C),
-        foregroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Selamat Datang Biro Travel ${userData.name}',
-              style: TextStyle(fontSize: 16),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Selamat Datang Biro Travel $name'),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () => _showUsersData(context, ref),
+                  icon: const Icon(Icons.people, color: Colors.green),
+                  label: const Text(
+                    'Lihat Data User',
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            
-            // 👇 INI ADALAH TOMBOL UNTUK MELIHAT DATA 👇
-            ElevatedButton.icon(
-              onPressed: () => _showUsersData(context, ref),
-              icon: const Icon(Icons.people, color: Colors.white),
-              label: const Text(
-                'Lihat Data User',
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff23762C),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

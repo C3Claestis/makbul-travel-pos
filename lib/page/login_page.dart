@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, sort_child_properties_last
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/main_page.dart';
 import 'package:makbul_app/page/register_page.dart';
 import 'package:makbul_app/provider/auth_provider.dart';
-import 'package:makbul_app/service/mock_backend_service.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -31,46 +31,41 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     try {
       final authService = ref.read(authServiceProvider);
+      final firestore = FirebaseFirestore.instance;
 
       final user = await authService.loginWithEmail(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
 
-      if (user != null) {
-        // --- VERIFIKASI ROLE DI DATABASE DUMMY ---
-        final backendService = ref.read(mockBackendProvider);
-        final userData = backendService.allUsers.firstWhere(
-          (u) => u.firebaseUid == user.uid,
-          orElse: () => DummyUserModel(id: -1, firebaseUid: '', name: '', email: '', role: '', authProvider: ''),
-        );
+      if (user == null) throw Exception("Login gagal");
 
-        // Jika user tidak ditemukan atau role tidak sesuai dengan yang dipilih (_cardMulti)
-        if (userData.id == -1 || userData.role != selectedRole) {
-          await FirebaseAuth.instance.signOut(); // Logout kembali dari Firebase
-          if (!mounted) return;
-          
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Akses ditolak: Akun Anda tidak terdaftar dengan role tersebut.")),
-          );
-          setState(() => isLoading = false);
-          return; // Batalkan proses masuk
-        }
+      // 🔥 AMBIL DATA DARI FIRESTORE
+      final doc = await firestore.collection('users').doc(user.uid).get();
+      final userData = doc.data();
+
+      if (userData == null || userData['role'] != selectedRole) {
+        await FirebaseAuth.instance.signOut();
 
         if (!mounted) return;
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainPage()),
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Akses ditolak: Role tidak sesuai")),
         );
+        return;
       }
+
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainPage()),
+      );
     } catch (e) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Error: $e")));
+    } finally {
+      if (mounted) setState(() => isLoading = false);
     }
-
-    setState(() => isLoading = false);
   }
 
   @override
@@ -167,73 +162,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                          final authService = ref.read(authServiceProvider);
-                          final user = await authService.loginGoogle();
-                          if (user != null) {
-                            // Verifikasi Role untuk Google Login
-                            final backendService = ref.read(mockBackendProvider);
-                            final userData = backendService.allUsers.firstWhere(
-                              (u) => u.firebaseUid == user.uid,
-                              orElse: () => DummyUserModel(id: -1, firebaseUid: '', name: '', email: '', role: '', authProvider: ''),
-                            );
-
-                            if (userData.id == -1 || userData.role != selectedRole) {
-                              await FirebaseAuth.instance.signOut();
-                              if (!mounted) return;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Akses ditolak: Role akun tidak sesuai.")),
-                              );
-                              return;
-                            }
-
-                            if (!mounted) return;
-                            // Pindah ke halaman Home jika berhasil login
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainPage(),
-                              ),
-                            );
-                          }
-                        },
-                        child: SvgPicture.asset('assets/svgs/logo_google.svg'),
-                      ),
+                      googlelogin(context),
                       const SizedBox(width: 16),
-                      GestureDetector(
-                        onTap: () async {
-                          final authService = ref.read(authServiceProvider);
-                          final user = await authService.signInWithFacebook();
-                          if (user != null) {
-                            // Verifikasi Role untuk Facebook Login
-                            final backendService = ref.read(mockBackendProvider);
-                            final userData = backendService.allUsers.firstWhere(
-                              (u) => u.firebaseUid == user.uid,
-                              orElse: () => DummyUserModel(id: -1, firebaseUid: '', name: '', email: '', role: '', authProvider: ''),
-                            );
-
-                            if (userData.id == -1 || userData.role != selectedRole) {
-                              await FirebaseAuth.instance.signOut();
-                              if (!mounted) return;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Akses ditolak: Role akun tidak sesuai.")),
-                              );
-                              return;
-                            }
-
-                            if (!mounted) return;
-                            // Pindah ke halaman Home jika berhasil login
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainPage(),
-                              ),
-                            );
-                          }
-                        },
-                        child: SvgPicture.asset('assets/svgs/logo_fb.svg'),
-                      ),
+                      fblogin(context),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -273,6 +204,72 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ),
         ],
       ),
+    );
+  }
+
+  GestureDetector googlelogin(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        final authService = ref.read(authServiceProvider);
+        final firestore = FirebaseFirestore.instance;
+
+        final user = await authService.loginGoogle();
+
+        if (user == null) return;
+
+        final doc = await firestore.collection('users').doc(user.uid).get();
+        final userData = doc.data();
+
+        // 🔥 AMBIL DATA DARI FIRESTOR
+        if (userData == null || userData['role'] != selectedRole) {
+          await FirebaseAuth.instance.signOut();
+          if (!mounted) return;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Akses ditolak: Role tidak sesuai")),
+          );
+          return;
+        }
+
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MainPage()),
+        );
+      },
+      child: SvgPicture.asset('assets/svgs/logo_google.svg'),
+    );
+  }
+
+  GestureDetector fblogin(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        final authService = ref.read(authServiceProvider);
+        final firestore = FirebaseFirestore.instance;
+
+        final user = await authService.signInWithFacebook();
+        if (user == null) return;
+
+        final doc = await firestore.collection('users').doc(user.uid).get();
+        final userData = doc.data();
+
+        if (userData == null || userData['role'] != selectedRole) {
+          await FirebaseAuth.instance.signOut();
+          if (!mounted) return;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Akses ditolak: Role tidak sesuai")),
+          );
+          return;
+        }
+
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MainPage()),
+        );
+      },
+      child: SvgPicture.asset('assets/svgs/logo_fb.svg'),
     );
   }
 
