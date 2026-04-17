@@ -9,8 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/main_page.dart';
-import 'package:makbul_app/page/register_page.dart';
-import 'package:makbul_app/provider/auth_provider.dart';
+import 'package:makbul_app/page/auth/pages/register_page.dart';
+import 'package:makbul_app/page/auth/providers/auth_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:makbul_app/page/login_page.dart';
+import 'package:makbul_app/page/auth/pages/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // 1. Ubah menjadi ConsumerWidget
-class DashboardTravel extends ConsumerWidget {
-  const DashboardTravel({super.key});
+class DashboardAgent extends ConsumerWidget {
+  const DashboardAgent({super.key});
 
   // 2. Tambahkan fungsi untuk memunculkan Bottom Sheet
   void _showUsersData(BuildContext context, WidgetRef ref) {

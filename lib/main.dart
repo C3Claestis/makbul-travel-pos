@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makbul_app/firebase_options.dart';
-import 'package:makbul_app/page/splashscreen_page.dart';
+import 'package:makbul_app/page/auth/pages/splashscreen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

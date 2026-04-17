@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:makbul_app/provider/auth_service.dart';
+import 'package:makbul_app/page/auth/providers/auth_service.dart';
 
 final authProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 

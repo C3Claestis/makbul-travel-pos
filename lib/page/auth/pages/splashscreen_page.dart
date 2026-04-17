@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makbul_app/page/login_page.dart';
+import 'package:makbul_app/page/auth/pages/login_page.dart';
 
 // Ganti 'NextPage' dengan halaman tujuanmu yang sebenarnya
 // import 'package:nama_project/pages/next_page.dart'; 

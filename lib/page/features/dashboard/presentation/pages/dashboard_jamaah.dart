@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:makbul_app/page/login_page.dart';
+import 'package:makbul_app/page/auth/pages/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makbul_app/page/main/main_page.dart';
-import 'package:makbul_app/provider/auth_provider.dart';
+import 'package:makbul_app/page/auth/providers/auth_provider.dart';
 
 class VerifyEmailPage extends ConsumerStatefulWidget {
   final String email;

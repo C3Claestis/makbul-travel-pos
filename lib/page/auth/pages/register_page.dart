@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/main_page.dart';
-import 'package:makbul_app/page/login_page.dart';
-import 'package:makbul_app/page/verify_email_page.dart';
-import 'package:makbul_app/provider/auth_provider.dart';
+import 'package:makbul_app/page/auth/pages/login_page.dart';
+import 'package:makbul_app/page/auth/pages/verify_email_page.dart';
+import 'package:makbul_app/page/auth/providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {

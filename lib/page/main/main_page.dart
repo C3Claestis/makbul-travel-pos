@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/page/main/dashboard/dashboard_agent.dart';
-import 'package:makbul_app/page/main/dashboard/dashboard_jamaah.dart';
-import 'package:makbul_app/page/main/dashboard/dashboard_travel.dart';
+import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_agent.dart';
+import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_jamaah.dart';
+import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_travel.dart';
 
 // Import halaman yang sudah ada
 //import 'package:makbul_app/page/main/dashboard_page.dart';
@@ -111,12 +111,38 @@ class MainPage extends ConsumerWidget {
 
         return Scaffold(
           body: pages[safeIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: safeIndex,
-            onTap: (index) {
-              ref.read(bottomNavIndeProvider.notifier).state = index;
-            },
-            items: navItems,
+          bottomNavigationBar: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(0, -2), // shadow ke atas
+                ),
+              ],
+            ),
+            child: BottomNavigationBar(
+              currentIndex: safeIndex,
+              onTap: (index) {
+                ref.read(bottomNavIndeProvider.notifier).state = index;
+              },
+
+              type: BottomNavigationBarType.fixed, // ⬅️ penting!
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+
+              selectedItemColor: Color(0xFF23762C), // hijau
+              unselectedItemColor: Colors.black87,
+
+              selectedLabelStyle: GoogleFonts.notoSansJp(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: GoogleFonts.notoSansJp(fontSize: 11),
+
+              items: navItems,
+            ),
           ),
         );
       },
