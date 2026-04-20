@@ -117,7 +117,7 @@ class DashboardAgent extends ConsumerWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Dashboard Travel'),
+            title: Text('Dashboard Agent'),
             actions: [
               IconButton(
                 onPressed: () async {
@@ -144,7 +144,7 @@ class DashboardAgent extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Selamat Datang Biro Travel $name'),
+                Text('Selamat Datang Agent $name'),
                 const SizedBox(height: 20),
                 ElevatedButton.icon(
                   onPressed: () => _showUsersData(context, ref),

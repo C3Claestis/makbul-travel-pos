@@ -1,6 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/auth/pages/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
@@ -117,7 +121,7 @@ class DashboardJamaah extends ConsumerWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Dashboard Travel'),
+            title: Text('Dashboard Jamaah'),
             actions: [
               IconButton(
                 onPressed: () async {
@@ -140,25 +144,200 @@ class DashboardJamaah extends ConsumerWidget {
             backgroundColor: const Color(0xff23762C),
             foregroundColor: Colors.white,
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Selamat Datang Biro Travel $name'),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () => _showUsersData(context, ref),
-                  icon: const Icon(Icons.people, color: Colors.green),
-                  label: const Text(
-                    'Lihat Data User',
-                    style: TextStyle(color: Colors.green),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black12, blurRadius: 6),
+                      ],
+                    ),
+                    child: Text(
+                      'Selamat Datang Jamaah $name',
+                      style: GoogleFonts.inter(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff23762C),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 0.0,
+                    mainAxisSpacing: 10.0,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      _card('Profile', 'icon_pengguna'),
+                      _card('Paket Umrah', 'icon_paketUmrah'),
+                      _card('Pembayaran', 'icon_pembayaran'),
+                      _card('Dashboard', 'icon_dashboard'),
+                      _card('Jamaah Saya', 'icon_jamaah'),
+                      _card('Pengguna', 'icon_pengguna'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Paket',
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(10),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.6, // biar proporsional
+                        ),
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 🔹 Gambar (40%)
+                            Expanded(
+                              flex: 4,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12),
+                                ),
+                                child: Image.asset(
+                                  'assets/images/kaba.jpg',
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+
+                            // 🔹 Content (60%)
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Nama Paket
+                                    const Text(
+                                      "Umroh Reguler 9 Hari",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 4),
+
+                                    // Maskapai
+                                    const Text(
+                                      "Maskapai: Garuda Indonesia",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+
+                                    // Durasi
+                                    const Text(
+                                      "Durasi: 9 Hari",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+
+                                    const SizedBox(height: 4),
+
+                                    // Harga
+                                    const Text(
+                                      "Rp 28.000.000",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 6),
+
+                                    // Fasilitas
+                                    const Text(
+                                      "Fasilitas:",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+
+                                    const Text(
+                                      "- Hotel Bintang 5\n- Makan 3x sehari\n- Tour Madinah",
+                                      style: TextStyle(fontSize: 11),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  // ElevatedButton.icon(
+                  //   onPressed: () => _showUsersData(context, ref),
+                  //   icon: const Icon(Icons.people, color: Colors.green),
+                  //   label: const Text(
+                  //     'Lihat Data User',
+                  //     style: TextStyle(color: Colors.green),
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           ),
         );
       },
+    );
+  }
+
+  Card _card(String title, String icon) {
+    return Card(
+      color: const Color(0xff23762C),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset('assets/svgs/$icon.svg', color: Colors.white),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

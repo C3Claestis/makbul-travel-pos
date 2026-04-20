@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/widgets/summary_card.dart';
 import '../providers/dashboard_provider.dart';
 import '../../domain/entities/dashboard_summary.dart';
@@ -108,7 +109,7 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 10),
       child: Text(title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
     );
   }
 }
@@ -177,7 +178,7 @@ class _StatusItem extends StatelessWidget {
     return Column(
       children: [
         Text(count,
-            style: const TextStyle(
+            style: GoogleFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF23762C))),
