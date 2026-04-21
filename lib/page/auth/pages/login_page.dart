@@ -120,9 +120,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  fieldlogin(emailController, 'Email'),
+                  fieldlogin(ref, emailController, 'Email'),
                   const SizedBox(height: 16),
-                  fieldlogin(passwordController, 'Password'),
+                  fieldlogin(ref, passwordController, 'Password', obscureText: true),
                   const SizedBox(height: 24),
 
                   /// BUTTON LOGIN
@@ -316,9 +316,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  TextFormField fieldlogin(TextEditingController controller, String label) {
+  TextFormField fieldlogin(
+    WidgetRef ref,
+    TextEditingController controller,
+    String label, {
+    bool obscureText = false,
+  }) {
+    final passwordVisibility = ref.watch(loginVisibilityProvider);
+
     return TextFormField(
       controller: controller,
+      obscureText: obscureText ? passwordVisibility : false,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.never,
         border: OutlineInputBorder(
@@ -332,6 +340,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         fillColor: Color(0xffF3F3F3),
         filled: true,
+
+        // 🔥 ICON SHOW / HIDE
+        suffixIcon: obscureText
+            ? IconButton(
+                icon: Icon(
+                  passwordVisibility ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  ref.read(loginVisibilityProvider.notifier).state =
+                      !passwordVisibility;
+                },
+              )
+            : null,
       ),
     );
   }

@@ -12,91 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // 1. Ubah menjadi ConsumerWidget
 class DashboardJamaah extends ConsumerWidget {
-  const DashboardJamaah({super.key});
-
-  // 2. Tambahkan fungsi untuk memunculkan Bottom Sheet
-  void _showUsersData(BuildContext context, WidgetRef ref) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Data User dari Firestore',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const Divider(),
-
-              /// 🔥 STREAM FIRESTORE
-              Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    // Loading
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    // Error
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-
-                    // Tidak ada data
-                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text('Belum ada data user'));
-                    }
-
-                    final users = snapshot.data!.docs;
-
-                    // List user
-                    return ListView.builder(
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        final data =
-                            users[index].data() as Map<String, dynamic>;
-
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 10),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: const Color(0xff23762C),
-                              child: Text(
-                                (data['name'] ?? 'U')[0].toUpperCase(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            title: Text(data['name'] ?? '-'),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(data['email'] ?? '-'),
-                                Text(
-                                  'Role: ${data['role']} | Auth: ${data['authProvider']}',
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  const DashboardJamaah({super.key}); 
 
   @override
   // 3. Tambahkan WidgetRef ref di parameter build
@@ -176,12 +92,12 @@ class DashboardJamaah extends ConsumerWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
-                      _card('Profile', 'icon_pengguna'),
-                      _card('Paket Umrah', 'icon_paketUmrah'),
+                      _card('Paket Saya', 'icon_kaaba'),
                       _card('Pembayaran', 'icon_pembayaran'),
-                      _card('Dashboard', 'icon_dashboard'),
-                      _card('Jamaah Saya', 'icon_jamaah'),
-                      _card('Pengguna', 'icon_pengguna'),
+                      _card('Jadwal', 'icon_calender'),
+                      _card('Dokumen', 'icon_dokumen'),
+                      _card('Jenis Penerbangan', 'icon_plane'),
+                      _card('Lokasi/Hotel', 'icon_lokasi'),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -302,15 +218,7 @@ class DashboardJamaah extends ConsumerWidget {
                         ),
                       );
                     },
-                  ),
-                  // ElevatedButton.icon(
-                  //   onPressed: () => _showUsersData(context, ref),
-                  //   icon: const Icon(Icons.people, color: Colors.green),
-                  //   label: const Text(
-                  //     'Lihat Data User',
-                  //     style: TextStyle(color: Colors.green),
-                  //   ),
-                  // ),
+                  ),                 
                 ],
               ),
             ),
@@ -326,7 +234,7 @@ class DashboardJamaah extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset('assets/svgs/$icon.svg', color: Colors.white),
+          SvgPicture.asset('assets/svgs/$icon.svg', color: Colors.white, height: 40),
           const SizedBox(height: 8),
           Text(
             title,
@@ -335,6 +243,9 @@ class DashboardJamaah extends ConsumerWidget {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

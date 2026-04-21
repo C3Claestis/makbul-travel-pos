@@ -1,0 +1,31 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "makbul-app",
+          "appId": "1:1021400245597:android:d344cc8171a5229e0d34b4",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "makbul-app",
+          "configurations": {
+            "android": "1:1021400245597:android:d344cc8171a5229e0d34b4",
+            "ios": "1:1021400245597:ios:ea7526bfa545b4df0d34b4",
+            "macos": "1:1021400245597:ios:ea7526bfa545b4df0d34b4",
+            "web": "1:1021400245597:web:6e230b50e5fd24450d34b4",
+            "windows": "1:1021400245597:web:3d5a7405675624ad0d34b4"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-northeast1",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

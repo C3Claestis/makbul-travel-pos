@@ -118,11 +118,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  fieldlogin(nameController, 'Nama'),
+                  fieldlogin(ref, nameController, 'Nama'),
                   const SizedBox(height: 16),
-                  fieldlogin(emailController, 'Email'),
+                  fieldlogin(ref, emailController, 'Email'),
                   const SizedBox(height: 16),
-                  fieldlogin(passwordController, 'Password'),
+                  fieldlogin(ref, passwordController, 'Password', obscureText: true, isMaxLines: true),
                   const SizedBox(height: 24),
 
                   /// BUTTON LOGIN
@@ -296,10 +296,21 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     );
   }
 
-  TextFormField fieldlogin(TextEditingController controller, String label) {
+  TextFormField fieldlogin(
+    WidgetRef ref,
+    TextEditingController controller,
+    String label, {
+    bool obscureText = false,
+    bool isMaxLines = false,
+  }) {
+    final passwordVisibility = ref.watch(registerVisibilityProvider);
+
     return TextFormField(
       controller: controller,
+      obscureText: obscureText ? passwordVisibility : false,
+      maxLength: isMaxLines ? 16 : null,
       decoration: InputDecoration(
+        counterText: "",
         floatingLabelBehavior: FloatingLabelBehavior.never,
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -312,6 +323,19 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         ),
         fillColor: Color(0xffF3F3F3),
         filled: true,
+
+        // 🔥 ICON SHOW / HIDE
+        suffixIcon: obscureText
+            ? IconButton(
+                icon: Icon(
+                  passwordVisibility ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  ref.read(registerVisibilityProvider.notifier).state =
+                      !passwordVisibility;
+                },
+              )
+            : null,
       ),
     );
   }
