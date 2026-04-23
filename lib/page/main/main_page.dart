@@ -12,7 +12,7 @@ import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_
 
 // Import halaman yang sudah ada
 //import 'package:makbul_app/page/main/dashboard_page.dart';
-import 'package:makbul_app/page/main/jamaah_page.dart';
+import 'package:makbul_app/page/main/jamaah/paketsaya_page.dart';
 import 'package:makbul_app/page/main/paketumrah_page.dart';
 import 'package:makbul_app/page/main/pembayaran_page.dart';
 import 'package:makbul_app/page/main/pengguna_page.dart';
@@ -64,7 +64,7 @@ class MainPage extends ConsumerWidget {
         if (userRole == 'travel') {
           pages = const [
             DashboardTravel(),
-            JamaahPage(),
+            PaketsayaPage(),
             PaketumrahPage(),
             PembayaranPage(),
             PenggunaPage(),
@@ -80,7 +80,7 @@ class MainPage extends ConsumerWidget {
         } else if (userRole == 'agent') {
           pages = const [
             DashboardAgent(),
-            JamaahPage(),
+            PaketsayaPage(),
             PaketumrahPage(),
             PenggunaPage(),
           ];
@@ -96,7 +96,7 @@ class MainPage extends ConsumerWidget {
 
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Beranda'),
-            _buildNavItem('assets/svgs/icon_pembayaran.svg', 'Riwayat'),
+            _buildNavItem('assets/svgs/icon_history.svg', 'Riwayat'),
             _buildNavItem('assets/svgs/icon_pengguna.svg', 'Profil'),
           ];
         }

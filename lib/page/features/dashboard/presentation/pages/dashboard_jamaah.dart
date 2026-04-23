@@ -10,9 +10,11 @@ import 'package:makbul_app/page/auth/pages/login_page.dart';
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../main/jamaah/paketsaya_page.dart';
+
 // 1. Ubah menjadi ConsumerWidget
 class DashboardJamaah extends ConsumerWidget {
-  const DashboardJamaah({super.key}); 
+  const DashboardJamaah({super.key});
 
   @override
   // 3. Tambahkan WidgetRef ref di parameter build
@@ -92,12 +94,12 @@ class DashboardJamaah extends ConsumerWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
-                      _card('Paket Saya', 'icon_kaaba'),
-                      _card('Pembayaran', 'icon_pembayaran'),
-                      _card('Jadwal', 'icon_calender'),
-                      _card('Dokumen', 'icon_dokumen'),
-                      _card('Jenis Penerbangan', 'icon_plane'),
-                      _card('Lokasi/Hotel', 'icon_lokasi'),
+                      _card(context, 'Paket Saya', 'icon_kaaba'),
+                      _card(context, 'Pembayaran', 'icon_pembayaran'),
+                      _card(context, 'Jadwal', 'icon_calender'),
+                      _card(context, 'Dokumen', 'icon_dokumen'),
+                      _card(context, 'Jenis Penerbangan', 'icon_plane'),
+                      _card(context, 'Lokasi/Hotel', 'icon_lokasi'),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -218,7 +220,7 @@ class DashboardJamaah extends ConsumerWidget {
                         ),
                       );
                     },
-                  ),                 
+                  ),
                 ],
               ),
             ),
@@ -228,26 +230,45 @@ class DashboardJamaah extends ConsumerWidget {
     );
   }
 
-  Card _card(String title, String icon) {
-    return Card(
-      color: const Color(0xff23762C),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset('assets/svgs/$icon.svg', color: Colors.white, height: 40),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+  Widget _card(BuildContext context, String title, String icon) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            switch (title) {
+              case 'Paket Saya':
+                return const PaketsayaPage();
+              default:
+                return const DashboardJamaah();
+            }
+          },
+        ),
+      ),
+      child: Card(
+        color: const Color(0xff23762C),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/svgs/$icon.svg',
               color: Colors.white,
+              height: 40,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
