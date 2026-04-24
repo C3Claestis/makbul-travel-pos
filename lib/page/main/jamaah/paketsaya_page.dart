@@ -4,6 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final List<Map<String, String>> data = [
+  {
+    "title": "Penerbangan",
+    "desc": "Garuda GA123\n10 Mar 2026 - 10:00\nCGK → JED",
+    "icon": "assets/svgs/icon_plane.svg",
+  },
+  {
+    "title": "Hotel",
+    "desc": "Makkah Tower\n 10 - 15 Mar 2026\n Room 1203",
+    "icon": "assets/svgs/icon_hotel.svg",
+  },
+  {
+    "title": "Lokasi",
+    "desc": "Makkah, Madinah\n Arab Saudi",
+    "icon": "assets/svgs/icon_pinlokasi.svg",
+  },
+  {
+    "title": "Dokumen",
+    "desc": "Paspor, Visa\n Lenkgkap",
+    "icon": "assets/svgs/icon_dokumen.svg",
+  },
+];
+
 class PaketsayaPage extends StatelessWidget {
   const PaketsayaPage({super.key});
 
@@ -40,70 +63,188 @@ class PaketsayaPage extends StatelessWidget {
           children: [
             _buildPackageheader(),
             const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFEFEFE),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              ),
+            _buildNextActivity(),
+            const SizedBox(height: 16),
+            _buildSchedule(),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildSchedule() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFEFEFE),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Informasi Penting",
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final itemWidth = (constraints.maxWidth - 12) / 2;
+
+              return Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: data.map((item) {
+                  return SizedBox(
+                    width: itemWidth, // 🔥 ini yang kurang
+                    child: _cardInformasi(
+                      title: item["title"]!,
+                      description: item["desc"]!,
+                      iconPath: item["icon"]!,
+                    ),
+                  );
+                }).toList(),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _cardInformasi({
+    required String title,
+    required String description,
+    required String iconPath,
+  }) {
+    return Card(
+      color: const Color(0xFFFEFEFE),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start, // penting
+          children: [
+            Column(
+              children: [
+                const SizedBox(height: 12),
+                SvgPicture.asset(
+                  iconPath,
+                  color: const Color(0xFF1B5E20),
+                  height: 32,
+                  width: 32,
+                ),
+              ],
+            ),
+
+            const SizedBox(width: 12),
+
+            // Supaya text ikut lebar row
+            Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start, // ini kunci
                 children: [
-                  /// HEADER
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Aktivitas Terdekat",
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        "Lihat Semua",
-                        style: GoogleFonts.poppins(
-                          color: Color(0xFF1B5E20),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    title,
+                    style: GoogleFonts.notoSansJp(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-
-                  const SizedBox(height: 16),
-
-                  /// ITEM 1
-                  _itemAktivitas(
-                    icon: Icons.calendar_today,
-                    title: "Check-in Hotel",
-                    subtitle: "Makkah Tower Hotel, Makkah",
-                    time: "Hari ini - 14:00",
-                    isFirst: true,
-                    isLast: false,
-                  ),
-
-                  /// ITEM 2
-                  _itemAktivitas(
-                    icon: Icons.flight,
-                    title: "Penerbangan ke Madinah",
-                    subtitle: "Garuda GA123 • Terminal 3",
-                    time: "Besok - 08:00",
-                    isFirst: false,
-                    isLast: true,
+                  const SizedBox(height: 4),
+                  Text(
+                    description, //"Garuda GA123\n10 Mar 2026 - 10:00\nCGK → JED",
+                    style: GoogleFonts.notoSansJp(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      letterSpacing: .5,
+                    ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left, // pastikan kiri
                   ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container _buildNextActivity() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFEFEFE),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// HEADER
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Aktivitas Terdekat",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                "Lihat Semua",
+                style: GoogleFonts.poppins(
+                  color: Color(0xFF1B5E20),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          /// ITEM 1
+          _itemAktivitas(
+            icon: Icons.calendar_today,
+            title: "Check-in Hotel",
+            subtitle: "Makkah Tower Hotel, Makkah",
+            time: "Hari ini - 14:00",
+            isFirst: true,
+            isLast: false,
+          ),
+
+          /// ITEM 2
+          _itemAktivitas(
+            icon: Icons.flight,
+            title: "Penerbangan ke Madinah",
+            subtitle: "Garuda GA123 • Terminal 3",
+            time: "Besok - 08:00",
+            isFirst: false,
+            isLast: true,
+          ),
+        ],
       ),
     );
   }
