@@ -10,6 +10,7 @@ import 'package:makbul_app/page/auth/pages/login_page.dart';
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../main/jamaah/jenispenerbangan_page.dart';
 import '../../../../main/jamaah/paketsaya_page.dart';
 
 // 1. Ubah menjadi ConsumerWidget
@@ -239,6 +240,8 @@ class DashboardJamaah extends ConsumerWidget {
             switch (title) {
               case 'Paket Saya':
                 return const PaketsayaPage();
+              case 'Jenis Penerbangan':
+                return const JenispenerbanganPage();
               default:
                 return const DashboardJamaah();
             }

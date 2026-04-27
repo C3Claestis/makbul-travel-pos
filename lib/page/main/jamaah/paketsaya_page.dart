@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,11 +29,54 @@ final List<Map<String, String>> data = [
   },
 ];
 
-class PaketsayaPage extends StatelessWidget {
+final dataJadwal = [
+  {
+    "day": "Day 1 - 10 Mar 2026",
+    "title": "Berangkat ke Jeddah",
+    "icon": Icons.flight_takeoff,
+    "desc": [
+      "Check-in bandara pukul 07:00 WIB",
+      "Briefing bersama tour leader",
+      "Penerbangan menuju Jeddah",
+      "Imigrasi & pengambilan bagasi",
+      "Perjalanan menuju hotel",
+      "Istirahat di hotel",
+    ],
+  },
+  {
+    "day": "Day 2 - 11 Mar 2026",
+    "title": "Umroh & City Tour Makkah",
+    "icon": Icons.mosque,
+    "desc": [
+      "Sarapan pagi di hotel",
+      "Persiapan berihram",
+      "Pelaksanaan ibadah umroh",
+      "Makan siang",
+      "City tour area Makkah",
+      "Kembali ke hotel",
+    ],
+  },
+  {
+    "day": "Day 3 - 12 Mar 2026",
+    "title": "Ziarah Makkah",
+    "icon": Icons.location_on,
+    "desc": [
+      "Kunjungan ke Jabal Rahmah",
+      "Mengunjungi Padang Arafah",
+      "Singgah di Mina & Muzdalifah",
+      "Belanja oleh-oleh",
+      "Kembali ke hotel",
+    ],
+  },
+];
+
+final expandedScheduleProvider = StateProvider<int>((ref) => -1);
+
+class PaketsayaPage extends ConsumerWidget {
   const PaketsayaPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
@@ -65,15 +110,301 @@ class PaketsayaPage extends StatelessWidget {
             const SizedBox(height: 16),
             _buildNextActivity(),
             const SizedBox(height: 16),
-            _buildSchedule(),
+            _buildQuickInfo(),
             const SizedBox(height: 16),
+            _buildSchedule(ref),
+            const SizedBox(height: 16),
+            _buildAnnouncement(),
+            const SizedBox(height: 24),
+            _buildActionButtons(),
           ],
         ),
       ),
     );
   }
 
-  Container _buildSchedule() {
+  Row _buildActionButtons() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: _bottomButton(
+            icon: Icons.list_alt,
+            title: "Lihat Detail",
+            bgColor: Colors.white,
+            textColor: Colors.black87,
+            iconColor: Colors.black87,
+          ),
+        ),
+
+        const SizedBox(width: 8),
+
+        Expanded(
+          flex: 3,
+          child: _bottomButton(
+            icon: Icons.call,
+            title: "Hubungi Pembimbing",
+            bgColor: const Color(0xFF1B5E20),
+            textColor: Colors.white,
+            iconColor: Colors.white,
+          ),
+        ),
+
+        const SizedBox(width: 8),
+
+        Expanded(
+          flex: 2,
+          child: _bottomButton(
+            icon: Icons.download_outlined,
+            title: "Download\nDokumen",
+            bgColor: Colors.white,
+            textColor: Colors.black87,
+            iconColor: Colors.black87,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _bottomButton({
+    required IconData icon,
+    required String title,
+    required Color bgColor,
+    required Color textColor,
+    required Color iconColor,
+  }) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 16, color: iconColor),
+
+          const SizedBox(width: 6),
+
+          Flexible(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.poppins(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+                height: 1.2,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildAnnouncement() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEAF6EC),
+        borderRadius: BorderRadius.circular(16),
+        border: BoxBorder.all(color: const Color(0xFFD6E6DB), width: 2),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            'assets/svgs/icon_megaphone.svg',
+            color: const Color(0xFF1B5E20),
+          ),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Informasi / Pengumuman",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: const Color(0xFF1B5E20),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "\u2022 Jangan lupa kumpul di lobby jam 13:30\n"
+                "\u2022 Gunakan pakaian ihram yang nyaman",
+                style: GoogleFonts.poppins(fontSize: 12, color: Colors.black),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildSchedule(WidgetRef ref) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFEFEFE),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Jadwal Perjalanan",
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...List.generate(
+            dataJadwal.length,
+            (index) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: _scheduleItem(
+                ref,
+                index: index,
+                day: dataJadwal[index]["day"] as String,
+                title: dataJadwal[index]["title"] as String,
+                desc: dataJadwal[index]["desc"] as List<String>,
+                icon: dataJadwal[index]["icon"] as IconData,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ================= WIDGET ITEM =================
+  Widget _scheduleItem(
+    WidgetRef ref, {
+    required int index,
+    required String day,
+    required String title,
+    required IconData icon,
+    required List<String> desc,
+  }) {
+    final expandedIndex = ref.watch(expandedScheduleProvider);
+    final isOpen = expandedIndex == index;
+
+    return GestureDetector(
+      onTap: () {
+        ref.read(expandedScheduleProvider.notifier).state = isOpen ? -1 : index;
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF8FAF8),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: Colors.grey.shade200),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: const Color(0xFF165C20),
+                  child: Icon(icon, size: 18, color: Colors.white),
+                ),
+                const SizedBox(width: 12),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        day,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        title,
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Icon(
+                  isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                ),
+              ],
+            ),
+
+            /// DROPDOWN DETAIL POINT
+            AnimatedCrossFade(
+              duration: const Duration(milliseconds: 250),
+              crossFadeState: isOpen
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              firstChild: const SizedBox(),
+              secondChild: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  const Divider(),
+                  const SizedBox(height: 8),
+
+                  ...desc.map(
+                    (item) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.check_circle,
+                            size: 16,
+                            color: Color(0xFF2E7D32),
+                          ),
+                          const SizedBox(width: 8),
+
+                          Expanded(
+                            child: Text(
+                              item,
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                height: 1.5,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildQuickInfo() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
