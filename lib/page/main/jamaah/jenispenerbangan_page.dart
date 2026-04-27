@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/jamaah/data/maskapaimodel.dart';
-import 'package:makbul_app/page/main/jamaah/detailpenerbangan_page.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/detailpenerbangan_page.dart';
 import 'package:makbul_app/page/main/jamaah/provider/maskapai_provider.dart';
 
 class JenispenerbanganPage extends ConsumerWidget {
@@ -52,9 +52,23 @@ class JenispenerbanganPage extends ConsumerWidget {
                   tittle: dataMaskapai[index]["title"] as String,
                   linkImg: dataMaskapai[index]["icon"] as String,
                   code: dataMaskapai[index]["code"] as String,
-                  destination: dataMaskapai[index]["destination"] as String,
+                  destinationstart:
+                      dataMaskapai[index]["destinationstart"] as String,
+                  destinationend:
+                      dataMaskapai[index]["destinationend"] as String,
                   time: dataMaskapai[index]["time"] as String,
+                  date: dataMaskapai[index]["date"] as String,
                   status: dataMaskapai[index]["status"] as String,
+                  terminal: dataMaskapai[index]["terminal"] as String,
+                  gate: dataMaskapai[index]["gate"] as String,
+                  kelas: dataMaskapai[index]["kelas"] as String,
+                  airportstart: dataMaskapai[index]["airportstart"] as String,
+                  airportstartcode:
+                      dataMaskapai[index]["airportstartcode"] as String,
+                  airportend: dataMaskapai[index]["airportend"] as String,
+                  airportendcode:
+                      dataMaskapai[index]["airportendcode"] as String,
+                  duration: dataMaskapai[index]["duration"] as String,
                 ),
               ),
             ],
@@ -69,22 +83,41 @@ class JenispenerbanganPage extends ConsumerWidget {
     required WidgetRef ref,
     required String tittle,
     required String code,
-    required String destination,
+    required String destinationstart,
+    required String destinationend,
     required String time,
+    required String date,
     required String linkImg,
     required String status,
+    required String terminal,
+    required String gate,
+    required String kelas,
+    required String airportstart,
+    required String airportstartcode,
+    required String airportend,
+    required String airportendcode,
+    required String duration,
   }) {
     return GestureDetector(
       onTap: () {
-        ref.read(selectedMaskapaiProvider.notifier).state =
-          MaskapaiModel(
-        title: tittle,
-        code: code,
-        destination: destination,
-        time: time,
-        linkImg: linkImg,
-        status: status,
-      );
+        ref.read(selectedMaskapaiProvider.notifier).state = MaskapaiModel(
+          title: tittle,
+          code: code,
+          destinationstart: destinationstart,
+          destinationend: destinationend,
+          time: time,
+          date: date,
+          linkImg: linkImg,
+          status: status,
+          duration: duration,
+          terminal: terminal,
+          gate: gate,
+          kelas: kelas,
+          airportstart: airportstart,
+          airportstartcode: airportstartcode,
+          airportend: airportend,
+          airportendcode: airportendcode,
+        );
 
         Navigator.push(
           context,
@@ -144,7 +177,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        destination,
+                        "$destinationstart \u2192 $destinationend",
                         style: GoogleFonts.poppins(fontSize: 10),
                         textAlign: TextAlign.start,
                       ),
@@ -154,7 +187,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                           Icon(Icons.access_time_sharp, size: 12),
                           const SizedBox(width: 4),
                           Text(
-                            time,
+                            "$time \u2981 $date",
                             style: GoogleFonts.poppins(fontSize: 10),
                             textAlign: TextAlign.start,
                           ),
