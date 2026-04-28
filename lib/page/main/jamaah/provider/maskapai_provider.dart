@@ -38,5 +38,10 @@ final statusColorProvider = Provider.family<StatusStyle, String>((ref, status) {
   }
 });
 
-final selectedMaskapaiProvider =
-    StateProvider<MaskapaiModel?>((ref) => null);
+final selectedMaskapaiProvider = StateProvider<MaskapaiModel?>((ref) => null);
+
+final selectedMaskapaiDataLengkapProvider = StateProvider<MaskapaiDataLengkap?>((ref) => null);
+
+final selectedInfoPenerbanganProvider = StateProvider<InfoPenerbangan?>((ref) => null);
+
+

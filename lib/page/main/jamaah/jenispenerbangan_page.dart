@@ -49,26 +49,33 @@ class JenispenerbanganPage extends ConsumerWidget {
                 (index) => _listMaskapai(
                   ref: ref,
                   context: context,
-                  tittle: dataMaskapai[index]["title"] as String,
-                  linkImg: dataMaskapai[index]["icon"] as String,
-                  code: dataMaskapai[index]["code"] as String,
-                  destinationstart:
-                      dataMaskapai[index]["destinationstart"] as String,
-                  destinationend:
-                      dataMaskapai[index]["destinationend"] as String,
-                  time: dataMaskapai[index]["time"] as String,
-                  date: dataMaskapai[index]["date"] as String,
-                  status: dataMaskapai[index]["status"] as String,
-                  terminal: dataMaskapai[index]["terminal"] as String,
-                  gate: dataMaskapai[index]["gate"] as String,
-                  kelas: dataMaskapai[index]["kelas"] as String,
-                  airportstart: dataMaskapai[index]["airportstart"] as String,
+                  tittle: dataMaskapai[index].title,
+                  linkImg: dataMaskapai[index].linkImg,
+                  code: dataMaskapai[index].code,
+                  destinationstart: dataMaskapai[index].destinationstart,
+                  destinationend: dataMaskapai[index].destinationend,
+                  time: dataMaskapai[index].time,
+                  date: dataMaskapai[index].date,
+                  status: dataMaskapai[index].status,
+
+                  // ambil dari data_lengkap_maskapai
+                  terminal: data_lengkap_maskapai[index].terminal,
+                  gate: data_lengkap_maskapai[index].gate,
+                  kelas: data_lengkap_maskapai[index].kelas,
+                  airportstart: data_lengkap_maskapai[index].airportstart,
                   airportstartcode:
-                      dataMaskapai[index]["airportstartcode"] as String,
-                  airportend: dataMaskapai[index]["airportend"] as String,
-                  airportendcode:
-                      dataMaskapai[index]["airportendcode"] as String,
-                  duration: dataMaskapai[index]["duration"] as String,
+                      data_lengkap_maskapai[index].airportstartcode,
+                  airportend: data_lengkap_maskapai[index].airportend,
+                  airportendcode: data_lengkap_maskapai[index].airportendcode,
+                  duration: data_lengkap_maskapai[index].duration,
+
+                  // ambil dari info_penerbangan
+                  kodebooking: data_info_penerbangan[index].kodebooking,
+                  pesawat: data_info_penerbangan[index].pesawat,
+                  nopenerbangan: data_info_penerbangan[index].nopenerbangan,
+                  bagasi: data_info_penerbangan[index].bagasi,
+                  makan: data_info_penerbangan[index].makan,
+                  program: data_info_penerbangan[index].program,
                 ),
               ),
             ],
@@ -97,6 +104,12 @@ class JenispenerbanganPage extends ConsumerWidget {
     required String airportend,
     required String airportendcode,
     required String duration,
+    required String kodebooking,
+    required String pesawat,
+    required String nopenerbangan,
+    required String bagasi,
+    required String makan,
+    required String program,
   }) {
     return GestureDetector(
       onTap: () {
@@ -109,6 +122,11 @@ class JenispenerbanganPage extends ConsumerWidget {
           date: date,
           linkImg: linkImg,
           status: status,
+        );
+
+        ref
+            .read(selectedMaskapaiDataLengkapProvider.notifier)
+            .state = MaskapaiDataLengkap(
           duration: duration,
           terminal: terminal,
           gate: gate,
@@ -117,6 +135,17 @@ class JenispenerbanganPage extends ConsumerWidget {
           airportstartcode: airportstartcode,
           airportend: airportend,
           airportendcode: airportendcode,
+        );
+
+        ref
+            .read(selectedInfoPenerbanganProvider.notifier)
+            .state = InfoPenerbangan(
+          kodebooking: kodebooking,
+          pesawat: pesawat,
+          nopenerbangan: nopenerbangan,
+          bagasi: bagasi,
+          makan: makan,
+          program: program,
         );
 
         Navigator.push(
