@@ -9,6 +9,7 @@ import 'package:makbul_app/page/auth/pages/login_page.dart';
 
 // Pastikan import ini disesuaikan dengan lokasi file provider Anda
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:makbul_app/page/main/jamaah/lokasihotel_page.dart';
 
 import '../../../../main/jamaah/jenispenerbangan_page.dart';
 import '../../../../main/jamaah/paketsaya_page.dart';
@@ -242,6 +243,8 @@ class DashboardJamaah extends ConsumerWidget {
                 return const PaketsayaPage();
               case 'Jenis Penerbangan':
                 return const JenispenerbanganPage();
+              case 'Lokasi/Hotel':
+                return const LokasihotelPage();
               default:
                 return const DashboardJamaah();
             }
