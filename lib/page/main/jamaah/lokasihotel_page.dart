@@ -1,14 +1,17 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/detailhotel_page.dart';
 import 'package:makbul_app/page/main/jamaah/data/hotelmodel.dart';
+import 'package:makbul_app/page/main/jamaah/provider/provider.dart';
 
-class LokasihotelPage extends StatelessWidget {
+class LokasihotelPage extends ConsumerWidget {
   const LokasihotelPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
@@ -61,7 +64,9 @@ class LokasihotelPage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final hotel = dataHotel[index];
-                return _cardHotel(
+                return _cardHotel(                  
+                  context,
+                  ref,
                   hotel.linkImg,
                   hotel.hotelname,
                   hotel.location,
@@ -69,6 +74,7 @@ class LokasihotelPage extends StatelessWidget {
                   hotel.rating,
                   hotel.reviewer,
                   hotel.price,
+                  hotel.description,
                 );
               },
               separatorBuilder: (context, index) => SizedBox(height: 12),
@@ -237,6 +243,8 @@ class LokasihotelPage extends StatelessWidget {
   }
 
   Widget _cardHotel(
+    BuildContext context,
+    WidgetRef ref,
     String linkImage,
     String hotelname,
     String location,
@@ -244,129 +252,150 @@ class LokasihotelPage extends StatelessWidget {
     String rating,
     String reviewer,
     int price,
+    String desc,    
   ) {
-    return Card(
-      color: const Color(0xffF5F7FA),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            /// IMAGE
-            Container(
-              width: 75,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                  image: NetworkImage(linkImage),
-                  fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        ref.read(selectedHotelProvider.notifier).state = Hotelmodel(
+          linkImg: linkImage,
+          hotelname: hotelname,
+          location: location,
+          jarak: jarak,
+          rating: rating,
+          reviewer: reviewer,
+          price: price,
+          description: desc,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailhotelPage(),
+          ),
+        );
+      },
+      child: Card(
+        color: const Color(0xffF5F7FA),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              /// IMAGE
+              Container(
+                width: 75,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(
+                    image: NetworkImage(linkImage),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-
-            const SizedBox(width: 16),
-
-            /// CONTENT
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// HOTEL NAME
-                  Text(
-                    hotelname,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  const SizedBox(height: 4),
-
-                  /// LOCATION
-                  Text(
-                    '$location · $jarak',
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-
-                  /// RATING + PRICE ROW
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// LEFT SIDE (RATING)
-                      Icon(Icons.star, color: Colors.amber, size: 16),
-                      const SizedBox(width: 4),
-                      Text(
-                        rating,
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                        ),
+      
+              const SizedBox(width: 16),
+      
+              /// CONTENT
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// HOTEL NAME
+                    Text(
+                      hotelname,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
-
-                      const SizedBox(width: 4),
-
-                      Text(
-                        '($reviewer ulasan)',
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    ),
+      
+                    const SizedBox(height: 4),
+      
+                    /// LOCATION
+                    Text(
+                      '$location · $jarak',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w600,
                       ),
-
-                      const Spacer(),
-
-                      /// RIGHT SIDE (PRICE)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const SizedBox(height: 16),
-                          Text(
-                            'Mulai dari',
-                            style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w500,
+                    ),
+                    const SizedBox(height: 4),
+      
+                    /// RATING + PRICE ROW
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// LEFT SIDE (RATING)
+                        Icon(Icons.star, color: Colors.amber, size: 16),
+                        const SizedBox(width: 4),
+                        Text(
+                          rating,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber,
+                          ),
+                        ),
+      
+                        const SizedBox(width: 4),
+      
+                        Text(
+                          '($reviewer ulasan)',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+      
+                        const Spacer(),
+      
+                        /// RIGHT SIDE (PRICE)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const SizedBox(height: 16),
+                            Text(
+                              'Mulai dari',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'SAR $price',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff1B5E20),
+                            Row(
+                              children: [
+                                Text(
+                                  'SAR $price',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff1B5E20),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 2),
-                              Text(
-                                '/malam',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 10,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 2),
+                                Text(
+                                  '/malam',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

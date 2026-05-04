@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:makbul_app/page/main/jamaah/data/maskapaimodel.dart';
+import 'package:makbul_app/page/main/jamaah/data/hotelmodel.dart';
 import 'package:makbul_app/page/main/jamaah/jenispenerbangan_page.dart';
 
+
+// Provider Maskapai
 final statusColorProvider = Provider.family<StatusStyle, String>((ref, status) {
   switch (status.toLowerCase()) {
     case 'ontime':
@@ -37,11 +40,9 @@ final statusColorProvider = Provider.family<StatusStyle, String>((ref, status) {
       );
   }
 });
-
 final selectedMaskapaiProvider = StateProvider<MaskapaiModel?>((ref) => null);
-
 final selectedMaskapaiDataLengkapProvider = StateProvider<MaskapaiDataLengkap?>((ref) => null);
-
 final selectedInfoPenerbanganProvider = StateProvider<InfoPenerbangan?>((ref) => null);
 
-
+// Provider Hotel/Lokasi
+final selectedHotelProvider = StateProvider<Hotelmodel?>((ref) => null);

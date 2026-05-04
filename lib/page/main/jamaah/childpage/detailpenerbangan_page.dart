@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/jamaah/data/maskapaimodel.dart';
 import 'package:makbul_app/page/main/jamaah/jenispenerbangan_page.dart';
-import 'package:makbul_app/page/main/jamaah/provider/maskapai_provider.dart';
+import 'package:makbul_app/page/main/jamaah/provider/provider.dart';
 import 'package:makbul_app/service/dotted_line.dart';
 
 class DetailpenerbanganPage extends ConsumerWidget {

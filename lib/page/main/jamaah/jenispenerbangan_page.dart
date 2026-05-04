@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/jamaah/data/maskapaimodel.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/detailpenerbangan_page.dart';
-import 'package:makbul_app/page/main/jamaah/provider/maskapai_provider.dart';
+import 'package:makbul_app/page/main/jamaah/provider/provider.dart';
 
 class JenispenerbanganPage extends ConsumerWidget {
   const JenispenerbanganPage({super.key});
