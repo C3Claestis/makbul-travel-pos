@@ -27,222 +27,216 @@ class DetailhotelPage extends ConsumerWidget {
             _appBar(context),
 
             // 🔥 CONTAINER YANG MENIMPA APPBAR
-            Positioned(
-              top: 110, // ⬅️ ini kunci overlap (atur sesuai selera)
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                padding: const EdgeInsets.only(top: 4),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  color: Colors.white,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(24),
-                        ),
-                        child: SizedBox(
-                          height: 320,
-                          width: double.infinity,
-                          child: Image.network(
-                            "https://images.unsplash.com/photo-1690314749019-2754cc7bfac9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              selectedHotel.hotelname,
-                              style: GoogleFonts.poppins(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Row(
-                                  children: List.generate(
-                                    4,
-                                    (index) => const Icon(
-                                      Icons.star,
-                                      color: Color(0xffFDAA0A),
-                                      size: 16,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.star_half_outlined,
-                                  color: Colors.grey,
-                                  size: 14,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  selectedHotel.rating,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xffFDAA0A),
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '(${selectedHotel.reviewer} ulasan)',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            _contentDetail(
-                              Icons.location_on_outlined,
-                              '${selectedHotel.location} · ${selectedHotel.jarak}',
-                              Color(0xFF1B5E20),
-                            ),
-                            const SizedBox(height: 16),
-                            _contentDetail(
-                              Icons.wifi,
-                              "Wi-Fi Gratis",
-                              Colors.grey,
-                            ),
-                            const SizedBox(height: 8),
-                            _contentDetail(
-                              Icons.restaurant,
-                              "Restoran",
-                              Colors.grey,
-                            ),
-                            const SizedBox(height: 8),
-                            _contentDetail(
-                              Icons.work_history_outlined,
-                              "Resepsionis 24 jam",
-                              Colors.grey,
-                            ),
-                            const SizedBox(height: 8),
-                            _contentDetail(Icons.elevator, "Lift", Colors.grey),
-                            const SizedBox(height: 8),
-                            _contentDetail(
-                              Icons.subdirectory_arrow_right_rounded,
-                              "Lihat semua fasilitas",
-                              Colors.grey,
-                            ),
-                            const SizedBox(height: 8),
-                            Divider(color: Colors.grey.withOpacity(0.5)),
-                            const SizedBox(height: 8),
-                            Text(
-                              "Deskripsi",
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              selectedHotel.description,
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Divider(color: Colors.grey.withOpacity(0.5)),
-                            const SizedBox(height: 16),
-                            Text(
-                              "Lokasi",
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            _mapsLokasi(selectedHotel),
-                            const SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Mulai dari",
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "SAR ${selectedHotel.price}",
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          " /malam",
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(width: 24),
-                                Expanded(
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Color(0xFF1B5E20),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 16,
-                                      ),
-                                      minimumSize: const Size.fromHeight(50),
-                                    ),
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Lihat Ketersediaan",
-                                      style: GoogleFonts.notoSansJp(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 32),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            _content(selectedHotel),
           ],
         ),
       ),
+    );
+  }
+
+  Positioned _content(Hotelmodel selectedHotel) {
+    return Positioned(
+      top: 110, // ⬅️ ini kunci overlap (atur sesuai selera)
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        padding: const EdgeInsets.only(top: 4),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          color: Colors.white,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [_imgContent(selectedHotel), _isiContent(selectedHotel)],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _isiContent(Hotelmodel selectedHotel) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            selectedHotel.hotelname,
+            style: GoogleFonts.poppins(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Row(
+                children: List.generate(
+                  4,
+                  (index) => const Icon(
+                    Icons.star,
+                    color: Color(0xffFDAA0A),
+                    size: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(Icons.star_half_outlined, color: Colors.grey, size: 14),
+              const SizedBox(width: 4),
+              Text(
+                selectedHotel.rating,
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xffFDAA0A),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '(${selectedHotel.reviewer} ulasan)',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _contentDetail(
+            Icons.location_on_outlined,
+            '${selectedHotel.location} · ${selectedHotel.jarak}',
+            Color(0xFF1B5E20),
+          ),
+          const SizedBox(height: 16),
+          _contentDetail(Icons.wifi, "Wi-Fi Gratis", Colors.grey),
+          const SizedBox(height: 8),
+          _contentDetail(Icons.restaurant, "Restoran", Colors.grey),
+          const SizedBox(height: 8),
+          _contentDetail(
+            Icons.work_history_outlined,
+            "Resepsionis 24 jam",
+            Colors.grey,
+          ),
+          const SizedBox(height: 8),
+          _contentDetail(Icons.elevator, "Lift", Colors.grey),
+          const SizedBox(height: 8),
+          _contentDetail(
+            Icons.subdirectory_arrow_right_rounded,
+            "Lihat semua fasilitas",
+            Colors.grey,
+          ),
+          const SizedBox(height: 8),
+          Divider(color: Colors.grey.withOpacity(0.5)),
+          const SizedBox(height: 8),
+          Text(
+            "Deskripsi",
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            selectedHotel.description,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Divider(color: Colors.grey.withOpacity(0.5)),
+          const SizedBox(height: 16),
+          Text(
+            "Lokasi",
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _mapsLokasi(selectedHotel),
+          const SizedBox(height: 16),
+          _footer(selectedHotel),
+          const SizedBox(height: 32),
+        ],
+      ),
+    );
+  }
+
+  ClipRRect _imgContent(Hotelmodel selectedHotel) {
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      child: SizedBox(
+        height: 320,
+        width: double.infinity,
+        child: Image.network(selectedHotel.linkImg, fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  Row _footer(Hotelmodel selectedHotel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Mulai dari",
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  "SAR ${selectedHotel.price}",
+                  style: GoogleFonts.poppins(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  " /malam",
+                  style: GoogleFonts.poppins(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          child: TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Color(0xFF1B5E20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              minimumSize: const Size.fromHeight(50),
+            ),
+            onPressed: () {},
+            child: Text(
+              "Lihat Ketersediaan",
+              style: GoogleFonts.notoSansJp(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:makbul_app/page/main/jamaah/data/lokasimodel.dart';
 import 'package:makbul_app/page/main/jamaah/data/maskapaimodel.dart';
 import 'package:makbul_app/page/main/jamaah/data/hotelmodel.dart';
 import 'package:makbul_app/page/main/jamaah/jenispenerbangan_page.dart';
@@ -46,3 +47,4 @@ final selectedInfoPenerbanganProvider = StateProvider<InfoPenerbangan?>((ref) =>
 
 // Provider Hotel/Lokasi
 final selectedHotelProvider = StateProvider<Hotelmodel?>((ref) => null);
+final selectedLokasiProvider = StateProvider<Lokasimodel?>((ref) => null);

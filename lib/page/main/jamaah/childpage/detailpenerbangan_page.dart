@@ -18,6 +18,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
     final selectedMaskapaiDataLengkap = ref.watch(
       selectedMaskapaiDataLengkapProvider,
     );
+    
     final selectedInfoPenerbangan = ref.watch(selectedInfoPenerbanganProvider);
 
     if (selectedMaskapai == null ||

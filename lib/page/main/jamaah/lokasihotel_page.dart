@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/detailhotel_page.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/detaillokasi_page.dart';
 import 'package:makbul_app/page/main/jamaah/data/hotelmodel.dart';
+import 'package:makbul_app/page/main/jamaah/data/lokasimodel.dart';
 import 'package:makbul_app/page/main/jamaah/provider/provider.dart';
 
 class LokasihotelPage extends ConsumerWidget {
@@ -45,7 +47,7 @@ class LokasihotelPage extends ConsumerWidget {
             const SizedBox(height: 24),
             rekomendasiTxt(),
             const SizedBox(height: 16),
-            _itemRekomendasi(),
+            _itemRekomendasi(context, ref, dataLokasi),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -64,7 +66,7 @@ class LokasihotelPage extends ConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final hotel = dataHotel[index];
-                return _cardHotel(                  
+                return _cardHotel(
                   context,
                   ref,
                   hotel.linkImg,
@@ -85,31 +87,41 @@ class LokasihotelPage extends ConsumerWidget {
     );
   }
 
-  GridView _itemRekomendasi() {
-    return GridView.count(
-      crossAxisCount: 3,
+  GridView _itemRekomendasi(
+    BuildContext context,
+    WidgetRef ref,
+    List<Lokasimodel> data,
+  ) {
+    final displayData = data.take(3).toList(); // ambil max 3
+
+    return GridView.builder(
+      itemCount: displayData.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 5,
-      mainAxisSpacing: 5,
-      childAspectRatio: 0.7,
-      children: <Widget>[
-        _card(
-          "https://images.unsplash.com/photo-1592326871020-04f58c1a52f3",
-          "Mekkah",
-          "Masjidil Haram",
-        ),
-        _card(
-          "https://images.unsplash.com/photo-1572358899655-f63ece97bfa5?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Madinah",
-          "Masjidil Nabawi",
-        ),
-        _card(
-          "https://images.unsplash.com/photo-1565552645632-d725f8bfc19a?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Jeddah",
-          "Bandara King Abudulaziz",
-        ),
-      ],
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        childAspectRatio: 0.7,
+      ),
+
+      itemBuilder: (context, index) {
+        final item = displayData[index];
+
+        return _card(
+          context: context,
+          ref: ref,
+          linkImg: item.linkImg,
+          name: item.name,
+          lokasi: item.lokasi,
+          tempat: item.tempat,
+          deskripsi: item.deskripsi,
+          jarak: item.jarak,
+          waktutempuh: item.waktutempuh,
+          area: item.area,
+          koordinat: item.koordinat,
+        );
+      },
     );
   }
 
@@ -184,59 +196,95 @@ class LokasihotelPage extends ConsumerWidget {
     );
   }
 
-  Widget _card(String link, String tittle, String subtitle) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 3,
-      child: SizedBox(
-        height: 160, // penting biar ada tinggi
-        child: Stack(
-          children: [
-            /// BACKGROUND IMAGE (full)
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.network(link, fit: BoxFit.cover),
-              ),
-            ),
+  Widget _card({
+    required BuildContext context,
+    required WidgetRef ref,
+    required String linkImg,
+    required String name,
+    required String lokasi,
+    required String tempat,
+    required String deskripsi,
+    required String jarak,
+    required String waktutempuh,
+    required String area,
+    required String koordinat,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        ref.read(selectedLokasiProvider.notifier).state = Lokasimodel(
+          linkImg: linkImg,
+          name: name,
+          lokasi: lokasi,
+          tempat: tempat,
+          deskripsi: deskripsi,
+          jarak: jarak,
+          waktutempuh: waktutempuh,
+          area: area,
+          koordinat: koordinat,
+        );
 
-            /// OVERLAY TEXT (di depan)
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(12),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const DetaillokasiPage();
+            },
+          ),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 3,
+        child: SizedBox(
+          height: 160, // penting biar ada tinggi
+          child: Stack(
+            children: [
+              /// BACKGROUND IMAGE (full)
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(linkImg, fit: BoxFit.cover),
+                ),
+              ),
+
+              /// OVERLAY TEXT (di depan)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.6),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(12),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        lokasi,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        name,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tittle,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: Colors.white70,
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -252,7 +300,7 @@ class LokasihotelPage extends ConsumerWidget {
     String rating,
     String reviewer,
     int price,
-    String desc,    
+    String desc,
   ) {
     return GestureDetector(
       onTap: () {
@@ -268,9 +316,7 @@ class LokasihotelPage extends ConsumerWidget {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => DetailhotelPage(),
-          ),
+          MaterialPageRoute(builder: (context) => DetailhotelPage()),
         );
       },
       child: Card(
@@ -292,9 +338,9 @@ class LokasihotelPage extends ConsumerWidget {
                   ),
                 ),
               ),
-      
+
               const SizedBox(width: 16),
-      
+
               /// CONTENT
               Expanded(
                 child: Column(
@@ -310,9 +356,9 @@ class LokasihotelPage extends ConsumerWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-      
+
                     const SizedBox(height: 4),
-      
+
                     /// LOCATION
                     Text(
                       '$location · $jarak',
@@ -323,7 +369,7 @@ class LokasihotelPage extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-      
+
                     /// RATING + PRICE ROW
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,9 +385,9 @@ class LokasihotelPage extends ConsumerWidget {
                             color: Colors.amber,
                           ),
                         ),
-      
+
                         const SizedBox(width: 4),
-      
+
                         Text(
                           '($reviewer ulasan)',
                           style: GoogleFonts.poppins(
@@ -350,9 +396,9 @@ class LokasihotelPage extends ConsumerWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-      
+
                         const Spacer(),
-      
+
                         /// RIGHT SIDE (PRICE)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,

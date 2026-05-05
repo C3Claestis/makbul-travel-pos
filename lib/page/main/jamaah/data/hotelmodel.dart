@@ -84,7 +84,7 @@ final List<Hotelmodel> dataHotel = [
   Hotelmodel(
     linkImg: "https://plus.unsplash.com/premium_photo-1681429766562-fffa63d382c2?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hotelname: "Dar Al Taqwa Hotel",
-    location: "Madinah",
+    location: "Jeddah",
     jarak: "30 m dari Masjid Nabawi",
     rating: "4.9",
     reviewer: "13.1k",
@@ -108,7 +108,7 @@ final List<Hotelmodel> dataHotel = [
   Hotelmodel(
     linkImg: "https://images.unsplash.com/photo-1568229988520-4bc288da81f7?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hotelname: "Elaf Kinda Hotel",
-    location: "Mekkah",
+    location: "Jeddah",
     jarak: "120 m dari Masjidil Haram",
     rating: "4.5",
     reviewer: "7.9k",
@@ -144,7 +144,7 @@ final List<Hotelmodel> dataHotel = [
   Hotelmodel(
     linkImg: "https://images.unsplash.com/photo-1690314754158-7287f2022d9d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hotelname: "Jabal Omar Hyatt Regency",
-    location: "Mekkah",
+    location: "Jeddah",
     jarak: "250 m dari Masjidil Haram",
     rating: "4.8",
     reviewer: "14.2k",
@@ -168,7 +168,7 @@ final List<Hotelmodel> dataHotel = [
   Hotelmodel(
     linkImg: "https://images.unsplash.com/photo-1775208000121-d23d92dc54dc?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hotelname: "Conrad Makkah",
-    location: "Mekkah",
+    location: "Jeddah",
     jarak: "180 m dari Masjidil Haram",
     rating: "4.9",
     reviewer: "13.7k",
@@ -180,7 +180,7 @@ final List<Hotelmodel> dataHotel = [
   Hotelmodel(
     linkImg: "https://images.unsplash.com/photo-1764625918885-6003f199c158?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hotelname: "Dallah Taibah Hotel",
-    location: "Madinah",
+    location: "Jeddah",
     jarak: "70 m dari Masjid Nabawi",
     rating: "4.7",
     reviewer: "8.6k",
