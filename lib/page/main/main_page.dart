@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_agent.dart';
+import 'package:makbul_app/dashboard_jamaah_arsip.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_jamaah.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_travel.dart';
 

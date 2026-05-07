@@ -1,31 +1,32 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/auth/pages/login_page.dart';
 
-// Pastikan import ini disesuaikan dengan lokasi file provider Anda
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:makbul_app/page/main/jamaah/dokumen_page.dart';
-import 'package:makbul_app/page/main/jamaah/lokasihotel_page.dart';
-
-import '../../../../main/jamaah/jenispenerbangan_page.dart';
+import '../../../..//main/jamaah/dokumen_page.dart';
+import '../../../../main/jamaah/lokasihotel_page.dart';
 import '../../../../main/jamaah/paketsaya_page.dart';
+import '../../../..//main/jamaah/pembayaran_page.dart';
+import '../../../../main/jamaah/jenispenerbangan_page.dart';
 
-// 1. Ubah menjadi ConsumerWidget
 class DashboardJamaah extends ConsumerWidget {
   const DashboardJamaah({super.key});
 
   @override
-  // 3. Tambahkan WidgetRef ref di parameter build
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Dapatkan user yang sedang login dari Firebase
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
     final firebaseUser = FirebaseAuth.instance.currentUser;
 
-    // 2. Cari data lengkap user di Mock Backend berdasarkan UID Firebase
     return FutureBuilder<DocumentSnapshot>(
       future: FirebaseFirestore.instance
           .collection('users')
@@ -33,251 +34,545 @@ class DashboardJamaah extends ConsumerWidget {
           .get(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
 
         final data = snapshot.data!.data() as Map<String, dynamic>?;
-
         final name = data?['name'] ?? 'User';
 
         return Scaffold(
-          appBar: AppBar(
-            title: Text('Dashboard Jamaah'),
-            actions: [
-              IconButton(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  if (context.mounted) {
-                    Navigator.of(
-                      context,
-                      rootNavigator: true,
-                    ).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                      (route) => false,
-                    );
-                  }
-                },
-                icon: const Icon(Icons.logout),
-              ),
-            ],
-            backgroundColor: const Color(0xff23762C),
-            foregroundColor: Colors.white,
-          ),
+          backgroundColor: const Color(0xffF5F5F5),
+          extendBodyBehindAppBar: true,
           body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black12, blurRadius: 6),
-                      ],
-                    ),
-                    child: Text(
-                      'Selamat Datang Jamaah $name',
-                      style: GoogleFonts.inter(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff23762C),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0.0,
-                    mainAxisSpacing: 10.0,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: <Widget>[
-                      _card(context, 'Paket Saya', 'icon_kaaba'),
-                      _card(context, 'Pembayaran', 'icon_pembayaran'),
-                      _card(context, 'Jadwal', 'icon_calender'),
-                      _card(context, 'Dokumen', 'icon_dokumen'),
-                      _card(context, 'Jenis Penerbangan', 'icon_plane'),
-                      _card(context, 'Lokasi/Hotel', 'icon_lokasi'),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Paket',
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GridView.builder(
-                    padding: const EdgeInsets.all(10),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.6, // biar proporsional
-                        ),
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // 🔹 Gambar (40%)
-                            Expanded(
-                              flex: 4,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12),
-                                ),
-                                child: Image.asset(
-                                  'assets/images/kaba.jpg',
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
+            child: Column(
+              children: [
+                // ================= HEADER =================
+                _header(context, name),
 
-                            // 🔹 Content (60%)
-                            Expanded(
-                              flex: 6,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Nama Paket
-                                    const Text(
-                                      "Umroh Reguler 9 Hari",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 4),
-
-                                    // Maskapai
-                                    const Text(
-                                      "Maskapai: Garuda Indonesia",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-
-                                    // Durasi
-                                    const Text(
-                                      "Durasi: 9 Hari",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-
-                                    const SizedBox(height: 4),
-
-                                    // Harga
-                                    const Text(
-                                      "Rp 28.000.000",
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 6),
-
-                                    // Fasilitas
-                                    const Text(
-                                      "Fasilitas:",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-
-                                    const Text(
-                                      "- Hotel Bintang 5\n- Makan 3x sehari\n- Tour Madinah",
-                                      style: TextStyle(fontSize: 11),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                // ================= CONTENT =================
+                _content(context),
+              ],
             ),
           ),
+
+          // // ================= BOTTOM NAV =================
+          // bottomNavigationBar: BottomNavigationBar(
+          //   currentIndex: 0,
+          //   selectedItemColor: const Color(0xff0B7A2F),
+          //   unselectedItemColor: Colors.grey,
+          //   type: BottomNavigationBarType.fixed,
+          //   items: const [
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.home),
+          //       label: "Dashboard",
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.message_outlined),
+          //       label: "Pesan",
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.headset_mic_outlined),
+          //       label: "Bantuan",
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.person_outline),
+          //       label: "Akun Saya",
+          //     ),
+          //   ],
+          // ),
         );
       },
     );
   }
 
-  Widget _card(BuildContext context, String title, String icon) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            switch (title) {
-              case 'Paket Saya':
-                return const PaketsayaPage();
-              case 'Jenis Penerbangan':
-                return const JenispenerbanganPage();
-              case 'Dokumen':
-                return const DokumenPage();
-              case 'Lokasi/Hotel':
-                return const LokasihotelPage();
-              default:
-                return const DashboardJamaah();
-            }
-          },
+  Padding _content(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          // ================= RINGKASAN =================
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.12),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Ringkasan Perjalanan",
+                      style: GoogleFonts.inter(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    TextButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Text(
+                            "Lihat Detail",
+                            style: GoogleFonts.inter(color: Colors.black87),
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colors.black87,
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: _summaryCard(
+                        icon: Icons.calendar_month,
+                        iconColor: Colors.blue,
+                        title: "Jadwal Berangkat",
+                        value: "20 Nov 2024",
+                        subtitle: "09:00 WIB",
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    Expanded(
+                      child: _summaryCard(
+                        icon: Icons.check_circle,
+                        iconColor: Colors.orange,
+                        title: "Status Pembayaran",
+                        value: "Belum Lunas",
+                        subtitle: "60%",
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    Expanded(
+                      child: _summaryCard(
+                        icon: Icons.description,
+                        iconColor: const Color(0xff0B7A2F),
+                        title: "Dokumen",
+                        value: "2 / 4",
+                        subtitle: "Lengkap",
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 28),
+
+          // ================= MENU =================
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Menu Utama",
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          GridView.count(
+            padding: EdgeInsets.zero,
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 14,
+            mainAxisSpacing: 14,
+            childAspectRatio: 1,
+            children: [
+              _menuCard(context, title: "Paket Saya", icon: Icons.home),
+
+              _menuCard(context, title: "Pembayaran", icon: Icons.credit_card),
+
+              _menuCard(context, title: "Jadwal", icon: Icons.calendar_month),
+
+              _menuCard(context, title: "Dokumen", icon: Icons.description),
+
+              _menuCard(
+                context,
+                title: "Jenis Penerbangan",
+                icon: Icons.flight,
+              ),
+
+              _menuCard(
+                context,
+                title: "Lokasi/Hotel",
+                icon: Icons.location_on,
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 28),
+
+          // ================= PENGUMUMAN =================
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: const Color(0xffEAF4EA),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.green.shade200),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.campaign, color: Colors.green.shade700, size: 30),
+
+                const SizedBox(width: 12),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Pengumuman Terbaru",
+                            style: GoogleFonts.inter(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          Text(
+                            "Lihat Semua",
+                            style: GoogleFonts.inter(
+                              fontSize: 13,
+                              color: Colors.green,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "Manasik Umrah akan dilaksanakan pada 10 Nov 2024 via Zoom Meeting.",
+                        style: GoogleFonts.inter(fontSize: 14, height: 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 30),
+        ],
+      ),
+    );
+  }
+
+  Container _header(BuildContext context, name) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+      clipBehavior: Clip.none,
+      decoration: const BoxDecoration(
+        color: Color(0xff0B7A2F),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
         ),
       ),
-      child: Card(
-        color: const Color(0xff23762C),
+      child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/svgs/$icon.svg',
-              color: Colors.white,
-              height: 40,
+            // top bar
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Dashboard Jamaah",
+                  style: GoogleFonts.inter(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () async {
+                    debugPrint("ICON DITEKAN");
+
+                    await FirebaseAuth.instance.signOut();
+
+                    if (!context.mounted) return;
+
+                    Navigator.of(
+                      context,
+                      rootNavigator: true,
+                    ).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const LoginPage()),
+                      (route) => false,
+                    );
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.logout, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+
+            const SizedBox(height: 30),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // text
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Assalamu'alaikum,",
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        "Jamaah $name",
+                        style: GoogleFonts.inter(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      Text(
+                        "Semoga perjalanan ibadah Anda menjadi umrah yang mabrur.",
+                        style: GoogleFonts.inter(
+                          fontSize: 15,
+                          height: 1.5,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(width: 12),
+
+                // image
+                Transform.translate(
+                  offset: const Offset(20, 0),
+                  child: Container(
+                    width: 170,
+                    height: 150,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                        bottomLeft: Radius.circular(80),
+                        topRight: Radius.circular(30),
+                        bottomRight: Radius.circular(0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 12,
+                          offset: Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(80),
+                        bottomLeft: Radius.circular(80),
+                        topRight: Radius.circular(30),
+                        bottomRight: Radius.circular(0),
+                      ),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            "assets/images/kaba.jpg",
+                            fit: BoxFit.cover,
+                          ),
+
+                          // overlay gradient biar lebih elegan
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.15),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // ================= MENU CARD =================
+  Widget _menuCard(
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              switch (title) {
+                case 'Paket Saya':
+                  return const PaketsayaPage();
+
+                case 'Jenis Penerbangan':
+                  return const JenispenerbanganPage();
+
+                case 'Dokumen':
+                  return const DokumenPage();
+
+                case 'Pembayaran':
+                  return const PembayaranPage();
+
+                case 'Lokasi/Hotel':
+                  return const LokasihotelPage();
+
+                default:
+                  return const DashboardJamaah();
+              }
+            },
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          gradient: const LinearGradient(
+            colors: [Color(0xff0E8B36), Color(0xff066A25)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.green.withOpacity(0.25),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.white, size: 36),
+
+            const SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ================= SUMMARY CARD =================
+  Widget _summaryCard({
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String value,
+    required String subtitle,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: iconColor, size: 30),
+
+          const SizedBox(height: 12),
+
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(fontSize: 12, color: Colors.black87),
+          ),
+
+          const SizedBox(height: 8),
+
+          Text(
+            value,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 4),
+
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(fontSize: 12, color: Colors.grey.shade700),
+          ),
+        ],
       ),
     );
   }

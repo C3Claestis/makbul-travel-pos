@@ -18,7 +18,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
     final selectedMaskapaiDataLengkap = ref.watch(
       selectedMaskapaiDataLengkapProvider,
     );
-    
+
     final selectedInfoPenerbangan = ref.watch(selectedInfoPenerbanganProvider);
 
     if (selectedMaskapai == null ||
@@ -84,29 +84,34 @@ class DetailpenerbanganPage extends ConsumerWidget {
               const SizedBox(height: 16),
               _jadwalPenerbangan(),
               const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B5E20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                icon: SvgPicture.asset(
-                  'assets/svgs/icon_boarding_pass.svg',                  
-                  color: Colors.white,
-                ),
-                label: Text("Lihat Boarding Pass", style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),),
-              ),
+              _btnFooter(),
               const SizedBox(height: 24),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton _btnFooter() {
+    return ElevatedButton.icon(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF1B5E20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        minimumSize: const Size.fromHeight(50),
+      ),
+      icon: SvgPicture.asset(
+        'assets/svgs/icon_boarding_pass.svg',
+        color: Colors.white,
+      ),
+      label: Text(
+        "Lihat Boarding Pass",
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
     );

@@ -83,7 +83,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               _uploadDokumen(),
               const SizedBox(height: 16),
               _footer(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16),              
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
