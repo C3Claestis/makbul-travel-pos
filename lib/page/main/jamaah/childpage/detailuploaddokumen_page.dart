@@ -16,7 +16,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
         title: Center(
           child: Text(
             "Upload Dokumen",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.white,
@@ -44,7 +44,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Dokumen yang perlu diupload",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -52,7 +52,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 "Pastikan dokumen terlihat jelas dan tidak terpotong.",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
@@ -64,7 +64,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Preview Dokumen",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -74,7 +74,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Upload Dokumen",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -101,7 +101,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                   ),
                   child: Text(
                     "Upload Dokumen",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -125,7 +125,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                   ),
                   child: Text(
                     "Batal",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff2A7B36),
@@ -170,7 +170,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   "Klik untuk pilih file atau seret & lepas\nfile di sini",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -178,7 +178,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   "Format: JPG, PNG, PDF \u2022 Maks. Ukuran 5MB",
-                  style: GoogleFonts.poppins(fontSize: 12),
+                  style: GoogleFonts.inter(fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
@@ -201,7 +201,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           "Pilih File",
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Color(0xff2A7B36),
@@ -245,7 +245,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 "Belum ada Dokumen",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -253,7 +253,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 "Dokumen yang kamu upload akan\nmuncul disini",
-                style: GoogleFonts.poppins(fontSize: 12),
+                style: GoogleFonts.inter(fontSize: 12),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -284,14 +284,14 @@ class DetailuploaddokumenPage extends StatelessWidget {
                 children: [
                   Text(
                     "Informasi",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     "Visa umrah/haji masih berlaku minimal 6 bulan sebelum keberangkatan",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -340,14 +340,14 @@ class DetailuploaddokumenPage extends StatelessWidget {
               children: [
                 Text(
                   "Visa Umrah,",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   "Dokumen wajib untuk\nperjalanan umrah/haji",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -368,7 +368,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
                 ),
                 child: Text(
                   "Belum Upload",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                     color: Color(0xffFA9A2C),
@@ -397,7 +397,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
           children: [
             Text(
               "Catatan Penting",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xff2A7B36),
@@ -406,7 +406,7 @@ class DetailuploaddokumenPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               "\u2022 Pastikan dokumen terbaca dengan jelas\n\u2022 Gunakan format file JPG, PNG, atau PDF\n\u2022 Ukuran maksimal file 5MB",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,

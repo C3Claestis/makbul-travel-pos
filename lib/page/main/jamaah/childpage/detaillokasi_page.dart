@@ -73,7 +73,7 @@ class DetaillokasiPage extends ConsumerWidget {
         children: [
           Text(
             selectedLokasi.name,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -81,7 +81,7 @@ class DetaillokasiPage extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             '${selectedLokasi.lokasi} · ${selectedLokasi.tempat}',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -92,7 +92,7 @@ class DetaillokasiPage extends ConsumerWidget {
             textAlign: TextAlign.start,
 
             softWrap: true,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -102,7 +102,7 @@ class DetaillokasiPage extends ConsumerWidget {
           const SizedBox(height: 16),
           Text(
             "Hotel Terdekat",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -228,7 +228,7 @@ class DetaillokasiPage extends ConsumerWidget {
             Expanded(
               child: Text(
                 item.hotelname,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -242,7 +242,7 @@ class DetaillokasiPage extends ConsumerWidget {
             // DISTANCE
             Text(
               item.jarak.split(' dari')[0],
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 12,
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
@@ -299,7 +299,7 @@ class DetaillokasiPage extends ConsumerWidget {
               children: [
                 Text(
                   title[index],
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                     color: Colors.grey,
@@ -307,7 +307,7 @@ class DetaillokasiPage extends ConsumerWidget {
                 ),
                 Text(
                   value[index],
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -341,7 +341,7 @@ class DetaillokasiPage extends ConsumerWidget {
                 child: Center(
                   child: Text(
                     "Detail Lokasi",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.white,

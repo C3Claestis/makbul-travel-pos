@@ -19,7 +19,7 @@ class JenispenerbanganPage extends ConsumerWidget {
         title: Center(
           child: Text(
             "Jenis Penerbangan",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.white,
@@ -188,7 +188,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                     children: [
                       Text(
                         tittle,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
@@ -197,7 +197,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         code,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF1B5E20),
@@ -207,7 +207,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         "$destinationstart \u2192 $destinationend",
-                        style: GoogleFonts.poppins(fontSize: 10),
+                        style: GoogleFonts.inter(fontSize: 10),
                         textAlign: TextAlign.start,
                       ),
                       const SizedBox(height: 2),
@@ -217,7 +217,7 @@ class JenispenerbanganPage extends ConsumerWidget {
                           const SizedBox(width: 4),
                           Text(
                             "$time \u2981 $date",
-                            style: GoogleFonts.poppins(fontSize: 10),
+                            style: GoogleFonts.inter(fontSize: 10),
                             textAlign: TextAlign.start,
                           ),
                         ],
@@ -252,7 +252,7 @@ class JenispenerbanganPage extends ConsumerWidget {
       child: TextFormField(
         decoration: InputDecoration(
           hintText: "Cari maskapai atau rute penerbangan",
-          hintStyle: GoogleFonts.poppins(
+          hintStyle: GoogleFonts.inter(
             fontSize: 12,
             color: Colors.grey,
             fontWeight: FontWeight.w500,

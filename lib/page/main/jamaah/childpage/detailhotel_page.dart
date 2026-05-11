@@ -63,7 +63,7 @@ class DetailhotelPage extends ConsumerWidget {
         children: [
           Text(
             selectedHotel.hotelname,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -86,7 +86,7 @@ class DetailhotelPage extends ConsumerWidget {
               const SizedBox(width: 4),
               Text(
                 selectedHotel.rating,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Color(0xffFDAA0A),
@@ -95,7 +95,7 @@ class DetailhotelPage extends ConsumerWidget {
               const SizedBox(width: 4),
               Text(
                 '(${selectedHotel.reviewer} ulasan)',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Colors.grey,
@@ -132,7 +132,7 @@ class DetailhotelPage extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             "Deskripsi",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -140,7 +140,7 @@ class DetailhotelPage extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             selectedHotel.description,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w500,
               color: Colors.black,
@@ -151,7 +151,7 @@ class DetailhotelPage extends ConsumerWidget {
           const SizedBox(height: 16),
           Text(
             "Lokasi",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -186,7 +186,7 @@ class DetailhotelPage extends ConsumerWidget {
           children: [
             Text(
               "Mulai dari",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
@@ -196,7 +196,7 @@ class DetailhotelPage extends ConsumerWidget {
               children: [
                 Text(
                   "SAR ${selectedHotel.price}",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -204,7 +204,7 @@ class DetailhotelPage extends ConsumerWidget {
                 ),
                 Text(
                   " /malam",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -281,7 +281,7 @@ class DetailhotelPage extends ConsumerWidget {
             left: 16,
             child: Text(
               selectedHotel.jarak,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -300,7 +300,7 @@ class DetailhotelPage extends ConsumerWidget {
         const SizedBox(width: 8),
         Text(
           text,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: Colors.grey,
@@ -330,7 +330,7 @@ class DetailhotelPage extends ConsumerWidget {
                 child: Center(
                   child: Text(
                     "Detail Hotel",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.white,

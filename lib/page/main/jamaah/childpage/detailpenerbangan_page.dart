@@ -33,7 +33,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
         backgroundColor: const Color(0xFF1B5E20),
         title: Text(
           "Detail Penerbangan",
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             fontWeight: FontWeight.bold,
             fontSize: 20,
             color: Colors.white,
@@ -108,7 +108,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
       ),
       label: Text(
         "Lihat Boarding Pass",
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.inter(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.white,
@@ -211,7 +211,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
               children: [
                 Text(
                   time,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -219,7 +219,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                 const SizedBox(height: 4),
                 Text(
                   date,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: Colors.grey.shade600,
                     fontSize: 14,
                   ),
@@ -241,7 +241,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -273,7 +273,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
 
         const SizedBox(width: 16),
 
-        Expanded(child: Text(label, style: GoogleFonts.poppins(fontSize: 14))),
+        Expanded(child: Text(label, style: GoogleFonts.inter(fontSize: 14))),
 
         Container(width: 1, height: 24, color: Colors.grey.shade300),
 
@@ -281,7 +281,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
 
         Text(
           value,
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500),
         ),
       ],
     );
@@ -329,7 +329,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
@@ -337,7 +337,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
           ),
           Text(
             value,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Colors.black,
@@ -385,7 +385,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                   children: [
                     Text(
                       selectedMaskapaiDataLengkap.airportstartcode,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFF1B5E20),
@@ -405,7 +405,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                     const SizedBox(width: 16),
                     Text(
                       selectedMaskapaiDataLengkap.airportendcode,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFF1B5E20),
@@ -418,7 +418,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                   children: [
                     Text(
                       selectedMaskapai.destinationstart.split('(').first.trim(),
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
@@ -426,7 +426,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                     ),
                     Text(
                       selectedMaskapai.destinationend.split('(').first.trim(),
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
@@ -440,7 +440,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         selectedMaskapaiDataLengkap.airportstart,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
@@ -451,7 +451,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         selectedMaskapaiDataLengkap.airportend,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
@@ -537,7 +537,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 11,
                     fontWeight: FontWeight.w400,
                     color: Colors.black,
@@ -546,7 +546,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Text(
                   value,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
@@ -576,7 +576,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
             children: [
               Text(
                 selectedMaskapai.title,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -584,7 +584,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
               const SizedBox(height: 2),
               Text(
                 selectedMaskapai.code,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: const Color(0xFF1B5E20),

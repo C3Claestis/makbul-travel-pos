@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makbul_app/page/auth/pages/login_page.dart';
+import 'package:makbul_app/page/main/jamaah/jadwal_page.dart';
 
 import '../../../..//main/jamaah/dokumen_page.dart';
 import '../../../../main/jamaah/lokasihotel_page.dart';
@@ -479,6 +480,9 @@ class DashboardJamaah extends ConsumerWidget {
 
                 case 'Lokasi/Hotel':
                   return const LokasihotelPage();
+
+                case 'Jadwal':
+                  return const JadwalPage();
 
                 default:
                   return const DashboardJamaah();

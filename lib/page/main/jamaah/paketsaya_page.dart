@@ -84,7 +84,7 @@ class PaketsayaPage extends ConsumerWidget {
         title: Center(
           child: Text(
             "Paket Saya",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.white,
@@ -194,7 +194,7 @@ class PaketsayaPage extends ConsumerWidget {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
                 color: textColor,
@@ -227,7 +227,7 @@ class PaketsayaPage extends ConsumerWidget {
             children: [
               Text(
                 "Informasi / Pengumuman",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                   color: const Color(0xFF1B5E20),
@@ -237,7 +237,7 @@ class PaketsayaPage extends ConsumerWidget {
               Text(
                 "\u2022 Jangan lupa kumpul di lobby jam 13:30\n"
                 "\u2022 Gunakan pakaian ihram yang nyaman",
-                style: GoogleFonts.poppins(fontSize: 12, color: Colors.black),
+                style: GoogleFonts.inter(fontSize: 12, color: Colors.black),
               ),
             ],
           ),
@@ -266,7 +266,7 @@ class PaketsayaPage extends ConsumerWidget {
         children: [
           Text(
             "Jadwal Perjalanan",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -332,7 +332,7 @@ class PaketsayaPage extends ConsumerWidget {
                     children: [
                       Text(
                         day,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 11,
                           color: Colors.grey,
                         ),
@@ -340,7 +340,7 @@ class PaketsayaPage extends ConsumerWidget {
                       const SizedBox(height: 3),
                       Text(
                         title,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
                         ),
@@ -384,7 +384,7 @@ class PaketsayaPage extends ConsumerWidget {
                           Expanded(
                             child: Text(
                               item,
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.inter(
                                 fontSize: 12,
                                 height: 1.5,
                                 color: Colors.black54,
@@ -424,7 +424,7 @@ class PaketsayaPage extends ConsumerWidget {
         children: [
           Text(
             "Informasi Penting",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -539,14 +539,14 @@ class PaketsayaPage extends ConsumerWidget {
             children: [
               Text(
                 "Aktivitas Terdekat",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               Text(
                 "Lihat Semua",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: Color(0xFF1B5E20),
                   fontWeight: FontWeight.w500,
                 ),
@@ -618,7 +618,7 @@ class PaketsayaPage extends ConsumerWidget {
               children: [
                 Text(
                   time,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 12,
                     color: Colors.grey[600],
                   ),
@@ -626,7 +626,7 @@ class PaketsayaPage extends ConsumerWidget {
                 const SizedBox(height: 4),
                 Text(
                   title,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -634,7 +634,7 @@ class PaketsayaPage extends ConsumerWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 12,
                     color: Colors.grey[600],
                   ),

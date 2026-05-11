@@ -42,7 +42,7 @@ class PembayaranPage extends StatelessWidget {
         title: Center(
           child: Text(
             "Pembayaran",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.white,
@@ -72,7 +72,7 @@ class PembayaranPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Rincian Pembayaran",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -82,7 +82,7 @@ class PembayaranPage extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Riwayat Pembayaran",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -111,7 +111,7 @@ class PembayaranPage extends StatelessWidget {
       icon: Icon(Icons.credit_card, color: Colors.white),
       label: Text(
         "Bayar Sekarang",
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.inter(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.white,
@@ -191,7 +191,7 @@ class PembayaranPage extends StatelessWidget {
                   children: [
                     Text(
                       data["title"] as String,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -199,7 +199,7 @@ class PembayaranPage extends StatelessWidget {
                     ),
                     Text(
                       data["value"] as String,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -213,7 +213,7 @@ class PembayaranPage extends StatelessWidget {
                   children: [
                     Text(
                       "${data["date"] as String} \u2022 Transfer BCA",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Color(0xff727974),
@@ -221,7 +221,7 @@ class PembayaranPage extends StatelessWidget {
                     ),
                     Text(
                       data["status"] as String,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: color,
@@ -260,7 +260,7 @@ class PembayaranPage extends StatelessWidget {
               children: [
                 Text(
                   "Total Paket",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -268,7 +268,7 @@ class PembayaranPage extends StatelessWidget {
                 ),
                 Text(
                   "Rp 200.000.000",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -282,7 +282,7 @@ class PembayaranPage extends StatelessWidget {
               children: [
                 Text(
                   "Sudah Dibayar",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -290,7 +290,7 @@ class PembayaranPage extends StatelessWidget {
                 ),
                 Text(
                   "Rp 50.000.000",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff2A7B36),
@@ -304,7 +304,7 @@ class PembayaranPage extends StatelessWidget {
               children: [
                 Text(
                   "Sisa Pembayaran",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -312,7 +312,7 @@ class PembayaranPage extends StatelessWidget {
                 ),
                 Text(
                   "Rp 150.000.000",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.red,
@@ -344,7 +344,7 @@ class PembayaranPage extends StatelessWidget {
                 children: [
                   Text(
                     "Total Tagihan",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -353,7 +353,7 @@ class PembayaranPage extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     "Rp 200.000.000",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -362,7 +362,7 @@ class PembayaranPage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     "Sisa yang harus dibayar",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Color(0xff727974),
@@ -396,7 +396,7 @@ class PembayaranPage extends StatelessWidget {
           children: [
             Text(
               "Status Pembayaran",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
@@ -408,7 +408,7 @@ class PembayaranPage extends StatelessWidget {
               children: [
                 Text(
                   "Belum Lunas",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
@@ -421,7 +421,7 @@ class PembayaranPage extends StatelessWidget {
                   ),
                   child: Text(
                     "60%",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: Colors.white,

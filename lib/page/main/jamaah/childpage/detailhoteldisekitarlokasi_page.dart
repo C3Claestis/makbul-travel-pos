@@ -156,7 +156,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                 ),
                 child: Text(
                   categories[index],
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 13,
                     fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                     color: isActive ? Colors.white : Colors.black87,
@@ -231,7 +231,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                       hotelname,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -242,7 +242,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                     /// LOCATION
                     Text(
                       '$location · $jarak',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 12,
                         color: Colors.grey,
                         fontWeight: FontWeight.w600,
@@ -259,7 +259,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                         const SizedBox(width: 4),
                         Text(
                           rating,
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.amber,
@@ -270,7 +270,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
 
                         Text(
                           '($reviewer ulasan)',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             color: Colors.grey,
                             fontWeight: FontWeight.w600,
@@ -286,7 +286,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                             const SizedBox(height: 16),
                             Text(
                               'Mulai dari',
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.inter(
                                 fontSize: 10,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w500,
@@ -296,7 +296,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                               children: [
                                 Text(
                                   'SAR $price',
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xff1B5E20),
@@ -305,7 +305,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                                 const SizedBox(width: 2),
                                 Text(
                                   '/malam',
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.inter(
                                     fontSize: 10,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w500,
@@ -360,7 +360,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
               children: [
                 Text(
                   selectedLokasi.name,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -369,7 +369,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Text(
                   selectedLokasi.lokasi,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -403,7 +403,7 @@ class DetailhoteldisekitarlokasiPage extends ConsumerWidget {
                 child: Center(
                   child: Text(
                     "Hotel di Sekitar Lokasi",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.white,
