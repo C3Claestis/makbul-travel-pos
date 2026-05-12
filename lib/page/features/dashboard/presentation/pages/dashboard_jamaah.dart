@@ -56,33 +56,7 @@ class DashboardJamaah extends ConsumerWidget {
                 _content(context),
               ],
             ),
-          ),
-
-          // // ================= BOTTOM NAV =================
-          // bottomNavigationBar: BottomNavigationBar(
-          //   currentIndex: 0,
-          //   selectedItemColor: const Color(0xff0B7A2F),
-          //   unselectedItemColor: Colors.grey,
-          //   type: BottomNavigationBarType.fixed,
-          //   items: const [
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.home),
-          //       label: "Dashboard",
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.message_outlined),
-          //       label: "Pesan",
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.headset_mic_outlined),
-          //       label: "Bantuan",
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.person_outline),
-          //       label: "Akun Saya",
-          //     ),
-          //   ],
-          // ),
+          ),          
         );
       },
     );

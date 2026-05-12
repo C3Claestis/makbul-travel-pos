@@ -62,6 +62,7 @@ class MainPage extends ConsumerWidget {
         List<Widget> pages = [];
         List<BottomNavigationBarItem> navItems = [];
 
+        //TRAVEL NAVBAR
         if (userRole == 'travel') {
           pages = const [
             DashboardTravel(),
@@ -70,7 +71,6 @@ class MainPage extends ConsumerWidget {
             PembayaranPage(),
             PenggunaPage(),
           ];
-
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Dashboard'),
             _buildNavItem('assets/svgs/icon_jamaah.svg', 'Jamaah'),
@@ -78,21 +78,26 @@ class MainPage extends ConsumerWidget {
             _buildNavItem('assets/svgs/icon_pembayaran.svg', 'Pembayaran'),
             _buildNavItem('assets/svgs/icon_pengguna.svg', 'Pengguna'),
           ];
-        } else if (userRole == 'agent') {
+        } 
+                
+        //AGENT NAVBAR
+        else if (userRole == 'agent') {
           pages = const [
             DashboardAgent(),
             PaketsayaPage(),
             PaketumrahPage(),
             PenggunaPage(),
           ];
-
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Dashboard'),
             _buildNavItem('assets/svgs/icon_jamaah.svg', 'Jamaah Saya'),
             _buildNavItem('assets/svgs/icon_paketUmrah.svg', 'Katalog'),
             _buildNavItem('assets/svgs/icon_pengguna.svg', 'Profil'),
           ];
-        } else {
+        } 
+        
+        //JAMAAH NAVBAR
+        else {
           pages = const [DashboardJamaah(), PembayaranPage(), PenggunaPage()];
 
           navItems = [
