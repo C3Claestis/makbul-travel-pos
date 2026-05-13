@@ -3,11 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/InfoPerjalananTab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/InfoPerjalanan_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/hotel_tab.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/widget/itinerary_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/kontakDarurat_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/pembimbing_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/tiket_tab.dart';
 
 final itemProvider = StateProvider<int>((ref) => 0);
+final stateName = StateProvider<String>((ref) => "Itinerary");
 
 class DetailjadwalPage extends ConsumerWidget {
   const DetailjadwalPage({super.key});
@@ -49,19 +55,15 @@ class DetailjadwalPage extends ConsumerWidget {
               const SizedBox(height: 16),
               _buildDistanceFilter(ref),
               const SizedBox(height: 16),
-              Text(
-                "Itinerary Perjalanan",
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 16),
               buildContent(ref),
+              const SizedBox(height: 32),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: _btnFooter(),
       ),
     );
   }
@@ -74,6 +76,14 @@ class DetailjadwalPage extends ConsumerWidget {
         return const ItineraryTab();
       case 1:
         return const Infoperjalanantab();
+      case 2:
+        return const TiketTab();
+      case 3:
+        return const HotelTab();
+      case 4:
+        return const PembimbingTab();
+      case 5:
+        return const KontakdaruratTab();
       default:
         return const SizedBox.shrink();
     }
@@ -101,7 +111,10 @@ class DetailjadwalPage extends ConsumerWidget {
           return Padding(
             padding: const EdgeInsets.only(right: 8),
             child: GestureDetector(
-              onTap: () => ref.read(itemProvider.notifier).state = index,
+              onTap: () => {
+                ref.read(itemProvider.notifier).state = index,
+                ref.read(stateName.notifier).state = categories[index],
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -236,6 +249,27 @@ class DetailjadwalPage extends ConsumerWidget {
           ],
         ),
       ],
+    );
+  }
+
+  ElevatedButton _btnFooter() {
+    return ElevatedButton.icon(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF1B5E20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        minimumSize: const Size.fromHeight(50),
+      ),
+      icon: SvgPicture.asset('assets/svgs/icon_wa.svg', color: Colors.white),
+      label: Text(
+        "Lihat Boarding Pass",
+        style: GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

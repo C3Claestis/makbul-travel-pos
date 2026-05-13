@@ -8,15 +8,29 @@ class Infoperjalanantab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: dataInfoPerjalanan.length,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        final item = dataInfoPerjalanan[index];
-        return _buildinfoPerjalananItem(item);
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Informasi Perjalanan",
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: dataInfoPerjalanan.length,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            final item = dataInfoPerjalanan[index];
+            return _buildinfoPerjalananItem(item);
+          },
+        ),
+      ],
     );
   }
 
@@ -66,6 +80,7 @@ class Infoperjalanantab extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey.shade700,
+                  height: 1.5,
                 ),
               ),
             ],
