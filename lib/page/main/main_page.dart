@@ -14,8 +14,9 @@ import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_
 // Import halaman yang sudah ada
 //import 'package:makbul_app/page/main/dashboard_page.dart';
 import 'package:makbul_app/page/main/jamaah/paketsaya_page.dart';
+import 'package:makbul_app/page/main/jamaah/profil_page.dart';
 import 'package:makbul_app/page/main/paketumrah_page.dart';
-import 'package:makbul_app/page/main/pembayaran_page.dart';
+
 import 'package:makbul_app/page/main/pengguna_page.dart';
 
 // Import mock backend service untuk mendapatkan data user
@@ -67,8 +68,7 @@ class MainPage extends ConsumerWidget {
           pages = const [
             DashboardTravel(),
             PaketsayaPage(),
-            PaketumrahPage(),
-            PembayaranPage(),
+            PaketumrahPage(),            
             PenggunaPage(),
           ];
           navItems = [
@@ -98,7 +98,7 @@ class MainPage extends ConsumerWidget {
         
         //JAMAAH NAVBAR
         else {
-          pages = const [DashboardJamaah(), PembayaranPage(), PenggunaPage()];
+          pages = const [DashboardJamaah(), ProfilPage(), ProfilPage()];
 
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Beranda'),

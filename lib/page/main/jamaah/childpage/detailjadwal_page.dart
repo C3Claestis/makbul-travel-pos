@@ -56,7 +56,7 @@ class DetailjadwalPage extends ConsumerWidget {
               _buildDistanceFilter(ref),
               const SizedBox(height: 16),
               buildContent(ref),
-              const SizedBox(height: 32),
+              const SizedBox(height: 32),                             
             ],
           ),
         ),

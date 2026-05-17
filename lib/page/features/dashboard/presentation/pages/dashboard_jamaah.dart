@@ -14,6 +14,7 @@ import '../../../../main/jamaah/lokasihotel_page.dart';
 import '../../../../main/jamaah/paketsaya_page.dart';
 import '../../../..//main/jamaah/pembayaran_page.dart';
 import '../../../../main/jamaah/jenispenerbangan_page.dart';
+import '../../../../main/jamaah/pilihpaket_page.dart';
 
 class DashboardJamaah extends ConsumerWidget {
   const DashboardJamaah({super.key});
@@ -56,7 +57,7 @@ class DashboardJamaah extends ConsumerWidget {
                 _content(context),
               ],
             ),
-          ),          
+          ),
         );
       },
     );
@@ -158,6 +159,70 @@ class DashboardJamaah extends ConsumerWidget {
           ),
 
           const SizedBox(height: 28),
+
+          // ================= PILIH PAKET UMROH =================
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PilihpaketPage(),
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
+                color: Color(0xff0B7A2F),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/images/img-kabah.png",
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "PILIH PAKET UMROH",
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "Temukan paket terbaik untuk Anda",
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Color(0xff0B7A2F),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
 
           // ================= MENU =================
           Align(
