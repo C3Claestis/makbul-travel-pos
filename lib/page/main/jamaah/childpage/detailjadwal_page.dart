@@ -5,12 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/InfoPerjalanan_tab.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/hotel_tab.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/itinerary_tab.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/kontakDarurat_tab.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/pembimbing_tab.dart';
-import 'package:makbul_app/page/main/jamaah/childpage/widget/tiket_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/InfoPerjalanan_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/hotel_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/itinerary_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/kontakDarurat_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/pembimbing_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/detailPerjalanan/tiket_tab.dart';
 
 final itemProvider = StateProvider<int>((ref) => 0);
 final stateName = StateProvider<String>((ref) => "Itinerary");

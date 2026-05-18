@@ -3,6 +3,60 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final Map<String, dynamic> data = {
+  "Data": [
+    {
+      "id": 1,
+      "icon": Icons.person_2_outlined,
+      "nama": "Data Pribadi",
+      "value": "Lihat dan kelola data diri Anda",
+      "logout": false,
+    },
+    {
+      "id": 2,
+      "icon": Icons.badge_outlined,
+      "nama": "Verifikasi Identitas",
+      "value": "Status verifikasi & dokumen",
+      "logout": false,
+    },
+    {
+      "id": 3,
+      "icon": Icons.location_on_outlined,
+      "nama": "Alamat",
+      "value": "Kelola alamat domisili Anda",
+      "logout": false,
+    },
+    {
+      "id": 4,
+      "icon": Icons.favorite_border_outlined,
+      "nama": "Preferensi",
+      "value": "Pengaturan preferensi Anda",
+      "logout": false,
+    },
+    {
+      "id": 5,
+      "icon": Icons.lock_outline_rounded,
+      "nama": "Keamanan",
+      "value": "Ubah password & keamanan akun",
+      "logout": false,
+    },
+    {
+      "id": 6,
+      "icon": Icons.help_outline_outlined,
+      "nama": "Bantuan",
+      "value": "Pusat bantuan & FAQ",
+      "logout": false,
+    },
+    {
+      "id": 7,
+      "icon": Icons.login_outlined,
+      "nama": "Keluar",
+      "value": "Keluar dari akun Makbul",
+      "logout": true,
+    },
+  ],
+};
+
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
 
@@ -20,10 +74,108 @@ class ProfilPage extends StatelessWidget {
             bottom: 20,
           ),
           child: Column(
-            children: [_profilSaya(), const SizedBox(height: 16), _header()],
+            children: [
+              _profilSaya(),
+              const SizedBox(height: 16),
+              _header(),
+              const SizedBox(height: 16),
+              _isi(),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Container _isi() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 12,
+            spreadRadius: 2,
+            offset: Offset(1, 1),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ...List.generate(data["Data"].length, (index) {
+            final item = data["Data"][index];
+            return _itemIsi(
+              item["icon"],
+              item["nama"],
+              item["value"],
+              item["logout"],
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemIsi(IconData icon, String nama, String value, bool? logout) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: (logout == false)
+                      ? Color(0xff0B7A2F).withOpacity(0.07)
+                      : Colors.red.withOpacity(0.07),
+                ),
+                child: Icon(
+                  icon,
+                  size: 32,
+                  color: (logout == false) ? Color(0xff0B7A2F) : Colors.red,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    nama,
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    value,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffB0B3BA),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Icon(Icons.arrow_forward_ios_rounded, size: 16),
+            ],
+          ),
+        ),
+        const SizedBox(height: 2),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            height: (logout == false) ? 1 : 0,
+            width: 340,
+            color: Colors.grey,
+          ),
+        ),
+      ],
     );
   }
 

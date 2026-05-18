@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/detailpaketumroh_page.dart';
 import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 final selectedDropdown = StateProvider<String?>((ref) => "Popularitas");
@@ -44,6 +45,7 @@ class PilihpaketPage extends ConsumerWidget {
               ...List.generate(
                 paketumrohList.length,
                 (index) => _itemPaket(
+                  context: context,
                   id: paketumrohList[index].id,
                   title: paketumrohList[index].title,
                   maskapai: paketumrohList[index].maskapai,
@@ -51,7 +53,7 @@ class PilihpaketPage extends ConsumerWidget {
                   mekkahNights: paketumrohList[index].mekkahNights,
                   madinahNights: paketumrohList[index].madinahNights,
                   transit: paketumrohList[index].transit,
-                  price: paketumrohList[index].price,                  
+                  price: paketumrohList[index].price,
                   image: paketumrohList[index].image,
                 ),
               ),
@@ -63,6 +65,7 @@ class PilihpaketPage extends ConsumerWidget {
   }
 
   Container _itemPaket({
+    required BuildContext context,
     required String id,
     required String title,
     required String maskapai,
@@ -224,22 +227,34 @@ class PilihpaketPage extends ConsumerWidget {
                       ),
                     ),
                     const Spacer(),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.green, width: 1.5),
-                      ),
-                      child: Text(
-                        "Lihat Detail",
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff0B7A2F),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DetailpaketumrohPage();
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.green, width: 1.5),
+                        ),
+                        child: Text(
+                          "Lihat Detail",
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff0B7A2F),
+                          ),
                         ),
                       ),
                     ),

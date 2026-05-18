@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../data/detailitinerary.dart';
+import '../../../data/detailitinerary.dart';
 
 class ItineraryTab extends StatelessWidget {
   const ItineraryTab({super.key});

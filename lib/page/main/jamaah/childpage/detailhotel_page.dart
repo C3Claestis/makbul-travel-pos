@@ -27,16 +27,18 @@ class DetailhotelPage extends ConsumerWidget {
             _appBar(context),
 
             // 🔥 CONTAINER YANG MENIMPA APPBAR
-            _content(selectedHotel),
+            _content(selectedHotel, context),
           ],
         ),
       ),
     );
   }
 
-  Positioned _content(Hotelmodel selectedHotel) {
+  Positioned _content(Hotelmodel selectedHotel, BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return Positioned(
-      top: 110, // ⬅️ ini kunci overlap (atur sesuai selera)
+      top: height * 0.15, // 👈 otomatis adaptif semua device
       left: 0,
       right: 0,
       bottom: 0,
