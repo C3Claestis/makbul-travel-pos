@@ -3,8 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RingkasanTab extends StatelessWidget {
-  const RingkasanTab({super.key});
+final data = [
+  'Paspor masih berlaku minimal 8 bulan dari tanggal keberangkatan.',
+  'Foto berwarna terbaru 4x6 denga latar belakang putih (80% wajah).',
+  'KTP fotocopy & Kartu Keluarga fotocopy.',
+  'Bukti vaksin meningitis (sertifikat internasional).',
+  'Pembayaran DP minimal 30% untuk konfirmasi pendaftaran.',
+  'Pelunasan maksimal 30 hari sebelum keberangkatan.',
+  'Harga dapat berubah sewaktu-waktu mengikuti kebijakan maskapai dan pemerintah Arab Saudi.',
+];
+
+class SyaratTab extends StatelessWidget {
+  const SyaratTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +22,25 @@ class RingkasanTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Tentang Paket",
+          "Syarat & Ketentuan",
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ListView.separated(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: data.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 16),
+          itemBuilder: (context, index) => _item(data[index]),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          "Pembatalan & Refund",
           style: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -20,37 +48,19 @@ class RingkasanTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _deskripsiPaket(),
-        const SizedBox(height: 16),
-        _rowIsi(),
+        Text(
+          "> 60 hari sebelum keberangkatan : Refund 90%\n30 - 60 hari sebelum keberangkatan : Refund 50%\n< 30 hari sebelum keberangkatan : Tidak ada refund",
+          style: GoogleFonts.inter(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+            height: 1.5,
+          ),
+        ),
         const SizedBox(height: 16),
         _infoTravel(),
         const SizedBox(height: 16),
         _infoAgent(),
-      ],
-    );
-  }
-
-  Text _deskripsiPaket() {
-    return Text(
-      "Paket umroh reguler dengan pelayanan terbaik, hotel bintang 5 di Mekkah dan Madinah, makan 3x sehari, ziarah sesuai sunnah, dan pembimbing berpengalaman",
-      style: GoogleFonts.inter(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
-      ),
-    );
-  }
-
-  Row _rowIsi() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _iconrol(Icons.apartment_rounded, "Hotel", "Bintang 5"),
-        _iconrol(Icons.restaurant, "Makan", "3x Sehari"),
-        _iconrol(Icons.place_outlined, "Ziarah", "Lengkap"),
-        _iconrol(Icons.person, "Pembimbing", "Berpengalaman"),
-        _iconrol(Icons.library_add_check_outlined, "Asuransi", "Perjalanan"),
       ],
     );
   }
@@ -166,7 +176,7 @@ class RingkasanTab extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [        
+        children: [
           Text(
             "Informasi Travel",
             style: GoogleFonts.inter(
@@ -226,32 +236,19 @@ class RingkasanTab extends StatelessWidget {
     );
   }
 
-  Column _iconrol(IconData icon, String text, String value) {
-    return Column(
+  Widget _item(String title) {
+    return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Color(0xff0B7A2F).withOpacity(0.1),
-          ),
-          child: Icon(icon, color: Color(0xff0B7A2F), size: 24),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          text,
-          style: GoogleFonts.inter(
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
-        ),
-        Text(
-          value,
-          style: GoogleFonts.inter(
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
+        Icon(Icons.remove_circle_outline, color: Color(0xff0B7A2F), size: 24),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
           ),
         ),
       ],

@@ -526,7 +526,7 @@ class DetailpenerbanganPage extends ConsumerWidget {
     return Expanded(
       child: Container(
         // color: Colors.amber,
-        padding: const EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 8),
+        padding: const EdgeInsets.only(left: 6, right: 6, top: 0, bottom: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

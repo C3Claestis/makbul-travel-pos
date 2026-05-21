@@ -233,7 +233,7 @@ class PilihpaketPage extends ConsumerWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return DetailpaketumrohPage();
+                              return DetailpaketumrohPage(price: price,);
                             },
                           ),
                         );
@@ -350,7 +350,7 @@ class PilihpaketPage extends ConsumerWidget {
               BoxShadow(
                 color: Colors.black.withOpacity(0.15),
                 blurRadius: 7,
-                spreadRadius: 2,
+                spreadRadius: 0.2,
                 offset: Offset(1, 1),
               ),
             ],

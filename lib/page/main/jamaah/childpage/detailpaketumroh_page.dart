@@ -5,7 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/fasilitas_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/hotel_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/jadwal_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/penerbangan_tab.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/ringkasan_tab.dart';
+import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/syarat_tab.dart';
 
 final imageIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -13,11 +19,14 @@ final itemProvider = StateProvider<int>((ref) => 0);
 final stateName = StateProvider<String>((ref) => "Ringkasan");
 
 class DetailpaketumrohPage extends ConsumerWidget {
-  const DetailpaketumrohPage({super.key});
+  final double price;
+
+  const DetailpaketumrohPage({super.key, required this.price});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(imageIndexProvider);
+    final formatCurrency = NumberFormat("#,##0", "id_ID");
 
     final List<String> images = [
       "assets/images/kaba.jpg",
@@ -101,11 +110,11 @@ class DetailpaketumrohPage extends ConsumerWidget {
                     right: 16,
                     child: Row(
                       children: [
-                        _circleIcon(Icons.arrow_back_ios_new_rounded),
+                        _circleIcon(Icons.arrow_back_ios_new_rounded, context),
                         const Spacer(),
-                        _circleIcon(Icons.file_upload_outlined),
+                        _circleIcon(Icons.file_upload_outlined, context),
                         const SizedBox(width: 8),
-                        _circleIcon(Icons.favorite_border_outlined),
+                        _circleIcon(Icons.favorite_border_outlined, context),
                       ],
                     ),
                   ),
@@ -243,6 +252,77 @@ class DetailpaketumrohPage extends ConsumerWidget {
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 12,
+              spreadRadius: 1,
+              color: Colors.black.withOpacity(0.08),
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          top: false,
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Rp ${formatCurrency.format(price)}",
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xff0B7A2F),
+                      ),
+                    ),
+                    Text(
+                      "/ jamaah",
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 16),
+
+              Expanded(
+                child: SizedBox(
+                  height: 42,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: const Color(0xFF6D28D9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      "Pilih Paket Ini",
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -252,16 +332,16 @@ class DetailpaketumrohPage extends ConsumerWidget {
     switch (selected) {
       case 0:
         return const RingkasanTab();
-      // case 1:
-      //   return const Infoperjalanantab();
-      // case 2:
-      //   return const TiketTab();
-      // case 3:
-      //   return const HotelTab();
-      // case 4:
-      //   return const PembimbingTab();
-      // case 5:
-      //   return const KontakdaruratTab();
+      case 1:
+        return const JadwalTab();
+      case 2:
+        return const HotelTab();
+      case 3:
+        return const PenerbanganTab();
+      case 4:
+        return const FasilitasTab();
+      case 5:
+        return const SyaratTab();
       default:
         return const SizedBox.shrink();
     }
@@ -358,14 +438,19 @@ class DetailpaketumrohPage extends ConsumerWidget {
     );
   }
 
-  Widget _circleIcon(IconData icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
+  Widget _circleIcon(IconData icon, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        child: Icon(icon, size: 16),
       ),
-      child: Icon(icon, size: 16),
     );
   }
 }
