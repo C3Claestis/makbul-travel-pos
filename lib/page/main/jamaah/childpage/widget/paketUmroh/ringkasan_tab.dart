@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 class RingkasanTab extends StatelessWidget {
-  const RingkasanTab({super.key});
+  final Paketumroh paketumroh;
+
+  const RingkasanTab({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class RingkasanTab extends StatelessWidget {
 
   Text _deskripsiPaket() {
     return Text(
-      "Paket umroh reguler dengan pelayanan terbaik, hotel bintang 5 di Mekkah dan Madinah, makan 3x sehari, ziarah sesuai sunnah, dan pembimbing berpengalaman",
+      paketumroh.detailpaketumroh.description,
       style: GoogleFonts.inter(
         fontSize: 12,
         fontWeight: FontWeight.w500,
@@ -101,34 +104,38 @@ class RingkasanTab extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(32),
-                    child: Image.asset(
-                      'assets/images/person/pembimbing-1.png',
-                      width: 64,
+                    child: Image.network(
+                      paketumroh.detailpaketumroh.dataagen[0],
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Aisyah Rahma",
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          paketumroh.detailpaketumroh.dataagen[1],
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          maxLines: 1,
                         ),
-                      ),
-                      Text(
-                        "Konsultan Umroh",
-                        style: GoogleFonts.inter(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                        Text(
+                          paketumroh.detailpaketumroh.dataagen[2],
+                          style: GoogleFonts.inter(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const Spacer(),
                   Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -166,7 +173,7 @@ class RingkasanTab extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [        
+        children: [
           Text(
             "Informasi Travel",
             style: GoogleFonts.inter(
@@ -193,13 +200,21 @@ class RingkasanTab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Image.asset('assets/images/logo.png', width: 64),
-                  const SizedBox(width: 4),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Image.network(
+                      paketumroh.detailpaketumroh.datatravel[0],
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Sahabat Tours & Travel",
+                        paketumroh.detailpaketumroh.datatravel[1],
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -207,7 +222,7 @@ class RingkasanTab extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Izin PPIU No. 1234 Tahun 2019",
+                        paketumroh.detailpaketumroh.datatravel[2],
                         style: GoogleFonts.inter(
                           fontSize: 10,
                           fontWeight: FontWeight.w400,

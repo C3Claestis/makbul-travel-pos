@@ -7,7 +7,7 @@ class Paketumroh {
   final String madinahNights;
   final String transit;
   final double price;
-  final String image;
+  final List<String> image;
   final bool isFavorite;
   final Detailpaketumroh detailpaketumroh;
 
@@ -33,6 +33,7 @@ class Detailpaketumroh {
   final List<String> dataagen;
   final List<JadwalHari> jadwal;
   final List<HotelInfo> hotel;
+  final List<PenerbanganInfo> penerbangan;
   final List<String> fasilitas;
   final List<String> persyaratan;
 
@@ -43,6 +44,7 @@ class Detailpaketumroh {
     required this.dataagen,
     required this.jadwal,
     required this.hotel,
+    required this.penerbangan,
     required this.fasilitas,
     required this.persyaratan,
   });
@@ -62,16 +64,62 @@ class JadwalHari {
 
 class HotelInfo {
   final String nama;
+  final String city;
+  final String keterangan;
   final String jarak;
   final String rating;
   final List<String> images;
 
   HotelInfo({
     required this.nama,
+    required this.city,
+    required this.keterangan,
     required this.jarak,
     required this.rating,
     required this.images,
   });
+}
+
+class FlightSegment {
+  final String maskapai;
+  final String kode;
+  final String kelas;
+
+  final String kodeAwal;
+  final String kodeAkhir;
+
+  final String waktuAwal;
+  final String waktuAkhir;
+
+  final String totalWaktu;
+
+  final String tanggalAwal;
+  final String tanggalAkhir;
+
+  final String bandaraAwal;
+  final String bandaraAkhir;
+
+  FlightSegment({
+    required this.maskapai,
+    required this.kode,
+    required this.kelas,
+    required this.kodeAwal,
+    required this.kodeAkhir,
+    required this.waktuAwal,
+    required this.waktuAkhir,
+    required this.totalWaktu,
+    required this.tanggalAwal,
+    required this.tanggalAkhir,
+    required this.bandaraAwal,
+    required this.bandaraAkhir,
+  });
+}
+
+class PenerbanganInfo {
+  final FlightSegment berangkat;
+  final FlightSegment pulang;
+
+  PenerbanganInfo({required this.berangkat, required this.pulang});
 }
 
 final List<Paketumroh> paketumrohList = [
@@ -84,9 +132,11 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 3N',
     transit: 'Jeddah',
     price: 28000000,
-    image:
-        'https://images.unsplash.com/photo-1511091734515-e50d46c37240?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-
+    image: [
+      'https://images.unsplash.com/photo-1511091734515-e50d46c37240?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
     // =============================================
     // PAKET 1 - Umrah Reguler 9 Hari (UMH-09RG)
     // =============================================
@@ -178,27 +228,74 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Pullman ZamZam Mekkah',
-          jarak: '800 m',
+          city: 'Mekkah',
+          keterangan: '(4 Malam)',
+          jarak: '800 m dari Masjidil Haram',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1566073771259-6a8506099945',
-            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
-            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
-            'https://images.unsplash.com/photo-1590490360182-c33d57733427',
-            'https://images.unsplash.com/photo-1564501049412-61c2a3083791',
+            'https://plus.unsplash.com/premium_photo-1681429766562-fffa63d382c2?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661964071015-d97428970584?q=80&w=1620&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1687960116497-0dc41e1808a2?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
           nama: 'Maden Hotel Madinah',
-          jarak: '300 m',
+          city: 'Madinah',
+          keterangan: '(3 Malam)',
+          jarak: '300 m dari Masjid Nabawi',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9',
-            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
-            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
-            'https://images.unsplash.com/photo-1600011689032-8b628b8a8747',
-            'https://images.unsplash.com/photo-1521783988139-89397d761dce',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
+        ),
+        HotelInfo(
+          nama: 'Ibis Jeddah City Center',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: 'Dekat Bandara Jeddah',
+          rating: '4',
+          images: [
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Garuda\nIndonesia',
+            kode: 'GA-981',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '06:30',
+            waktuAkhir: '13:05',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Jumat, 10 Mei 2026',
+            tanggalAkhir: 'Sabtu, 11 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abudlahaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Batik Air',
+            kode: 'BA-120',
+            kelas: 'Business',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '14:30',
+            waktuAkhir: '04:45',
+            totalWaktu: '9j 15m',
+            tanggalAwal: 'Sabtu, 18 Mei 2026',
+            tanggalAkhir: 'Sabtu, 19 Mei 2026',
+            bandaraAwal: 'Prince Muhammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -227,8 +324,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 4N',
     transit: 'Istanbul',
     price: 35000000,
-    image:
-        'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1200&auto=format&fit=crop',
+    image: [
+      'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 2 - Umrah Plus Turki (UMH-12TR)
     // =============================================
@@ -329,27 +430,74 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Hilton Istanbul Bomonti',
+          city: 'Mekkah',
+          keterangan: '(5 Malam)',
           jarak: '1.2 km dari Blue Mosque',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1549294413-26f195200c16',
-            'https://images.unsplash.com/photo-1596436889106-be35e843f974',
-            'https://images.unsplash.com/photo-1603034203013-d532350372c4',
-            'https://images.unsplash.com/photo-1609766857585-b3929a9c39bd',
-            'https://images.unsplash.com/photo-1574643156929-51fa098b0394',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
           nama: 'Anjum Hotel Mekkah',
-          jarak: '600 m',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
+          jarak: '600 m dari Hagia Sophia',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb',
-            'https://images.unsplash.com/photo-1560347876-aeef00ee58a1',
-            'https://images.unsplash.com/photo-1568084680786-a84f91d1153c',
-            'https://images.unsplash.com/photo-1553653924-39b70295f8da',
-            'https://images.unsplash.com/photo-1576354302919-96748cb8299e',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
+        ),
+        HotelInfo(
+          nama: 'Sofitel Shahd Al Madinah',
+          city: 'Transit',
+          keterangan: '(Riyadh)',
+          jarak: '250 m',
+          rating: '5',
+          images: [
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Garuda Indonesia',
+            kode: 'GA-981',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '06:30',
+            waktuAkhir: '13:05',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Jumat, 10 Mei 2026',
+            tanggalAkhir: 'Sabtu, 11 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Batik Air',
+            kode: 'BA-120',
+            kelas: 'Business',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '14:30',
+            waktuAkhir: '04:45',
+            totalWaktu: '9j 15m',
+            tanggalAwal: 'Sabtu, 18 Mei 2026',
+            tanggalAkhir: 'Sabtu, 19 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -379,8 +527,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 3N',
     transit: 'Jeddah',
     price: 32000000,
-    image:
-        'https://plus.unsplash.com/premium_photo-1670745800247-271e8977da41?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: [
+      'https://plus.unsplash.com/premium_photo-1670745800247-271e8977da41?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 3 - Umrah Ramadhan Awal (UMH-10RM)
     // =============================================
@@ -490,6 +642,8 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Swissotel Al Maqam Mekkah',
+          city: 'Mekkah',
+          keterangan: '(5 Malam)',
           jarak: '50 m dari Masjidil Haram',
           rating: '5',
           images: [
@@ -502,6 +656,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Dallah Taibah Hotel Madinah',
+          city: 'Madinah',
+          keterangan: '(3 Malam)',
           jarak: '200 m dari Masjid Nabawi',
           rating: '4',
           images: [
@@ -511,6 +667,52 @@ final List<Paketumroh> paketumrohList = [
             'https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0',
             'https://images.unsplash.com/photo-1571896349842-33c89424de2d',
           ],
+        ),
+        HotelInfo(
+          nama: 'Elaf Kinda Hotel',
+          city: 'Transit',
+          keterangan: '(Riyadh)',
+          jarak: '700 m dari pusat kota',
+          rating: '4',
+          images: [
+            'https://images.unsplash.com/photo-1455587734955-081b22074882',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+            'https://images.unsplash.com/photo-1590490360182-c33d57733427',
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Lion Air',
+            kode: 'JT-310',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '07:00',
+            waktuAkhir: '13:40',
+            totalWaktu: '10j 40m',
+            tanggalAwal: 'Senin, 12 Mei 2026',
+            tanggalAkhir: 'Selasa, 13 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Lion Air',
+            kode: 'JT-311',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '15:10',
+            waktuAkhir: '05:20',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Senin, 20 Mei 2026',
+            tanggalAkhir: 'Selasa, 21 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -540,8 +742,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 5N',
     transit: 'Dubai',
     price: 48000000,
-    image:
-        'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop',
+    image: [
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 4 - Umrah VIP Executive (UMH-14VP)
     // =============================================
@@ -673,6 +879,8 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Raffles Makkah Palace',
+          city: 'Mekkah',
+          keterangan: '(6 Malam)',
           jarak: '0 m (terhubung langsung ke Masjidil Haram)',
           rating: '5',
           images: [
@@ -685,6 +893,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Al Safwah Royale Orchid Madinah',
+          city: 'Madinah',
+          keterangan: '(5 Malam)',
           jarak: '50 m dari Masjid Nabawi',
           rating: '5',
           images: [
@@ -694,6 +904,52 @@ final List<Paketumroh> paketumrohList = [
             'https://images.unsplash.com/photo-1598928636135-d146006ff4be',
             'https://images.unsplash.com/photo-1611048267451-e6ed879985cd',
           ],
+        ),
+        HotelInfo(
+          nama: 'Taiba Front Hotel',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '350 m dari pusat kota',
+          rating: '5',
+          images: [
+            'https://images.unsplash.com/photo-1521783988139-89397d761dce',
+            'https://images.unsplash.com/photo-1600011689032-8b628b8a8747',
+            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
+            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
+            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Saudi Airlines',
+            kode: 'SV-555',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '08:15',
+            waktuAkhir: '14:50',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Rabu, 14 Mei 2026',
+            tanggalAkhir: 'Kamis, 15 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Saudi Airlines',
+            kode: 'SV-556',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '16:00',
+            waktuAkhir: '06:10',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Kamis, 22 Mei 2026',
+            tanggalAkhir: 'Jumat, 23 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -723,8 +979,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 3N',
     transit: 'Jakarta',
     price: 24000000,
-    image:
-        'https://images.unsplash.com/photo-1590273089302-ebbc53986b6e?q=80&w=758&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: [
+      'https://images.unsplash.com/photo-1590273089302-ebbc53986b6e?q=80&w=758&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 5 - Umrah Hemat (UMH-09HM)
     // =============================================
@@ -824,6 +1084,8 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Al Massa Hotel Mekkah',
+          city: 'Mekkah',
+          keterangan: '(4 Malam)',
           jarak: '1.2 km dari Masjidil Haram',
           rating: '3',
           images: [
@@ -836,6 +1098,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Al Ansar Hotel Madinah',
+          city: 'Madinah',
+          keterangan: '(3 Malam)',
           jarak: '900 m dari Masjid Nabawi',
           rating: '3',
           images: [
@@ -845,6 +1109,52 @@ final List<Paketumroh> paketumrohList = [
             'https://images.unsplash.com/photo-1493809842364-78817add7ffb',
             'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9',
           ],
+        ),
+        HotelInfo(
+          nama: 'Al Marwa Rayhaan',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '550 m dari Bandara Jeddah',
+          rating: '5',
+          images: [
+            'https://images.unsplash.com/photo-1455587734955-081b22074882',
+            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1590490360182-c33d57733427',
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Citilink',
+            kode: 'QG-700',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '05:45',
+            waktuAkhir: '12:30',
+            totalWaktu: '10j 45m',
+            tanggalAwal: 'Jumat, 16 Mei 2026',
+            tanggalAkhir: 'Sabtu, 17 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Citilink',
+            kode: 'QG-701',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '13:20',
+            waktuAkhir: '03:50',
+            totalWaktu: '9j 30m',
+            tanggalAwal: 'Sabtu, 24 Mei 2026',
+            tanggalAkhir: 'Minggu, 25 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -872,8 +1182,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 4N',
     transit: 'Doha',
     price: 36000000,
-    image:
-        'https://images.unsplash.com/photo-1519817650390-64a93db51149?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bW9zcXVlfGVufDB8fDB8fHww',
+    image: [
+      'https://images.unsplash.com/photo-1519817650390-64a93db51149?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bW9zcXVlfGVufDB8fDB8fHww',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 6 - Umrah Syawal (UMH-11SW)
     // =============================================
@@ -989,7 +1303,23 @@ final List<Paketumroh> paketumrohList = [
       ],
       hotel: [
         HotelInfo(
+          nama: 'Grand Zam Zam Hotel Mekkah',
+          city: 'Mekkah',
+          keterangan: '(5 Malam)',
+          jarak: '400 m dari Masjidil Haram',
+          rating: '4',
+          images: [
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1506059612708-99d6c258160e',
+            'https://images.unsplash.com/photo-1533090368676-1fd25485db88',
+            'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a',
+            'https://images.unsplash.com/photo-1531088009183-5ff5b7c5acbd',
+          ],
+        ),
+        HotelInfo(
           nama: 'Movenpick Hotel Madinah',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
           jarak: '250 m dari Masjid Nabawi',
           rating: '5',
           images: [
@@ -1001,16 +1331,50 @@ final List<Paketumroh> paketumrohList = [
           ],
         ),
         HotelInfo(
-          nama: 'Grand Zam Zam Hotel Mekkah',
-          jarak: '400 m dari Masjidil Haram',
-          rating: '4',
+          nama: 'Dar Al Taqwa Hotel',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '200 m dari Bandara Doha',
+          rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1506059612708-99d6c258160e',
-            'https://images.unsplash.com/photo-1533090368676-1fd25485db88',
-            'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a',
-            'https://images.unsplash.com/photo-1531088009183-5ff5b7c5acbd',
+            'https://images.unsplash.com/photo-1600011689032-8b628b8a8747',
+            'https://images.unsplash.com/photo-1521783988139-89397d761dce',
+            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
+            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
           ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Garuda Indonesia',
+            kode: 'GA-985',
+            kelas: 'Business',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '09:00',
+            waktuAkhir: '15:35',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Sabtu, 17 Mei 2026',
+            tanggalAkhir: 'Minggu, 18 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Batik Air',
+            kode: 'BA-121',
+            kelas: 'Business',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '17:45',
+            waktuAkhir: '07:55',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Minggu, 25 Mei 2026',
+            tanggalAkhir: 'Senin, 26 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -1039,8 +1403,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 4N',
     transit: 'Abu Dhabi',
     price: 39000000,
-    image:
-        'https://images.unsplash.com/photo-1590075865003-e48277faa558?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: [
+      'https://images.unsplash.com/photo-1590075865003-e48277faa558?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 7 - Umrah Akhir Tahun (UMH-13AK)
     // =============================================
@@ -1157,7 +1525,23 @@ final List<Paketumroh> paketumrohList = [
       ],
       hotel: [
         HotelInfo(
+          nama: 'Conrad Mekkah',
+          city: 'Mekkah',
+          keterangan: '(5 Malam)',
+          jarak: '700 m dari Masjidil Haram',
+          rating: '5',
+          images: [
+            'https://images.unsplash.com/photo-1444201983204-c43cbd584d93',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1488872773522-4661eea94c57',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1462730461406-89cd1fe9a114',
+          ],
+        ),
+        HotelInfo(
           nama: 'Elaf Taibah Hotel Madinah',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
           jarak: '350 m dari Masjid Nabawi',
           rating: '4',
           images: [
@@ -1169,16 +1553,50 @@ final List<Paketumroh> paketumrohList = [
           ],
         ),
         HotelInfo(
-          nama: 'Conrad Mekkah',
-          jarak: '700 m dari Masjidil Haram',
+          nama: 'Jabal Omar Hyatt Regency',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '650 m dari Bandara Doha',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1444201983204-c43cbd584d93',
-            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1488872773522-4661eea94c57',
-            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1462730461406-89cd1fe9a114',
+            'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa',
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+            'https://images.unsplash.com/photo-1582719508461-905c673771fd',
+            'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8',
+            'https://images.unsplash.com/photo-1566073771259-6a8506099945',
           ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Emirates',
+            kode: 'EK-359',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '10:10',
+            waktuAkhir: '16:45',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Senin, 19 Mei 2026',
+            tanggalAkhir: 'Selasa, 20 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Emirates',
+            kode: 'EK-360',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '18:30',
+            waktuAkhir: '08:40',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Selasa, 27 Mei 2026',
+            tanggalAkhir: 'Rabu, 28 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -1207,8 +1625,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 3N',
     transit: 'Kuala Lumpur',
     price: 22000000,
-    image:
-        'https://images.unsplash.com/photo-1519818187420-8e49de7adeef?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: [
+      'https://images.unsplash.com/photo-1519818187420-8e49de7adeef?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 8 - Umrah Backpacker (UMH-08BP)
     // =============================================
@@ -1301,6 +1723,8 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Al Bait Al Aqeeq Mekkah',
+          city: 'Mekkah',
+          keterangan: '(3 Malam)',
           jarak: '1.5 km dari Masjidil Haram',
           rating: '3',
           images: [
@@ -1313,6 +1737,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Rose Garden Hotel Madinah',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
           jarak: '1 km dari Masjid Nabawi',
           rating: '3',
           images: [
@@ -1322,6 +1748,52 @@ final List<Paketumroh> paketumrohList = [
             'https://images.unsplash.com/photo-1489171078254-c3365d6e359f',
             'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267',
           ],
+        ),
+        HotelInfo(
+          nama: 'Frontel Al Harithia',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '500 m dari Bandara Doha',
+          rating: '4',
+          images: [
+            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
+            'https://images.unsplash.com/photo-1521783988139-89397d761dce',
+            'https://images.unsplash.com/photo-1600011689032-8b628b8a8747',
+            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
+          ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Qatar Airways',
+            kode: 'QR-955',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '11:25',
+            waktuAkhir: '18:00',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Rabu, 21 Mei 2026',
+            tanggalAkhir: 'Kamis, 22 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Qatar Airways',
+            kode: 'QR-956',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '19:40',
+            waktuAkhir: '09:50',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Kamis, 29 Mei 2026',
+            tanggalAkhir: 'Jumat, 30 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -1350,8 +1822,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 4N',
     transit: 'Amman',
     price: 52000000,
-    image:
-        'https://images.unsplash.com/photo-1758458045183-7e7c453a0580?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: [
+      'https://images.unsplash.com/photo-1758458045183-7e7c453a0580?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 9 - Umrah Plus Aqsa (UMH-15AQ)
     // =============================================
@@ -1488,6 +1964,8 @@ final List<Paketumroh> paketumrohList = [
       hotel: [
         HotelInfo(
           nama: 'Kempinski Hotel Amman',
+          city: 'Amman',
+          keterangan: '(5 Malam)',
           jarak: 'Pusat kota Amman',
           rating: '5',
           images: [
@@ -1500,6 +1978,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Oberoi Madinah',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
           jarak: '100 m dari Masjid Nabawi',
           rating: '5',
           images: [
@@ -1512,6 +1992,8 @@ final List<Paketumroh> paketumrohList = [
         ),
         HotelInfo(
           nama: 'Fairmont Mekkah Clock Royal Tower',
+          city: 'Mekkah',
+          keterangan: '(3 Malam)',
           jarak: '0 m (dalam kompleks Abraj Al-Bait)',
           rating: '5',
           images: [
@@ -1521,6 +2003,38 @@ final List<Paketumroh> paketumrohList = [
             'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9',
             'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
           ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'AirAsia',
+            kode: 'AK-382',
+            kelas: 'Ekonomi',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '06:50',
+            waktuAkhir: '13:25',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Kamis, 22 Mei 2026',
+            tanggalAkhir: 'Jumat, 23 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'AirAsia',
+            kode: 'AK-383',
+            kelas: 'Ekonomi',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '14:10',
+            waktuAkhir: '04:20',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Jumat, 30 Mei 2026',
+            tanggalAkhir: 'Sabtu, 31 Mei 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [
@@ -1552,8 +2066,12 @@ final List<Paketumroh> paketumrohList = [
     madinahNights: 'Madinah 3N',
     transit: 'Jeddah',
     price: 30000000,
-    image:
-        'https://images.pexels.com/photos/35332420/pexels-photo-35332420.jpeg',
+    image: [
+      'https://images.pexels.com/photos/35332420/pexels-photo-35332420.jpeg',
+      'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
     // =============================================
     // PAKET 10 - Umrah Keluarga (UMH-10KL)
     // =============================================
@@ -1664,7 +2182,23 @@ final List<Paketumroh> paketumrohList = [
       ],
       hotel: [
         HotelInfo(
+          nama: 'Marriott Hotel Mekkah',
+          city: 'Mekkah',
+          keterangan: '(5 Malam)',
+          jarak: '900 m dari Masjidil Haram',
+          rating: '5',
+          images: [
+            'https://images.unsplash.com/photo-1603034203013-d532350372c4',
+            'https://images.unsplash.com/photo-1609766857585-b3929a9c39bd',
+            'https://images.unsplash.com/photo-1596436889106-be35e843f974',
+            'https://images.unsplash.com/photo-1574643156929-51fa098b0394',
+            'https://images.unsplash.com/photo-1560347876-aeef00ee58a1',
+          ],
+        ),
+        HotelInfo(
           nama: 'Doubletree by Hilton Madinah',
+          city: 'Madinah',
+          keterangan: '(4 Malam)',
           jarak: '500 m dari Masjid Nabawi',
           rating: '4',
           images: [
@@ -1676,16 +2210,50 @@ final List<Paketumroh> paketumrohList = [
           ],
         ),
         HotelInfo(
-          nama: 'Marriott Hotel Mekkah',
-          jarak: '900 m dari Masjidil Haram',
-          rating: '5',
+          nama: 'Emaar Royal Hotel',
+          city: 'Transit',
+          keterangan: '(Jeddah)',
+          jarak: '450 m dari Bandara Doha',
+          rating: '4',
           images: [
-            'https://images.unsplash.com/photo-1603034203013-d532350372c4',
-            'https://images.unsplash.com/photo-1609766857585-b3929a9c39bd',
-            'https://images.unsplash.com/photo-1596436889106-be35e843f974',
-            'https://images.unsplash.com/photo-1574643156929-51fa098b0394',
-            'https://images.unsplash.com/photo-1560347876-aeef00ee58a1',
+            'https://images.unsplash.com/photo-1600011689032-8b628b8a8747',
+            'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
+            'https://images.unsplash.com/photo-1521783988139-89397d761dce',
+            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
           ],
+        ),
+      ],
+      penerbangan: [
+        PenerbanganInfo(
+          berangkat: FlightSegment(
+            maskapai: 'Turkish Airlines',
+            kode: 'TK-560',
+            kelas: 'Business',
+            kodeAwal: 'CGK',
+            kodeAkhir: 'JED',
+            waktuAwal: '07:40',
+            waktuAkhir: '14:15',
+            totalWaktu: '10j 35m',
+            tanggalAwal: 'Jumat, 23 Mei 2026',
+            tanggalAkhir: 'Sabtu, 24 Mei 2026',
+            bandaraAwal: 'Soekarno Hatta Intl',
+            bandaraAkhir: 'King Abdulaziz Intl',
+          ),
+          pulang: FlightSegment(
+            maskapai: 'Turkish Airlines',
+            kode: 'TK-561',
+            kelas: 'Business',
+            kodeAwal: 'MED',
+            kodeAkhir: 'CGK',
+            waktuAwal: '20:15',
+            waktuAkhir: '10:25',
+            totalWaktu: '9j 10m',
+            tanggalAwal: 'Sabtu, 31 Mei 2026',
+            tanggalAkhir: 'Minggu, 1 Juni 2026',
+            bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
+            bandaraAkhir: 'Soekarno Hatta Intl',
+          ),
         ),
       ],
       fasilitas: [

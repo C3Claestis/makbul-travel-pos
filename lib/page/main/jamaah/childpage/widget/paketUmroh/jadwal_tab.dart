@@ -1,67 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final List<Map<String, dynamic>> schedules = [
-  {
-    "day": "Hari 1",
-    "date": "Jumat, 10 Mei 2024",
-    "activities": [
-      "Berkumpul di Bandara Soekarno Hatta",
-      "Check-in & persiapan keberangkatan",
-      "Penerbangan menuju Jeddah",
-    ],
-  },
-  {
-    "day": "Hari 2",
-    "date": "Sabtu, 11 Mei 2024",
-    "activities": [
-      "Tiba di Jeddah",
-      "Proses imigrasi & pengambilan bagasi",
-      "City tour Jeddah",
-      "Menuju Mekkah & check-in hotel",
-      "Umrah pertama",
-    ],
-  },
-  {
-    "day": "Hari 3 - 5",
-    "date": "Minggu - Selasa, 12 - 14 Mei 2024",
-    "activities": [
-      "Ibadah di Masjidil Haram",
-      "Program bebas dengan bimbingan muthawwif",
-    ],
-  },
-  {
-    "day": "Hari 6",
-    "date": "Rabu, 15 Mei 2024",
-    "activities": [
-      "Check-out hotel Mekkah",
-      "Perjalanan menuju Madinah",
-      "Check-in hotel Madinah",
-      "Ziarah Kota Madinah",
-    ],
-  },
-  {
-    "day": "Hari 7 - 8",
-    "date": "Kamis - Jumat, 16 - 17 Mei 2024",
-    "activities": [
-      "Ibadah di Masjid Nabawi",
-      "Ziarah sekitar Madinah",
-      "Program bebas",
-    ],
-  },
-  {
-    "day": "Hari 9",
-    "date": "Sabtu, 18 Mei 2024",
-    "activities": [
-      "Check-out hotel Madinah",
-      "Menuju Bandara Madinah",
-      "Penerbangan kembali ke Indonesia",
-    ],
-  },
-];
+import '../../../data/paketumroh.dart';
+
+// final List<Map<String, dynamic>> schedules = [
+//   {
+//     "day": "Hari 1",
+//     "date": "Jumat, 10 Mei 2024",
+//     "activities": [
+//       "Berkumpul di Bandara Soekarno Hatta",
+//       "Check-in & persiapan keberangkatan",
+//       "Penerbangan menuju Jeddah",
+//     ],
+//   },
+//   {
+//     "day": "Hari 2",
+//     "date": "Sabtu, 11 Mei 2024",
+//     "activities": [
+//       "Tiba di Jeddah",
+//       "Proses imigrasi & pengambilan bagasi",
+//       "City tour Jeddah",
+//       "Menuju Mekkah & check-in hotel",
+//       "Umrah pertama",
+//     ],
+//   },
+//   {
+//     "day": "Hari 3 - 5",
+//     "date": "Minggu - Selasa, 12 - 14 Mei 2024",
+//     "activities": [
+//       "Ibadah di Masjidil Haram",
+//       "Program bebas dengan bimbingan muthawwif",
+//     ],
+//   },
+//   {
+//     "day": "Hari 6",
+//     "date": "Rabu, 15 Mei 2024",
+//     "activities": [
+//       "Check-out hotel Mekkah",
+//       "Perjalanan menuju Madinah",
+//       "Check-in hotel Madinah",
+//       "Ziarah Kota Madinah",
+//     ],
+//   },
+//   {
+//     "day": "Hari 7 - 8",
+//     "date": "Kamis - Jumat, 16 - 17 Mei 2024",
+//     "activities": [
+//       "Ibadah di Masjid Nabawi",
+//       "Ziarah sekitar Madinah",
+//       "Program bebas",
+//     ],
+//   },
+//   {
+//     "day": "Hari 9",
+//     "date": "Sabtu, 18 Mei 2024",
+//     "activities": [
+//       "Check-out hotel Madinah",
+//       "Menuju Bandara Madinah",
+//       "Penerbangan kembali ke Indonesia",
+//     ],
+//   },
+// ];
 
 class JadwalTab extends StatelessWidget {
-  const JadwalTab({super.key});
+  final Paketumroh paketumroh;
+
+  const JadwalTab({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +83,9 @@ class JadwalTab extends StatelessWidget {
 
         const SizedBox(height: 24),
 
-        ...List.generate(schedules.length, (index) {
-          final item = schedules[index];
-          final isLast = index == schedules.length - 1;
+        ...List.generate(paketumroh.detailpaketumroh.jadwal.length, (index) {
+          final item = paketumroh.detailpaketumroh.jadwal[index];
+          final isLast = index == paketumroh.detailpaketumroh.jadwal.length - 1;
 
           return IntrinsicHeight(
             child: Row(
@@ -134,7 +138,7 @@ class JadwalTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item["day"],
+                          item.hari,
                           style: GoogleFonts.inter(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -145,7 +149,7 @@ class JadwalTab extends StatelessWidget {
                         const SizedBox(height: 4),
 
                         Text(
-                          item["date"],
+                          item.tanggal,
                           style: GoogleFonts.inter(
                             fontSize: 13,
                             color: Colors.grey,
@@ -156,7 +160,7 @@ class JadwalTab extends StatelessWidget {
                         const SizedBox(height: 12),
 
                         ...List.generate(
-                          item["activities"].length,
+                          item.aktivitas.length,
                           (i) => Padding(
                             padding: const EdgeInsets.only(bottom: 6),
                             child: Row(
@@ -172,7 +176,7 @@ class JadwalTab extends StatelessWidget {
 
                                 Expanded(
                                   child: Text(
-                                    item["activities"][i],
+                                    item.aktivitas[i],
                                     style: GoogleFonts.inter(
                                       fontSize: 14,
                                       color: Colors.black87,

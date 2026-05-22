@@ -12,27 +12,32 @@ import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/jadwal_t
 import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/penerbangan_tab.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/ringkasan_tab.dart';
 import 'package:makbul_app/page/main/jamaah/childpage/widget/paketUmroh/syarat_tab.dart';
+import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 final imageIndexProvider = StateProvider<int>((ref) => 0);
 
 final itemProvider = StateProvider<int>((ref) => 0);
 final stateName = StateProvider<String>((ref) => "Ringkasan");
 
-class DetailpaketumrohPage extends ConsumerWidget {
-  final double price;
+String formatMalam(String text) {
+  final match = RegExp(r'(\d+)N').firstMatch(text);
 
-  const DetailpaketumrohPage({super.key, required this.price});
+  if (match != null) {
+    return '${match.group(1)} Malam';
+  }
+
+  return text;
+}
+
+class DetailpaketumrohPage extends ConsumerWidget {
+  final Paketumroh paketumroh;
+
+  const DetailpaketumrohPage({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(imageIndexProvider);
     final formatCurrency = NumberFormat("#,##0", "id_ID");
-
-    final List<String> images = [
-      "assets/images/kaba.jpg",
-      "assets/images/kabah-hd.jpg",
-      "assets/images/kabah-img.png",
-    ];
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
@@ -51,12 +56,15 @@ class DetailpaketumrohPage extends ConsumerWidget {
               child: Stack(
                 children: [
                   PageView.builder(
-                    itemCount: images.length,
+                    itemCount: paketumroh.image.length,
                     onPageChanged: (index) {
                       ref.read(imageIndexProvider.notifier).state = index;
                     },
                     itemBuilder: (context, index) {
-                      return Image.asset(images[index], fit: BoxFit.cover);
+                      return Image.network(
+                        paketumroh.image[index],
+                        fit: BoxFit.cover,
+                      );
                     },
                   ),
 
@@ -94,7 +102,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        "${currentIndex + 1}/${images.length}",
+                        "${currentIndex + 1}/${paketumroh.image.length}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -145,7 +153,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Umrah Reguler 9 Hari",
+                            paketumroh.title,
                             style: GoogleFonts.inter(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -157,7 +165,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                "Rp 28.000.000",
+                                "Rp ${formatCurrency.format(paketumroh.price)}",
                                 style: GoogleFonts.inter(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -186,7 +194,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "Maskapai: Garuda Indonesia",
+                            "Maskapai: ${paketumroh.maskapai}",
                             style: GoogleFonts.inter(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
@@ -195,7 +203,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                           ),
                           const Spacer(),
                           Text(
-                            "Kode: UMH-09RG",
+                            "Kode: ${paketumroh.detailpaketumroh.codepaket}",
                             style: GoogleFonts.inter(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -216,21 +224,21 @@ class DetailpaketumrohPage extends ConsumerWidget {
                           _itemRowHeader(
                             Icons.timer_outlined,
                             "Durasi",
-                            "9 Hari",
+                            paketumroh.duration,
                           ),
                           _itemRowHeader(
                             Icons.mosque_outlined,
                             "Mekkah",
-                            "4 Malam",
+                            formatMalam(paketumroh.mekkahNights),
                           ),
                           _itemRowHeader(
                             Icons.apartment_outlined,
                             "Madinah",
-                            "3 Malam",
+                            formatMalam(paketumroh.madinahNights),
                           ),
                           _itemRowHeader(
                             Icons.flight_rounded,
-                            "Jeddah",
+                            paketumroh.transit,
                             "Transit/PP",
                           ),
                         ],
@@ -243,7 +251,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                       const SizedBox(height: 8),
                       _buildDistanceFilter(ref),
                       const SizedBox(height: 16),
-                      buildContent(ref),
+                      buildContent(ref, paketumroh),
                     ],
                   ),
                 ),
@@ -275,7 +283,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Rp ${formatCurrency.format(price)}",
+                      "Rp ${formatCurrency.format(paketumroh.price)}",
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -326,22 +334,22 @@ class DetailpaketumrohPage extends ConsumerWidget {
     );
   }
 
-  Widget buildContent(WidgetRef ref) {
+  Widget buildContent(WidgetRef ref, Paketumroh paketumroh) {
     final selected = ref.watch(itemProvider);
 
     switch (selected) {
       case 0:
-        return const RingkasanTab();
+        return RingkasanTab(paketumroh: paketumroh);
       case 1:
-        return const JadwalTab();
+        return JadwalTab(paketumroh: paketumroh);
       case 2:
-        return const HotelTab();
+        return HotelTab(paketumroh: paketumroh);
       case 3:
-        return const PenerbanganTab();
+        return PenerbanganTab();
       case 4:
-        return const FasilitasTab();
+        return FasilitasTab();
       case 5:
-        return const SyaratTab();
+        return SyaratTab();
       default:
         return const SizedBox.shrink();
     }

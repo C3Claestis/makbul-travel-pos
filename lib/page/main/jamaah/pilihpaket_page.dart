@@ -46,15 +46,7 @@ class PilihpaketPage extends ConsumerWidget {
                 paketumrohList.length,
                 (index) => _itemPaket(
                   context: context,
-                  id: paketumrohList[index].id,
-                  title: paketumrohList[index].title,
-                  maskapai: paketumrohList[index].maskapai,
-                  duration: paketumrohList[index].duration,
-                  mekkahNights: paketumrohList[index].mekkahNights,
-                  madinahNights: paketumrohList[index].madinahNights,
-                  transit: paketumrohList[index].transit,
-                  price: paketumrohList[index].price,
-                  image: paketumrohList[index].image,
+                  paketumroh: paketumrohList[index],
                 ),
               ),
             ],
@@ -66,16 +58,7 @@ class PilihpaketPage extends ConsumerWidget {
 
   Container _itemPaket({
     required BuildContext context,
-    required String id,
-    required String title,
-    required String maskapai,
-    required String duration,
-    required String mekkahNights,
-    required String madinahNights,
-    required String transit,
-    required double price,
-    required String image,
-    bool isFavorite = false,
+    required Paketumroh paketumroh,
   }) {
     final formatCurrency = NumberFormat("#,##0", "id_ID");
 
@@ -103,7 +86,7 @@ class PilihpaketPage extends ConsumerWidget {
                   top: Radius.circular(16),
                 ),
                 child: Image.network(
-                  image,
+                  paketumroh.image[0],
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 200,
@@ -119,7 +102,7 @@ class PilihpaketPage extends ConsumerWidget {
                     color: Color(0xff0B7A2F),
                   ),
                   child: Text(
-                    duration,
+                    paketumroh.duration,
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -148,7 +131,7 @@ class PilihpaketPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  paketumroh.title,
                   style: GoogleFonts.inter(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -161,7 +144,7 @@ class PilihpaketPage extends ConsumerWidget {
                     Icon(Icons.flight, color: Color(0xff0B7A2F), size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      "Maskapai: ${maskapai}",
+                      "Maskapai: ${paketumroh.maskapai}",
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -176,7 +159,7 @@ class PilihpaketPage extends ConsumerWidget {
                     Icon(Icons.mosque_outlined, color: Colors.black, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      mekkahNights,
+                      paketumroh.mekkahNights,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -191,7 +174,7 @@ class PilihpaketPage extends ConsumerWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      madinahNights,
+                      paketumroh.madinahNights,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -206,7 +189,7 @@ class PilihpaketPage extends ConsumerWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      transit,
+                      paketumroh.transit,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -219,7 +202,7 @@ class PilihpaketPage extends ConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      "Rp ${formatCurrency.format(price)}",
+                      "Rp ${formatCurrency.format(paketumroh.price)}",
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -233,7 +216,9 @@ class PilihpaketPage extends ConsumerWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return DetailpaketumrohPage(price: price,);
+                              return DetailpaketumrohPage(
+                               paketumroh: paketumroh,
+                              );
                             },
                           ),
                         );
