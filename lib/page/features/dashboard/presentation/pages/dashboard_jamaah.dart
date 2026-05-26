@@ -23,8 +23,9 @@ class DashboardJamaah extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
       ),
     );
     final firebaseUser = FirebaseAuth.instance.currentUser;
@@ -65,12 +66,12 @@ class DashboardJamaah extends ConsumerWidget {
 
   Padding _content(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: Column(
         children: [
           // ================= RINGKASAN =================
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(24),
@@ -165,15 +166,13 @@ class DashboardJamaah extends ConsumerWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const PilihpaketPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const PilihpaketPage()),
               );
             },
             child: Container(
-              padding: EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
-                color: Color(0xff0B7A2F),
+                color: const Color(0xff0B7A2F),
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -184,37 +183,46 @@ class DashboardJamaah extends ConsumerWidget {
                     height: 80,
                     fit: BoxFit.cover,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "PILIH PAKET UMROH",
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
+
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "PILIH PAKET UMROH",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.inter(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Temukan paket terbaik untuk Anda",
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                        Text(
+                          "Temukan paket terbaik untuk Anda",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const Spacer(),
+
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_forward_ios_rounded,
                       color: Color(0xff0B7A2F),
+                      size: 18,
                     ),
                   ),
                 ],
@@ -257,7 +265,7 @@ class DashboardJamaah extends ConsumerWidget {
 
               _menuCard(
                 context,
-                title: "Jenis Penerbangan",
+                title: "Jenis\nPenerbangan",
                 icon: Icons.flight,
               ),
 
@@ -292,22 +300,32 @@ class DashboardJamaah extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Pengumuman Terbaru",
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              "Pengumuman Terbaru",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
 
-                          Text(
-                            "Lihat Semua",
-                            style: GoogleFonts.inter(
-                              fontSize: 13,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600,
+                          const SizedBox(width: 10),
+
+                          Flexible(
+                            child: Text(
+                              "Lihat Semua",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                              style: GoogleFonts.inter(
+                                fontSize: 13,
+                                color: Colors.green,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
@@ -397,8 +415,11 @@ class DashboardJamaah extends ConsumerWidget {
                     children: [
                       Text(
                         "Assalamu'alaikum,",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.inter(
-                          fontSize: 18,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
                       ),
@@ -419,7 +440,7 @@ class DashboardJamaah extends ConsumerWidget {
                       Text(
                         "Semoga perjalanan ibadah Anda menjadi umrah yang mabrur.",
                         style: GoogleFonts.inter(
-                          fontSize: 15,
+                          fontSize: 14,
                           height: 1.5,
                           color: Colors.white.withOpacity(0.9),
                         ),
@@ -434,8 +455,8 @@ class DashboardJamaah extends ConsumerWidget {
                 Transform.translate(
                   offset: const Offset(20, 0),
                   child: Container(
-                    width: 170,
-                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.32,
+                    height: 140,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(80),
@@ -508,7 +529,7 @@ class DashboardJamaah extends ConsumerWidget {
                 case 'Paket Saya':
                   return const PaketsayaPage();
 
-                case 'Jenis Penerbangan':
+                case 'Jenis\nPenerbangan':
                   return const JenispenerbanganPage();
 
                 case 'Dokumen':
@@ -548,7 +569,7 @@ class DashboardJamaah extends ConsumerWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: [            
             Icon(icon, color: Colors.white, size: 36),
 
             const SizedBox(height: 10),
@@ -561,7 +582,7 @@ class DashboardJamaah extends ConsumerWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.inter(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -597,7 +618,7 @@ class DashboardJamaah extends ConsumerWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(fontSize: 12, color: Colors.black87),
+            style: GoogleFonts.inter(fontSize: 10, color: Colors.black87),
           ),
 
           const SizedBox(height: 8),
@@ -605,7 +626,7 @@ class DashboardJamaah extends ConsumerWidget {
           Text(
             value,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
+            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 4),
@@ -613,7 +634,7 @@ class DashboardJamaah extends ConsumerWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(fontSize: 12, color: Colors.grey.shade700),
+            style: GoogleFonts.inter(fontSize: 10, color: Colors.grey.shade700),
           ),
         ],
       ),

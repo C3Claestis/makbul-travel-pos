@@ -10,6 +10,7 @@ import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_
 import 'package:makbul_app/dashboard_jamaah_arsip.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_jamaah.dart';
 import 'package:makbul_app/page/features/dashboard/presentation/pages/dashboard_travel.dart';
+import 'package:makbul_app/page/main/jamaah/doa_page.dart';
 
 // Import halaman yang sudah ada
 //import 'package:makbul_app/page/main/dashboard_page.dart';
@@ -98,11 +99,11 @@ class MainPage extends ConsumerWidget {
         
         //JAMAAH NAVBAR
         else {
-          pages = const [DashboardJamaah(), ProfilPage(), ProfilPage()];
+          pages = const [DashboardJamaah(), DoaPage(), ProfilPage()];
 
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Beranda'),
-            _buildNavItem('assets/svgs/icon_history.svg', 'Riwayat'),
+            _buildNavItem('assets/svgs/icon_bookopen.svg', 'Doa'),
             _buildNavItem('assets/svgs/icon_pengguna.svg', 'Profil'),
           ];
         }
@@ -161,6 +162,7 @@ class MainPage extends ConsumerWidget {
       icon: SvgPicture.asset(
         svgPath,
         colorFilter: const ColorFilter.mode(Colors.black87, BlendMode.srcIn),
+        
       ),
       activeIcon: SvgPicture.asset(
         svgPath,

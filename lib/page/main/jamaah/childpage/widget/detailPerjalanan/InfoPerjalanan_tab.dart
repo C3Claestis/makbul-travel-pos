@@ -42,12 +42,7 @@ class Infoperjalanantab extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         color: const Color(0xFFFEFEFE),
         boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 0,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
         ],
       ),
       child: Row(
@@ -59,31 +54,41 @@ class Infoperjalanantab extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: const Color(0xffE5F6EB),
             ),
-            child: Icon(item.icon, color: Color(0xff104F25), size: 24),
+            child: Icon(item.icon, color: const Color(0xff104F25), size: 24),
           ),
+
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.title,
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                item.subtitle,
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey.shade700,
-                  height: 1.5,
+
+                const SizedBox(height: 8),
+
+                Text(
+                  item.subtitle,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                    height: 1.5,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

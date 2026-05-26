@@ -525,34 +525,43 @@ class DetailpenerbanganPage extends ConsumerWidget {
   Widget _detail(String title, String value, IconData icons) {
     return Expanded(
       child: Container(
-        // color: Colors.amber,
-        padding: const EdgeInsets.only(left: 6, right: 6, top: 0, bottom: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icons, size: 24, color: Color(0xFF1B5E20)),
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
+            Icon(icons, size: 22, color: const Color(0xFF1B5E20)),
+
+            const SizedBox(width: 6),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  value,
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+
+                  const SizedBox(height: 4),
+
+                  Text(
+                    value,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  textAlign: TextAlign.start,
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

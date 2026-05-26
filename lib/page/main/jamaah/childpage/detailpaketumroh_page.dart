@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,6 +37,14 @@ class DetailpaketumrohPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+
     final currentIndex = ref.watch(imageIndexProvider);
     final formatCurrency = NumberFormat("#,##0", "id_ID");
 
@@ -134,7 +143,7 @@ class DetailpaketumrohPage extends ConsumerWidget {
             /// CONTENT OVERLAY (FIX)
             /// =========================
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.32, // 🔥 RESPONSIVE
+              top: MediaQuery.of(context).size.height * 0.36, // 🔥 RESPONSIVE
               left: 0,
               right: 0,
               bottom: 0,
@@ -345,11 +354,11 @@ class DetailpaketumrohPage extends ConsumerWidget {
       case 2:
         return HotelTab(paketumroh: paketumroh);
       case 3:
-        return PenerbanganTab();
+        return PenerbanganTab(paketumroh: paketumroh);
       case 4:
-        return FasilitasTab();
+        return FasilitasTab(paketumroh: paketumroh);
       case 5:
-        return SyaratTab();
+        return SyaratTab(paketumroh: paketumroh);
       default:
         return const SizedBox.shrink();
     }

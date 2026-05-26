@@ -372,11 +372,10 @@ class LokasihotelPage extends ConsumerWidget {
 
                     /// RATING + PRICE ROW
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// LEFT SIDE (RATING)
-                        Icon(Icons.star, color: Colors.amber, size: 16),
+                        const Icon(Icons.star, color: Colors.amber, size: 16),
                         const SizedBox(width: 4),
+
                         Text(
                           rating,
                           style: GoogleFonts.inter(
@@ -388,22 +387,26 @@ class LokasihotelPage extends ConsumerWidget {
 
                         const SizedBox(width: 4),
 
-                        Text(
-                          '($reviewer ulasan)',
-                          style: GoogleFonts.inter(
-                            fontSize: 12,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w600,
+                        Expanded(
+                          child: Text(
+                            '($reviewer ulasan)',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
 
-                        const Spacer(),
+                        const SizedBox(width: 8),
 
-                        /// RIGHT SIDE (PRICE)
+                        /// PRICE (AMAN)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            const SizedBox(height: 16),
                             Text(
                               'Mulai dari',
                               style: GoogleFonts.inter(
@@ -412,7 +415,9 @@ class LokasihotelPage extends ConsumerWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
+                            const SizedBox(height: 2),
                             Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
                                   'SAR $price',

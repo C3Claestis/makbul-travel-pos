@@ -27,10 +27,7 @@ class HotelTab extends StatelessWidget {
   }
 }
 
-Widget _item(
-  Paketumroh paketumroh,
-  int index,
-) {
+Widget _item(Paketumroh paketumroh, int index) {
   return Column(
     children: [
       Row(
@@ -108,7 +105,10 @@ Widget _item(
                             child: Row(
                               children: List.generate(
                                 int.parse(
-                                  paketumroh.detailpaketumroh.hotel[index].rating,
+                                  paketumroh
+                                      .detailpaketumroh
+                                      .hotel[index]
+                                      .rating,
                                 ),
                                 (index) => const Icon(
                                   Icons.star,
@@ -130,22 +130,24 @@ Widget _item(
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Row(
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
                         children: [
                           _itemDisplayHotel(
                             paketumroh.detailpaketumroh.hotel[index].images[1],
                             "Ruang Tamu",
                           ),
-                          const SizedBox(width: 8),
+
                           _itemDisplayHotel(
                             paketumroh.detailpaketumroh.hotel[index].images[2],
                             "Kamar Tidur",
                           ),
-                          const SizedBox(width: 8),
-                          _itemDisplayHotel(
-                            paketumroh.detailpaketumroh.hotel[index].images[3],
-                            "Ruang Santai",
-                          ),
+
+                          // _itemDisplayHotel(
+                          //   paketumroh.detailpaketumroh.hotel[index].images[3],
+                          //   "Ruang Santai",
+                          // ),
                         ],
                       ),
                     ],

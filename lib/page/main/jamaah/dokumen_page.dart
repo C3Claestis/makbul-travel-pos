@@ -257,7 +257,7 @@ class DokumenPage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset('assets/images/dokumen_img.png', width: 100, height: 100),
+          Image.asset('assets/images/dokumen_img.png', width: 100, height: 100),          
           Expanded(
             child: Text(
               "Pastikan semua dokumen terupload dengan benar untuk kelancaran perjalanan ibadah Anda.",

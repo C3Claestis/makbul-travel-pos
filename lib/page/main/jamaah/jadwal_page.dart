@@ -49,7 +49,7 @@ class JadwalPage extends StatelessWidget {
               const SizedBox(height: 16),
               _tahapanPerjalanan(),
               const SizedBox(height: 16),
-              _menuCepat(context,),
+              _menuCepat(context),
               const SizedBox(height: 16),
               _butuhBantuanfooter(),
             ],
@@ -497,34 +497,45 @@ class JadwalPage extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Umroh Reguler 9 Hari",
-                style: GoogleFonts.inter(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  minimumSize: Size(0, 0), // hilangkan minimum bawaan
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    side: BorderSide(color: Colors.white, width: 1),
-                  ),
-                ),
+              Expanded(
                 child: Text(
-                  "Akan Berangkat",
+                  "Umroh Reguler 9 Hari",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
-                    fontSize: 12,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    letterSpacing: 0.01,
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(0, 0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      side: const BorderSide(color: Colors.white, width: 1),
+                    ),
+                  ),
+                  child: Text(
+                    "Akan Berangkat",
+                    style: GoogleFonts.inter(
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -622,41 +633,53 @@ class JadwalPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 8),
                 VerticalDivider(color: Colors.white, thickness: 1.5),
-                const SizedBox(width: 16),
-                Expanded(
+                const SizedBox(width: 8),
+                Flexible(
+                  flex: 1,
                   child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.zero,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Color(0xff104F25),
+                      color: const Color(0xff104F25),
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               "29",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.inter(
-                                fontSize: 24,
+                                fontSize: 19,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                            Icon(
+
+                            const SizedBox(width: 6),
+
+                            const Icon(
                               Icons.date_range,
                               color: Colors.white,
-                              size: 32,
+                              size: 22,
                             ),
                           ],
                         ),
+
+                        const SizedBox(height: 6),
+
                         Text(
                           "Hari Lagi",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
                           ),

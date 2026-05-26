@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-final data = [
-  'Tiket pesawat PP kelas Ekonomi',
-  'Akomodasi hotel bintang 4/5',
-  'Makan 3x sehari (Menu Indonesia)',
-  'Transportasi AC selama di Arab Saudi',
-  'Air zam-zam 5 liter (jika diizinkan maskapai)',
-  'Muthawwif berpengalaman berbahasa Indonesia',
-  'Ziarah sesuai program',
-  'Perlengkapan umrah (koper, tas kabin, kain ihram, buku doa, id card, lanyard)',
-  'Asuransi perjalanan',
-  'Visa umrah',
-  'Handling bandara & airport tax',
-  'Manasik umrah sebelum keberangkatan',
-];
+import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 class FasilitasTab extends StatelessWidget {
-  const FasilitasTab({super.key});
+  final Paketumroh paketumroh;
+
+  const FasilitasTab({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +25,9 @@ class FasilitasTab extends StatelessWidget {
           padding: EdgeInsets.zero,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: data.length,
+          itemCount: paketumroh.detailpaketumroh.fasilitas.length,
           separatorBuilder: (context, index) => const SizedBox(height: 16),
-          itemBuilder: (context, index) => _item(data[index]),
+          itemBuilder: (context, index) => _item(paketumroh.detailpaketumroh.fasilitas[index]),
         ),
         const SizedBox(height: 32),
       ],

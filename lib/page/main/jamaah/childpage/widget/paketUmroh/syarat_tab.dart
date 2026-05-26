@@ -2,19 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-final data = [
-  'Paspor masih berlaku minimal 8 bulan dari tanggal keberangkatan.',
-  'Foto berwarna terbaru 4x6 denga latar belakang putih (80% wajah).',
-  'KTP fotocopy & Kartu Keluarga fotocopy.',
-  'Bukti vaksin meningitis (sertifikat internasional).',
-  'Pembayaran DP minimal 30% untuk konfirmasi pendaftaran.',
-  'Pelunasan maksimal 30 hari sebelum keberangkatan.',
-  'Harga dapat berubah sewaktu-waktu mengikuti kebijakan maskapai dan pemerintah Arab Saudi.',
-];
+import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 class SyaratTab extends StatelessWidget {
-  const SyaratTab({super.key});
+  final Paketumroh paketumroh;
+
+  const SyaratTab({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +27,10 @@ class SyaratTab extends StatelessWidget {
           padding: EdgeInsets.zero,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: data.length,
+          itemCount: paketumroh.detailpaketumroh.persyaratan.length,
           separatorBuilder: (context, index) => const SizedBox(height: 16),
-          itemBuilder: (context, index) => _item(data[index]),
+          itemBuilder: (context, index) =>
+              _item(paketumroh.detailpaketumroh.persyaratan[index]),
         ),
         const SizedBox(height: 16),
         Text(
@@ -111,9 +105,11 @@ class SyaratTab extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(32),
-                    child: Image.asset(
-                      'assets/images/person/pembimbing-1.png',
-                      width: 64,
+                    child: Image.network(
+                      paketumroh.detailpaketumroh.dataagen[0],
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -121,7 +117,7 @@ class SyaratTab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Aisyah Rahma",
+                        paketumroh.detailpaketumroh.dataagen[1],
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -129,7 +125,7 @@ class SyaratTab extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Konsultan Umroh",
+                        paketumroh.detailpaketumroh.dataagen[2],
                         style: GoogleFonts.inter(
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
@@ -203,13 +199,21 @@ class SyaratTab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Image.asset('assets/images/logo.png', width: 64),
-                  const SizedBox(width: 4),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Image.network(
+                      paketumroh.detailpaketumroh.datatravel[0],
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Sahabat Tours & Travel",
+                        paketumroh.detailpaketumroh.datatravel[1],
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -217,7 +221,7 @@ class SyaratTab extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Izin PPIU No. 1234 Tahun 2019",
+                        paketumroh.detailpaketumroh.datatravel[2],
                         style: GoogleFonts.inter(
                           fontSize: 10,
                           fontWeight: FontWeight.w400,

@@ -284,19 +284,35 @@ class ProfilPage extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              _itemHeader(
-                Icons.date_range_outlined,
-                "Bergabung",
-                "12 Jan 2024",
+              Expanded(
+                child: _itemHeader(
+                  Icons.date_range_outlined,
+                  "Bergabung",
+                  "12 Jan 2024",
+                ),
               ),
+
               const SizedBox(width: 8),
-              Container(width: 1, height: 32, color: Colors.grey),
+
+              Container(width: 1, height: 32, color: Colors.grey.shade300),
+
               const SizedBox(width: 8),
-              _itemHeader(Icons.person, "Status", "Aktif"),
+
+              Expanded(child: _itemHeader(Icons.person, "Status", "Aktif")),
+
               const SizedBox(width: 8),
-              Container(width: 1, height: 32, color: Colors.grey),
+
+              Container(width: 1, height: 32, color: Colors.grey.shade300),
+
               const SizedBox(width: 8),
-              _itemHeader(Icons.star_border_outlined, "Poin Makbul", "9.999"),
+
+              Expanded(
+                child: _itemHeader(
+                  Icons.star_border_outlined,
+                  "Poin Makbul",
+                  "9.999",
+                ),
+              ),
             ],
           ),
         ],
@@ -323,39 +339,49 @@ class ProfilPage extends StatelessWidget {
     );
   }
 
-  Row _itemHeader(IconData icon, String title, String value) {
+  Widget _itemHeader(IconData icon, String title, String value) {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.all(6),
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Color(0xff0B7A2F).withOpacity(0.07),
+            color: const Color(0xff0B7A2F).withOpacity(0.07),
           ),
-          child: Icon(icon, size: 16, color: Color(0xff0B7A2F)),
+          child: Icon(icon, size: 16, color: const Color(0xff0B7A2F)),
         ),
+
         const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffB0B3BA),
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xffB0B3BA),
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
+
+              const SizedBox(height: 4),
+
+              Text(
+                value,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

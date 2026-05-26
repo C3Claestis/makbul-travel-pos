@@ -2,38 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:makbul_app/page/main/jamaah/data/paketumroh.dart';
 
 class PenerbanganTab extends StatelessWidget {
-  const PenerbanganTab({super.key});
+  final Paketumroh paketumroh;
+
+  const PenerbanganTab({super.key, required this.paketumroh});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _item(
-          "Keberangkatan",
-          "Garuda\nIndonesia",
-          "GA-981",
-          "Ekonomi",
-          "https://img.logo.dev/garuda-indonesia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true",
-          ["CGK", "JED"],
-          ["06:30", "10j 35m", "13:05"],
-          ["Jumat, 10 Mei 2024", "Jumat, 11 Mei 2024"],
-          ["Soekarno Hatta Intl", "King Abullahaziz Intl"],
-        ),
+        _item("Keberangkatan", true),
         const SizedBox(height: 16),
-        _item(
-          "Kepulangan",
-          "Batik Air",
-          "BA-120",
-          "Business",
-          "https://img.logo.dev/batikair.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true",
-          ["MED", "CGK"],
-          ["14:30", "9j 15m", "04:45"],
-          ["Sabtu, 18 Mei 2024", "Minggu, 19 Mei 2024"],
-          ["Prince Muhammad\nBin Abdulzaiz", "Soekarno Hatta Intl"],
-        ),
+        _item("Kepulangan", false),
         const SizedBox(height: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +70,7 @@ class PenerbanganTab extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              "7 kg",
+                              "${paketumroh.detailpaketumroh.penerbangan[0].bagasiKabin} kg",
                               style: GoogleFonts.inter(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -115,7 +98,7 @@ class PenerbanganTab extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              "30 kg",
+                              "${paketumroh.detailpaketumroh.penerbangan[0].bagasiTerdaftar} kg",
                               style: GoogleFonts.inter(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -137,17 +120,7 @@ class PenerbanganTab extends StatelessWidget {
     );
   }
 
-  Column _item(
-    String title,
-    String nameMaskapai,
-    String kode,
-    String kelas,
-    String images,
-    List<String> kodeIsi,
-    List<String> waktu,
-    List<String> date,
-    List<String> bandara,
-  ) {
+  Column _item(String title, bool kondisi) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -182,7 +155,17 @@ class PenerbanganTab extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        nameMaskapai,
+                        //nameMaskapai,
+                        (kondisi
+                                ? paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .berangkat
+                                : paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .pulang)
+                            .maskapai,
                         style: GoogleFonts.notoSansJp(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -196,7 +179,17 @@ class PenerbanganTab extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            kode,
+                            //kode,
+                            (kondisi
+                                    ? paketumroh
+                                          .detailpaketumroh
+                                          .penerbangan[0]
+                                          .berangkat
+                                    : paketumroh
+                                          .detailpaketumroh
+                                          .penerbangan[0]
+                                          .pulang)
+                                .kode,
                             style: GoogleFonts.inter(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -207,7 +200,17 @@ class PenerbanganTab extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.network(
-                              images,
+                              //images,
+                              (kondisi
+                                      ? paketumroh
+                                            .detailpaketumroh
+                                            .penerbangan[0]
+                                            .berangkat
+                                      : paketumroh
+                                            .detailpaketumroh
+                                            .penerbangan[0]
+                                            .pulang)
+                                  .logo,
                               fit: BoxFit.cover,
                               width: 32,
                               height: 32,
@@ -221,7 +224,17 @@ class PenerbanganTab extends StatelessWidget {
                       child: Align(
                         alignment: AlignmentGeometry.centerRight,
                         child: Text(
-                          kelas,
+                          //kelas,
+                          (kondisi
+                                  ? paketumroh
+                                        .detailpaketumroh
+                                        .penerbangan[0]
+                                        .berangkat
+                                  : paketumroh
+                                        .detailpaketumroh
+                                        .penerbangan[0]
+                                        .pulang)
+                              .kelas,
                           style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -239,7 +252,17 @@ class PenerbanganTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      kodeIsi[0],
+                      //kodeIsi[0],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .kodeAwal,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -247,7 +270,17 @@ class PenerbanganTab extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      kodeIsi[1],
+                      //kodeIsi[1],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .kodeAkhir,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -260,7 +293,17 @@ class PenerbanganTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      waktu[0],
+                      //waktu[0],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .waktuAwal,
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -271,7 +314,17 @@ class PenerbanganTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          waktu[1],
+                          //waktu[1],
+                          (kondisi
+                                  ? paketumroh
+                                        .detailpaketumroh
+                                        .penerbangan[0]
+                                        .berangkat
+                                  : paketumroh
+                                        .detailpaketumroh
+                                        .penerbangan[0]
+                                        .pulang)
+                              .totalWaktu,
                           style: GoogleFonts.inter(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
@@ -301,7 +354,17 @@ class PenerbanganTab extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      waktu[2],
+                      //waktu[2],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .waktuAkhir,
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -314,7 +377,17 @@ class PenerbanganTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      date[0],
+                      //date[0],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .tanggalAwal,
                       style: GoogleFonts.inter(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
@@ -330,7 +403,17 @@ class PenerbanganTab extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      date[1],
+                      //date[1],
+                      (kondisi
+                              ? paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .berangkat
+                              : paketumroh
+                                    .detailpaketumroh
+                                    .penerbangan[0]
+                                    .pulang)
+                          .tanggalAkhir,
                       style: GoogleFonts.inter(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
@@ -340,22 +423,48 @@ class PenerbanganTab extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      bandara[0],
-                      style: GoogleFonts.inter(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                    Expanded(
+                      child: Text(
+                        (kondisi
+                                ? paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .berangkat
+                                : paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .pulang)
+                            .bandaraAwal,
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    Text(
-                      bandara[1],
-                      style: GoogleFonts.inter(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+
+                    const SizedBox(width: 16),
+
+                    Expanded(
+                      child: Text(
+                        (kondisi
+                                ? paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .berangkat
+                                : paketumroh
+                                      .detailpaketumroh
+                                      .penerbangan[0]
+                                      .pulang)
+                            .bandaraAkhir,
+                        textAlign: TextAlign.right,
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],

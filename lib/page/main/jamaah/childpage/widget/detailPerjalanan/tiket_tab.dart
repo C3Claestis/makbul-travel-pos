@@ -299,7 +299,7 @@ class TiketTab extends StatelessWidget {
                   Text(
                     data[index]["departure"],
                     style: GoogleFonts.inter(
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                       letterSpacing: -0.5,
@@ -308,7 +308,7 @@ class TiketTab extends StatelessWidget {
                   Text(
                     data[index]["arrival"],
                     style: GoogleFonts.inter(
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                       letterSpacing: -0.5,

@@ -46,7 +46,7 @@ class Detailpaketumroh {
     required this.hotel,
     required this.penerbangan,
     required this.fasilitas,
-    required this.persyaratan,
+    required this.persyaratan,    
   });
 }
 
@@ -83,6 +83,7 @@ class HotelInfo {
 class FlightSegment {
   final String maskapai;
   final String kode;
+  final String logo;
   final String kelas;
 
   final String kodeAwal;
@@ -102,6 +103,7 @@ class FlightSegment {
   FlightSegment({
     required this.maskapai,
     required this.kode,
+    required this.logo,
     required this.kelas,
     required this.kodeAwal,
     required this.kodeAkhir,
@@ -118,8 +120,15 @@ class FlightSegment {
 class PenerbanganInfo {
   final FlightSegment berangkat;
   final FlightSegment pulang;
+  final int bagasiKabin;
+  final int bagasiTerdaftar;
 
-  PenerbanganInfo({required this.berangkat, required this.pulang});
+  PenerbanganInfo({
+    required this.berangkat,
+    required this.pulang,
+    required this.bagasiKabin,
+    required this.bagasiTerdaftar,
+  });
 }
 
 final List<Paketumroh> paketumrohList = [
@@ -271,6 +280,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'Garuda\nIndonesia',
             kode: 'GA-981',
+            logo:
+                'https://img.logo.dev/garuda-indonesia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -285,6 +296,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Batik Air',
             kode: 'BA-120',
+            logo:
+                'https://img.logo.dev/batikair.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Business',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -296,6 +309,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Muhammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 7,
+          bagasiTerdaftar: 30,
         ),
       ],
       fasilitas: [
@@ -471,8 +486,10 @@ final List<Paketumroh> paketumrohList = [
       penerbangan: [
         PenerbanganInfo(
           berangkat: FlightSegment(
-            maskapai: 'Garuda Indonesia',
+            maskapai: 'Garuda\nIndonesia',
             kode: 'GA-981',
+            logo:
+                'https://img.logo.dev/garuda-indonesia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -487,6 +504,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Batik Air',
             kode: 'BA-120',
+            logo:
+                'https://img.logo.dev/batikair.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Business',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -498,6 +517,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 9,
+          bagasiTerdaftar: 78,
         ),
       ],
       fasilitas: [
@@ -647,11 +668,11 @@ final List<Paketumroh> paketumrohList = [
           jarak: '50 m dari Masjidil Haram',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4',
-            'https://images.unsplash.com/photo-1601701119533-fde78d20f79a',
-            'https://images.unsplash.com/photo-1595576508898-0ad5c879a061',
-            'https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6',
-            'https://images.unsplash.com/photo-1586611292717-f828b167408c',
+            'https://images.unsplash.com/photo-1455587734955-081b22074882',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+            'https://images.unsplash.com/photo-1590490360182-c33d57733427',
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791',
           ],
         ),
         HotelInfo(
@@ -661,11 +682,11 @@ final List<Paketumroh> paketumrohList = [
           jarak: '200 m dari Masjid Nabawi',
           rating: '4',
           images: [
-            'https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2',
-            'https://images.unsplash.com/photo-1551776235-dde6d482980b',
-            'https://images.unsplash.com/photo-1562778612-e1e0cda9915c',
-            'https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0',
-            'https://images.unsplash.com/photo-1571896349842-33c89424de2d',
+            'https://images.unsplash.com/photo-1455587734955-081b22074882',
+            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+            'https://images.unsplash.com/photo-1590490360182-c33d57733427',
+            'https://images.unsplash.com/photo-1564501049412-61c2a3083791',
           ],
         ),
         HotelInfo(
@@ -688,6 +709,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'Lion Air',
             kode: 'JT-310',
+            logo:
+                'https://img.logo.dev/lionair.co.id?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -702,6 +725,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Lion Air',
             kode: 'JT-311',
+            logo:
+                'https://img.logo.dev/lionair.co.id?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -713,6 +738,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 3,
+          bagasiTerdaftar: 19,
         ),
       ],
       fasilitas: [
@@ -884,11 +911,10 @@ final List<Paketumroh> paketumrohList = [
           jarak: '0 m (terhubung langsung ke Masjidil Haram)',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1618773928121-c32242e63f39',
-            'https://images.unsplash.com/photo-1611892440504-42a792e24d32',
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-            'https://images.unsplash.com/photo-1613490493576-7fde63acd811',
-            'https://images.unsplash.com/photo-1643914855986-43e99f9f04c7',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
@@ -898,11 +924,10 @@ final List<Paketumroh> paketumrohList = [
           jarak: '50 m dari Masjid Nabawi',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1619292069270-aa4e62de4b84',
-            'https://images.unsplash.com/photo-1616594039964-ae9021a400a0',
-            'https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4',
-            'https://images.unsplash.com/photo-1598928636135-d146006ff4be',
-            'https://images.unsplash.com/photo-1611048267451-e6ed879985cd',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
@@ -925,6 +950,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'Saudi Airlines',
             kode: 'SV-555',
+            logo:
+                'https://img.logo.dev/saudia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -939,6 +966,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Saudi Airlines',
             kode: 'SV-556',
+            logo:
+                'https://img.logo.dev/saudia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -950,6 +979,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 7,
+          bagasiTerdaftar: 51,
         ),
       ],
       fasilitas: [
@@ -1130,6 +1161,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'Citilink',
             kode: 'QG-700',
+            logo:
+                'https://img.logo.dev/citilink.co.id?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -1144,6 +1177,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Citilink',
             kode: 'QG-701',
+            logo:
+                'https://img.logo.dev/citilink.co.id?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -1155,6 +1190,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 9,
+          bagasiTerdaftar: 31,
         ),
       ],
       fasilitas: [
@@ -1348,7 +1385,9 @@ final List<Paketumroh> paketumrohList = [
       penerbangan: [
         PenerbanganInfo(
           berangkat: FlightSegment(
-            maskapai: 'Garuda Indonesia',
+            maskapai: 'Garuda\nIndonesia',
+            logo:
+                'https://img.logo.dev/garuda-indonesia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kode: 'GA-985',
             kelas: 'Business',
             kodeAwal: 'CGK',
@@ -1364,6 +1403,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Batik Air',
             kode: 'BA-121',
+            logo:
+                'https://img.logo.dev/batikair.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Business',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -1375,6 +1416,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 12,
+          bagasiTerdaftar: 90,
         ),
       ],
       fasilitas: [
@@ -1533,7 +1576,7 @@ final List<Paketumroh> paketumrohList = [
           images: [
             'https://images.unsplash.com/photo-1444201983204-c43cbd584d93',
             'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1488872773522-4661eea94c57',
+            'https://images.unsplash.com/photo-1519974719765-e6559eac2575',
             'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
             'https://images.unsplash.com/photo-1462730461406-89cd1fe9a114',
           ],
@@ -1572,6 +1615,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'Emirates',
             kode: 'EK-359',
+            logo:
+                'https://img.logo.dev/emirates.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -1586,6 +1631,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Emirates',
             kode: 'EK-360',
+            logo:
+                'https://img.logo.dev/emirates.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -1597,6 +1644,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 10,
+          bagasiTerdaftar: 80,
         ),
       ],
       fasilitas: [
@@ -1728,11 +1777,10 @@ final List<Paketumroh> paketumrohList = [
           jarak: '1.5 km dari Masjidil Haram',
           rating: '3',
           images: [
-            'https://images.unsplash.com/photo-1501117716987-c8e1ecb2103a',
-            'https://images.unsplash.com/photo-1486325212027-8081e485255e',
-            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1520637836862-4d197d17c93a',
-            'https://images.unsplash.com/photo-1484154218962-a197022b5858',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
@@ -1768,6 +1816,8 @@ final List<Paketumroh> paketumrohList = [
         PenerbanganInfo(
           berangkat: FlightSegment(
             maskapai: 'Qatar Airways',
+            logo:
+                'https://img.logo.dev/qatarairways.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kode: 'QR-955',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
@@ -1783,6 +1833,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Qatar Airways',
             kode: 'QR-956',
+            logo:
+                'https://img.logo.dev/qatarairways.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -1794,6 +1846,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 20,
+          bagasiTerdaftar: 120,
         ),
       ],
       fasilitas: [
@@ -1969,11 +2023,10 @@ final List<Paketumroh> paketumrohList = [
           jarak: 'Pusat kota Amman',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1587213811864-ef90d89b5f5d',
-            'https://images.unsplash.com/photo-1560448204-603b3fc33ddc',
-            'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
-            'https://images.unsplash.com/photo-1568495248636-6432b97bd949',
-            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
@@ -2010,6 +2063,8 @@ final List<Paketumroh> paketumrohList = [
           berangkat: FlightSegment(
             maskapai: 'AirAsia',
             kode: 'AK-382',
+            logo:
+                'https://img.logo.dev/airasia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'CGK',
             kodeAkhir: 'JED',
@@ -2024,6 +2079,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'AirAsia',
             kode: 'AK-383',
+            logo:
+                'https://img.logo.dev/airasia.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Ekonomi',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -2035,6 +2092,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 15,
+          bagasiTerdaftar: 100,
         ),
       ],
       fasilitas: [
@@ -2188,11 +2247,10 @@ final List<Paketumroh> paketumrohList = [
           jarak: '900 m dari Masjidil Haram',
           rating: '5',
           images: [
-            'https://images.unsplash.com/photo-1603034203013-d532350372c4',
-            'https://images.unsplash.com/photo-1609766857585-b3929a9c39bd',
-            'https://images.unsplash.com/photo-1596436889106-be35e843f974',
-            'https://images.unsplash.com/photo-1574643156929-51fa098b0394',
-            'https://images.unsplash.com/photo-1560347876-aeef00ee58a1',
+            'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1621293954908-907159247fc8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1661962769148-fbe587e60fb8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
           ],
         ),
         HotelInfo(
@@ -2204,7 +2262,7 @@ final List<Paketumroh> paketumrohList = [
           images: [
             'https://images.unsplash.com/photo-1561501900-3701fa6a0864',
             'https://images.unsplash.com/photo-1598928506311-c55ded91a20c',
-            'https://images.unsplash.com/photo-1611048267451-e6ed879985cd',
+            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
             'https://images.unsplash.com/photo-1590490359683-658d3d23f972',
             'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00',
           ],
@@ -2228,6 +2286,8 @@ final List<Paketumroh> paketumrohList = [
         PenerbanganInfo(
           berangkat: FlightSegment(
             maskapai: 'Turkish Airlines',
+            logo:
+                'https://img.logo.dev/turkishairlines.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kode: 'TK-560',
             kelas: 'Business',
             kodeAwal: 'CGK',
@@ -2243,6 +2303,8 @@ final List<Paketumroh> paketumrohList = [
           pulang: FlightSegment(
             maskapai: 'Turkish Airlines',
             kode: 'TK-561',
+            logo:
+                'https://img.logo.dev/turkishairlines.com?token=pk_Iody5AQeTdCsNsPafNQBtg&size=80&retina=true',
             kelas: 'Business',
             kodeAwal: 'MED',
             kodeAkhir: 'CGK',
@@ -2254,6 +2316,8 @@ final List<Paketumroh> paketumrohList = [
             bandaraAwal: 'Prince Mohammad Bin Abdulaziz',
             bandaraAkhir: 'Soekarno Hatta Intl',
           ),
+          bagasiKabin: 5,
+          bagasiTerdaftar: 50,
         ),
       ],
       fasilitas: [

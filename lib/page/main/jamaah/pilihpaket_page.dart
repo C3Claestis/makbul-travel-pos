@@ -18,8 +18,9 @@ class PilihpaketPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.black,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
       ),
     );
 
@@ -217,7 +218,7 @@ class PilihpaketPage extends ConsumerWidget {
                           MaterialPageRoute(
                             builder: (context) {
                               return DetailpaketumrohPage(
-                               paketumroh: paketumroh,
+                                paketumroh: paketumroh,
                               );
                             },
                           ),
@@ -367,28 +368,29 @@ class PilihpaketPage extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Pilih Paket Umrah",
-              style: GoogleFonts.inter(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Pilih Paket Umrah",
+                style: GoogleFonts.inter(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Text(
-              "Temukan paket umrah terbaik sesuai kebutuhan Anda",
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                color: Colors.black,
-                letterSpacing: -0.5,
+              Text(
+                "Temukan paket umrah terbaik sesuai kebutuhan Anda",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Colors.black,
+                  letterSpacing: -0.5,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        const Spacer(),
         Icon(Icons.notifications_none_outlined, color: Colors.black, size: 30),
       ],
     );

@@ -56,7 +56,7 @@ class DetailjadwalPage extends ConsumerWidget {
               _buildDistanceFilter(ref),
               const SizedBox(height: 16),
               buildContent(ref),
-              const SizedBox(height: 32),                             
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -172,49 +172,50 @@ class DetailjadwalPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Umroh Reguler 9 Hari",
-                style: GoogleFonts.inter(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: const Color(0xFFF1F6F2),
-                ),
-                child: Text(
-                  "Akan Berangkat",
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Umroh Reguler 9 Hari",
                   style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff104F25),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _templateIsiHeader("12 Okt 2026", "Berangkat"),
-                  const SizedBox(width: 8),
-                  Container(width: 1.5, height: 40, color: Colors.grey),
-                  const SizedBox(width: 8),
-                  _templateIsiHeader("21 Okt 2026", "Pulang"),
-                  const SizedBox(width: 8),
-                  Container(width: 1.5, height: 40, color: Colors.grey),
-                  const SizedBox(width: 8),
-                  _templateIsiHeader("9 Hari", "Durasi"),
-                ],
-              ),
-            ],
+                const SizedBox(height: 6),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: const Color(0xFFF1F6F2),
+                  ),
+                  child: Text(
+                    "Akan Berangkat",
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff104F25),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _templateIsiHeader("12 Okt 2026", "Berangkat"),
+                    ),
+                    Container(width: 1.5, height: 40, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Expanded(child: _templateIsiHeader("21 Okt 2026", "Pulang")),
+                    Container(width: 1.5, height: 40, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Expanded(child: _templateIsiHeader("9 Hari", "Durasi")),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -223,30 +224,36 @@ class DetailjadwalPage extends ConsumerWidget {
 
   Widget _templateIsiHeader(String title, String keterangan) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.date_range_rounded, color: Colors.black, size: 16),
+        const Icon(Icons.date_range_rounded, color: Colors.black, size: 16),
         const SizedBox(width: 4),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.inter(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Text(
-              keterangan,
-              style: GoogleFonts.inter(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
+              Text(
+                keterangan,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

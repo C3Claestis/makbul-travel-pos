@@ -57,13 +57,32 @@ class ItineraryTab extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Informasi Manasik",
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Informasi Manasik",
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          "Lihat Detail Manasik",
+                          textAlign: TextAlign.right,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.inter(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff104F25),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,27 +131,6 @@ class ItineraryTab extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(width: 16),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          side: BorderSide(color: Color(0xff104F25), width: 2),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size(130, 30),
-                        ),
-                        child: Text(
-                          "Lihat Detail Manasik",
-                          style: GoogleFonts.inter(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   Row(
@@ -179,7 +177,7 @@ class ItineraryTab extends StatelessWidget {
               ),
             ],
           ),
-        ),      
+        ),
       ],
     );
   }
