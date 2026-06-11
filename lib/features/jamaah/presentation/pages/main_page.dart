@@ -15,7 +15,6 @@ import 'package:makbul_app/features/jamaah/presentation/pages/doa_page.dart';
 //import 'package:makbul_app/page/main/dashboard_page.dart';
 import 'package:makbul_app/features/jamaah/presentation/pages/paketsaya_page.dart';
 import 'package:makbul_app/features/jamaah/presentation/pages/profil_page.dart';
-import 'package:makbul_app/features/jamaah/presentation/pages/paketumrah_page.dart';
 
 // Import mock backend service untuk mendapatkan data user
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,9 +64,7 @@ class MainPage extends ConsumerWidget {
         if (userRole == 'travel') {
           pages = const [
             DashboardTravel(),
-            PaketsayaPage(),
-            PaketumrahPage(),            
-            PaketumrahPage(),                        
+            PaketsayaPage(),                                 
           ];
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Dashboard'),
@@ -82,9 +79,7 @@ class MainPage extends ConsumerWidget {
         else if (userRole == 'agent') {
           pages = const [
             DashboardAgent(),
-            PaketsayaPage(),
-            PaketumrahPage(),
-            PaketumrahPage(),
+            PaketsayaPage(),            
           ];
           navItems = [
             _buildNavItem('assets/svgs/icon_dashboard.svg', 'Dashboard'),
