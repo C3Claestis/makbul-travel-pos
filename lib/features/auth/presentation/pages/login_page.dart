@@ -207,8 +207,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         role: 'jamaah',
                         text: 'Jamaah',
                         icon: Icons.person,
-                      ),
-
+                      ),                                          
                       SizedBox(width: 8),
                       _btnRole(
                         role: 'agen',

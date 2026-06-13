@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, sort_child_properties_last, deprecated_member_use
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,10 +52,7 @@ class _RegisterPageStateCopy extends ConsumerState<RegisterPageCopy> {
       });
 
       if (!mounted) return;
-      await authService.sendEmailVerification();
 
-      await FirebaseAuth.instance.signOut();
-      
       setState(() {
         currentStep = 2;
       });
@@ -67,6 +63,38 @@ class _RegisterPageStateCopy extends ConsumerState<RegisterPageCopy> {
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
+  }
+
+  Future<void> checkVerification() async {
+    setState(() => isChecking = true);
+
+    final authService = ref.read(authServiceProvider);
+    final isVerified = await authService.isEmailVerified();
+
+    if (isVerified) {
+      if (!mounted) return;
+
+      if (isVerified) {
+        setState(() {
+          currentStep = 3;
+        });
+      }
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Email belum diverifikasi")));
+    }
+
+    setState(() => isChecking = false);
+  }
+
+  Future<void> resendEmail() async {
+    final authService = ref.read(authServiceProvider);
+    await authService.sendEmailVerification();
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Email dikirim ulang")));
   }
 
   Color get roleColor {
@@ -93,37 +121,6 @@ class _RegisterPageStateCopy extends ConsumerState<RegisterPageCopy> {
       default:
         return "assets/images/jamaahIlus.png";
     }
-  }
-
-  Future<void> checkVerification() async {
-    setState(() => isChecking = true);
-
-    final authService = ref.read(authServiceProvider);
-    final isVerified = await authService.isEmailVerified();
-
-    if (isVerified) {
-      if (!mounted) return;
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const MainPage()),
-      );
-    } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Email belum diverifikasi")));
-    }
-
-    setState(() => isChecking = false);
-  }
-
-  Future<void> resendEmail() async {
-    final authService = ref.read(authServiceProvider);
-    await authService.sendEmailVerification();
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text("Email dikirim ulang")));
   }
 
   @override
@@ -199,6 +196,22 @@ class _RegisterPageStateCopy extends ConsumerState<RegisterPageCopy> {
               _form2()
             else
               _form3(context),
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Contoh untuk Google Login
+                googleregister(context),
+                const SizedBox(width: 16),
+                GestureDetector(
+                  onTap: () async {
+                    final authService = ref.read(authServiceProvider);
+                    await authService.signInWithFacebook();
+                  },
+                  child: SvgPicture.asset('assets/svgs/logo_fb.svg'),
+                ),
+              ],
+            ),
             const SizedBox(height: 32),
             _roleBanner(),
             const SizedBox(height: 32),

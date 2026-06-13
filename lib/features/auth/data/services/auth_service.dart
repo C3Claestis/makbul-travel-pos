@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, unused_local_variable, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
@@ -89,15 +90,17 @@ class AuthService {
   Future<void> sendEmailVerification() async {
     final user = _auth.currentUser;
 
+    debugPrint("Current User = ${user?.email}");
+    debugPrint("Verified = ${user?.emailVerified}");
+
     if (user != null && !user.emailVerified) {
       await user.sendEmailVerification();
     }
   }
 
   Future<bool> isEmailVerified() async {
-    final user = _auth.currentUser;
-    await user?.reload();
+    await _auth.currentUser?.reload();
 
-    return user?.emailVerified ?? false;
+    return _auth.currentUser?.emailVerified ?? false;
   }
 }
