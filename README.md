@@ -12,7 +12,7 @@ menciptakan pengalaman umrah yang lebih baik bagi jamaah.
 - Dashboard Monitoring
 
 ## Tech Stack
-- Flutter 3.x
+- Flutter
 - Riverpod
 - Firebase Auth
 - Cloud Firestore
@@ -31,7 +31,7 @@ lib/
 
 ### Clone Repository
 
-git clone https://github.com/username/project.git
+git clone https://github.com/C3Claestis/makbul-travel-pos
 
 ### Install Dependency
 
@@ -47,9 +47,7 @@ flutter build apk --release
 
 ## Environment Configuration
 
-Buat file .env
-
-API_URL=https://api.domain.com
+Buat file .env belum ada configuration
 
 ## Architecture
 
