@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makbul_app/features/auth/presentation/pages/register_page_copy.dart';
+import 'package:makbul_app/features/auth/presentation/pages/register_page.dart';
 
 import '../../../jamaah/presentation/pages/main_page.dart';
 import '../providers/auth_provider.dart';
@@ -307,7 +307,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const RegisterPageCopy(),
+                                builder: (context) => const RegisterPage(),
                               ),
                             );
                           },
